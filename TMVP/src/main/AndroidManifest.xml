@@ -4,11 +4,11 @@
 
     <application>
         <activity
-            android:name=".ui.activity.MainActivity"
-            android:label="@string/title_activity_main"
+            android:name=".ui.activity.BaseActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+
     </application>
 
 </manifest>

@@ -1,13 +1,28 @@
 package com.tongchen.tframework;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.tongchen.tmvp.ui.activity.BaseActivity;
+
+public class MainActivity extends BaseActivity {
+
+    public static void actionStart(Context context, String data1, String data2){
+        Intent intent = new Intent(context,MainActivity.class);
+        intent.putExtra("param1",data1);
+        intent.putExtra("param2",data2);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.tmvp_activity_base;
     }
 }
