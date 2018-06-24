@@ -1,7 +1,11 @@
 package com.tongchen.tmvp.di.component;
 
+import android.content.Context;
+
 import com.tongchen.tmvp.TApp;
 import com.tongchen.tmvp.di.module.AppModule;
+
+import javax.inject.Singleton;
 
 import dagger.Component;
 
@@ -11,8 +15,9 @@ import dagger.Component;
  * Description:该文件实现的功能
  */
 
+@Singleton
 @Component(modules = AppModule.class)
 public interface AppComponent {
 
-    void inject(TApp app);
+    Context provideApplicationContext();
 }

@@ -2,6 +2,7 @@ package com.tongchen.tmvp;
 
 import android.app.Application;
 
+import com.tongchen.tmvp.di.component.AppComponent;
 import com.tongchen.tmvp.di.component.DaggerAppComponent;
 import com.tongchen.tmvp.di.module.AppModule;
 
@@ -12,17 +13,23 @@ import com.tongchen.tmvp.di.module.AppModule;
  */
 public class TApp extends Application {
 
+    private TApp mInstance = null;
+    private AppComponent mAppComponent = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-        init();
+        mInstance = this;
+
     }
 
-    public void init() {
-        DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .build()
-                .inject(this);
+    public AppComponent getAppComponent() {
+        if (mAppComponent == null) {
+            mAppComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(mInstance))
+                    .build();
+        }
+        return mAppComponent;
     }
 }

@@ -22,8 +22,8 @@ public class AppModule {
         this.mContext = context;
     }
 
-    @Provides
     @Singleton
+    @Provides
     public Context provideContext() {
         return mContext;
     }
