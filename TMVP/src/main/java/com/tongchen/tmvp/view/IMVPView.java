@@ -5,7 +5,7 @@ package com.tongchen.tmvp.view;
  * <p>
  * Description:该文件实现的功能
  */
-public interface IBaseView {
+public interface IMVPView {
 
     boolean isActive();
 

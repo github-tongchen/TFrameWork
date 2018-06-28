@@ -1,7 +1,7 @@
 package com.tongchen.tmvp.presenter;
 
-import com.tongchen.tmvp.model.IBaseModel;
-import com.tongchen.tmvp.view.IBaseView;
+import com.tongchen.tmvp.model.IMVPModel;
+import com.tongchen.tmvp.view.IMVPView;
 
 /**
  * Created by TongChen at 22:51 on 2018/6/21.
@@ -10,7 +10,7 @@ import com.tongchen.tmvp.view.IBaseView;
  *
  * @param <V> 需要绑定的目标View
  */
-public interface IBasePresenter<V extends IBaseView> {
+public interface IMVPPresenter<V extends IMVPView> {
 
 
     /**
@@ -25,8 +25,4 @@ public interface IBasePresenter<V extends IBaseView> {
      */
     void detachView();
 
-
-    void requestSucceed();
-
-    void requestFailed();
 }

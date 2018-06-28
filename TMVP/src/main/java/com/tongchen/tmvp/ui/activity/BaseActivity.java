@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 
-import com.tongchen.tmvp.view.IBaseView;
+import com.tongchen.tmvp.view.IMVPView;
 
 
-public abstract class BaseActivity extends AppCompatActivity implements IBaseView{
+public abstract class BaseActivity extends AppCompatActivity implements IMVPView {
 
 
     @Override

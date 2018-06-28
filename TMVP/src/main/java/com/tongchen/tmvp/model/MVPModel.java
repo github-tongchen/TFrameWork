@@ -5,6 +5,10 @@ package com.tongchen.tmvp.model;
  * <p>
  * Description:该文件实现的功能
  */
-public class BaseModel implements IBaseModel {
+public class MVPModel implements IMVPModel {
 
+    @Override
+    public void requestFailed(String errorMsg) {
+
+    }
 }

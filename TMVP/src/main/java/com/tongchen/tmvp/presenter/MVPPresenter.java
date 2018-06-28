@@ -1,9 +1,7 @@
 package com.tongchen.tmvp.presenter;
 
-import android.support.annotation.NonNull;
-
-import com.tongchen.tmvp.model.IBaseModel;
-import com.tongchen.tmvp.view.IBaseView;
+import com.tongchen.tmvp.model.IMVPModel;
+import com.tongchen.tmvp.view.IMVPView;
 
 import java.lang.ref.WeakReference;
 
@@ -12,7 +10,7 @@ import java.lang.ref.WeakReference;
  * <p>
  * Description:该文件实现的功能
  */
-public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> implements IBasePresenter<V> {
+public abstract class MVPPresenter<V extends IMVPView, M extends IMVPModel> implements IMVPPresenter<V> {
 
     //  将View置为弱引用，当view被销毁回收时，依赖于view的对象（即Presenter）也会被回收，而不会造成内存泄漏
     private WeakReference<V> mViewRef;
@@ -24,7 +22,7 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> i
         if (view != null) {
             mViewRef = new WeakReference<>(view);
         } else {
-            throw new NullPointerException("View can not be null when in attachView() in BasePresenter");
+            throw new NullPointerException("View can not be null when in attachView() in MVPPresenter");
         }
     }
 
@@ -48,6 +46,10 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> i
             throw new IllegalStateException("View " + " not attached to Presenter " + this.getClass().getSimpleName());
         }
     }
+
+    public abstract void requestSucceed(M result);
+
+    public abstract void requestFailed(String errorMsg);
 
     /**
      * 继承BasePresenter的子类名称

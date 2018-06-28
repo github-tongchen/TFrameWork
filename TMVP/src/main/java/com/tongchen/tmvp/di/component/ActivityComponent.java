@@ -5,7 +5,6 @@ import com.tongchen.tmvp.di.scope.ActivityScope;
 import com.tongchen.tmvp.ui.activity.BaseActivity;
 
 import dagger.Component;
-import dagger.Module;
 
 /**
  * Created by TongChen at 0:17 on 2018/6/23.
