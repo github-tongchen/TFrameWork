@@ -2,6 +2,7 @@ package com.tongchen.tmvp;
 
 import android.app.Application;
 
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.tongchen.tmvp.di.component.AppComponent;
 import com.tongchen.tmvp.di.component.DaggerAppComponent;
 import com.tongchen.tmvp.di.module.AppModule;
@@ -21,6 +22,8 @@ public class TApp extends Application {
         super.onCreate();
 
         mInstance = this;
+
+        FlowManager.init(this);
 
     }
 

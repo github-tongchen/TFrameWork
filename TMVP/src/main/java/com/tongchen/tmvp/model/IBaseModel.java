@@ -18,6 +18,8 @@ package com.tongchen.tmvp.model;
  * https://blog.csdn.net/u013278099/article/details/52514882
  *
  * https://blog.csdn.net/u014614038/article/details/48955787
+ *
+ * https://blog.csdn.net/osle123/article/details/52755556
  */
 public interface IBaseModel {
 

@@ -1,0 +1,15 @@
+ext {
+
+
+    version = [
+
+            butterknife_version     :   "8.8.1",
+            glide_version           :   "4.7.1",
+            dagger_version          :   "2.16",
+            retrofit_version        :   "2.4.0",
+            rxjava_version          :   "2.1.14",
+            rxandroid_version       :   "2.0.2",
+            gson_version            :   "2.8.5",
+            dbflow_version          :   "4.2.4"
+    ]
+}
