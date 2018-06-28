@@ -2,7 +2,6 @@ package com.tongchen.tmvp.ui.activity;
 
 import android.os.Bundle;
 
-import com.tongchen.tmvp.presenter.BasePresenter;
 import com.tongchen.tmvp.presenter.IBasePresenter;
 import com.tongchen.tmvp.view.IBaseView;
 
@@ -11,8 +10,10 @@ import com.tongchen.tmvp.view.IBaseView;
  * <p>
  * Description:该文件实现的功能
  */
-public abstract class BaseDataActivity<V extends IBaseView, P extends IBasePresenter<V>>
+public abstract class MVPBaseActivity<V extends IBaseView, P extends IBasePresenter<V>>
         extends BaseActivity implements IBaseView {
+
+    private P mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -25,14 +25,8 @@ public interface IBasePresenter<V extends IBaseView> {
      */
     void detachView();
 
-    /**
-     * 判断View和Presenter是否已绑定
-     *
-     * @return View和Presenter是否已绑定
-     */
-    boolean isViewAttached();
 
-    /**
-     * @return 继承IBasePresenter的子类名称
-     */
+    void requestSucceed();
+
+    void requestFailed();
 }

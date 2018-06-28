@@ -15,13 +15,14 @@ import java.lang.ref.WeakReference;
 public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> implements IBasePresenter<V> {
 
     //  将View置为弱引用，当view被销毁回收时，依赖于view的对象（即Presenter）也会被回收，而不会造成内存泄漏
-    private WeakReference<V> mView;
+    private WeakReference<V> mViewRef;
 
+    private M mModel;
 
     @Override
     public void attachView(V view) {
         if (view != null) {
-            mView = new WeakReference<>(view);
+            mViewRef = new WeakReference<>(view);
         } else {
             throw new NullPointerException("View can not be null when in attachView() in BasePresenter");
         }
@@ -29,15 +30,19 @@ public abstract class BasePresenter<V extends IBaseView, M extends IBaseModel> i
 
     @Override
     public void detachView() {
-        if (mView != null) {
-            mView.clear();
-            mView = null;
+        if (mViewRef != null) {
+            mViewRef.clear();
+            mViewRef = null;
         }
     }
 
-    @Override
+    /**
+     * 判断View和Presenter是否已绑定
+     *
+     * @return View和Presenter是否已绑定
+     */
     public boolean isViewAttached() {
-        if (mView != null && mView.get() != null) {
+        if (mViewRef != null && mViewRef.get() != null) {
             return true;
         } else {
             throw new IllegalStateException("View " + " not attached to Presenter " + this.getClass().getSimpleName());
