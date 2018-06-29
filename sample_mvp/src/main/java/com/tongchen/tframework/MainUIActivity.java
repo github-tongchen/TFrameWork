@@ -29,11 +29,6 @@ public class MainUIActivity extends BaseActivity {
 
 
     @Override
-    public boolean isActive() {
-        return false;
-    }
-
-    @Override
     public void showLoading() {
 
     }

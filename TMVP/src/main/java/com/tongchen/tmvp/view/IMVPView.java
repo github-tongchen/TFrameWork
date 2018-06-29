@@ -7,7 +7,7 @@ package com.tongchen.tmvp.view;
  */
 public interface IMVPView {
 
-    boolean isActive();
+//    boolean isActive();
 
     void showLoading();
 
