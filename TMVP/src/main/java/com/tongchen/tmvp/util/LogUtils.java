@@ -1,6 +1,5 @@
 package com.tongchen.tmvp.util;
 
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.tongchen.tmvp.BuildConfig;
