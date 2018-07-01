@@ -1,7 +1,7 @@
 package com.tongchen.tmvp.ui.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +15,11 @@ public class MVPFragment extends BaseFragment {
 
     public MVPFragment() {
 
-    }
-
-    public static MVPFragment newInstance() {
-        MVPFragment fragment = new MVPFragment();
-        return fragment;
+        Class a=MVPFragment.class;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.tmvp_fragment_base, container, false);
     }
 }

@@ -2,7 +2,6 @@ package com.tongchen.tmvp.ui.activity;
 
 import android.os.Bundle;
 
-import com.tongchen.tmvp.BuildConfig;
 import com.tongchen.tmvp.presenter.IMVPPresenter;
 import com.tongchen.tmvp.view.IMVPView;
 
@@ -18,7 +17,6 @@ public abstract class MVPActivity<V extends IMVPView, P extends IMVPPresenter<V>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 

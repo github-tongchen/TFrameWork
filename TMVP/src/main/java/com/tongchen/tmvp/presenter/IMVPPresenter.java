@@ -1,6 +1,5 @@
 package com.tongchen.tmvp.presenter;
 
-import com.tongchen.tmvp.model.IMVPModel;
 import com.tongchen.tmvp.view.IMVPView;
 
 /**

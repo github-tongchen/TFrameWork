@@ -2,7 +2,6 @@ package com.tongchen.tmvp.di.component;
 
 import android.content.Context;
 
-import com.tongchen.tmvp.TApp;
 import com.tongchen.tmvp.di.module.AppModule;
 
 import javax.inject.Singleton;
