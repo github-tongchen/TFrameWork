@@ -14,6 +14,8 @@ import java.util.Map;
  */
 public class SharedPrefsUtils {
 
+    private static String TAG = "SharedPrefsUtils";
+
     private SharedPrefsUtils() {
         throw new IllegalStateException("SharedPrefsUtils doesn't need to be initialized!");
     }

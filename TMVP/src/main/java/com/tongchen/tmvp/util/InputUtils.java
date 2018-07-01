@@ -14,6 +14,8 @@ import android.view.inputmethod.InputMethodManager;
  */
 public class InputUtils {
 
+    private static String TAG = "InputUtils";
+
     private static InputMethodManager mInputMethodManager = null;
 
     public InputUtils() {
@@ -28,6 +30,7 @@ public class InputUtils {
      */
     public static void showSoftKeyBoard(Context context, View view) {
         if (view == null) {
+            LogUtils.w(TAG, "view为空，弹出键盘失败");
             return;
         }
         if (mInputMethodManager == null) {
@@ -45,6 +48,7 @@ public class InputUtils {
      */
     public static void hideSoftKeyboard(Context context, View view) {
         if (view == null) {
+            LogUtils.w(TAG, "view为空，隐藏键盘失败");
             return;
         }
         if (mInputMethodManager == null) {
@@ -61,6 +65,7 @@ public class InputUtils {
      */
     public static void toggleSoftKeyboard(Context context, View view) {
         if (view == null) {
+            LogUtils.w(TAG, "view为空，弹出/隐藏 键盘失败");
             return;
         }
         if (mInputMethodManager == null) {
@@ -77,6 +82,7 @@ public class InputUtils {
      */
     public static void text2Board(Context context, String string) {
         if (TextUtils.isEmpty(string)) {
+            LogUtils.w(TAG, "空文本不可以复制到剪切板");
             return;
         }
         //  获取系统剪贴板管理器
@@ -97,11 +103,16 @@ public class InputUtils {
      */
     public static String board2Text(Context context) {
         ClipboardManager clipboardMgr = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboardMgr == null) {
+            LogUtils.w(TAG, "获取ClipboardManager失败");
+            return "";
+        }
         //  检查剪贴板是否有内容
-        if (clipboardMgr != null && clipboardMgr.hasPrimaryClip()) {
+        if (clipboardMgr.hasPrimaryClip()) {
             //  一般取出剪贴板里的第一条内容
             return clipboardMgr.getPrimaryClip().getItemAt(0).coerceToText(context).toString();
         } else {
+            LogUtils.w(TAG, "剪切板没有文本内容,clipboardMgr.getPrimaryClip() = " + clipboardMgr.getPrimaryClip());
             return "";
         }
     }

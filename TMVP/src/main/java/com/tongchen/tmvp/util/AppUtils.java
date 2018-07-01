@@ -3,10 +3,10 @@ package com.tongchen.tmvp.util;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
@@ -23,30 +23,12 @@ import java.util.List;
 public class AppUtils {
 
     private static final String TAG = "AppUtils";
-    //  上次点击的时间
-    private static long mLastClickTime;
-    //  两次点击的最大时间间隔
-    private static final long INTERVAL_TIME = 800;
-
+    private static PackageManager mPkgMgr = null;
 
     public AppUtils() {
         throw new IllegalStateException("AppUtils doesn't need to be initialized!");
     }
 
-    /**
-     * 通过控制2次点击的时间间隔防止连续点击
-     *
-     * @return 是否在短时间内连续点击2次
-     */
-    public static boolean isFastDoubleClick() {
-        long time = System.currentTimeMillis();
-        long timeD = time - mLastClickTime;
-        if (0 < timeD && timeD < INTERVAL_TIME) {
-            return true;
-        }
-        mLastClickTime = time;
-        return false;
-    }
 
     /**
      * 获取指定包名对应的PackageInfo
@@ -56,8 +38,11 @@ public class AppUtils {
      * @return 指定包名对应的PackageInfo
      */
     public static PackageInfo getPackageInfo(Context context, String packageName) {
+        if (mPkgMgr == null) {
+            mPkgMgr = context.getPackageManager();
+        }
         try {
-            return context.getPackageManager().getPackageInfo(packageName, 0);
+            return mPkgMgr.getPackageInfo(packageName, 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -117,6 +102,130 @@ public class AppUtils {
     }
 
     /**
+     * 启动指定的App
+     * 注：getLaunchIntentForPackage()方法只有在指定包名的App已安装且有主Activity时才返回intent,否则返回null
+     *
+     * @param context     上下文
+     * @param packageName 要启动的App包名
+     */
+    public static void openApp(Context context, String packageName) {
+        if (!checkPackageExist(context, packageName)) {
+            LogUtils.w(TAG, "要启动的App不存在");
+            return;
+        }
+        if (mPkgMgr == null) {
+            mPkgMgr = context.getPackageManager();
+        }
+        Intent intent = mPkgMgr.getLaunchIntentForPackage(packageName);
+        if (intent == null) {
+            LogUtils.w(TAG, "要启动的App没有主Activity");
+            return;
+        }
+        if (checkActivityExported(context, intent)) {
+            LogUtils.w(TAG, "启动指定的App");
+
+            context.startActivity(intent);
+        } else {
+            LogUtils.w(TAG, "无法启动指定的App，"
+                    + " checkActivityExported() = " + checkActivityExported(context, intent));
+        }
+    }
+
+    /**
+     * 启动指定App的指定Activity(如果不是主Activity需要在Manifest中该Activity标签中设置 android:exported="true")
+     * 此外还可以在Intent中设置Action、Category等标签进行过滤
+     *
+     * @param context      上下文
+     * @param packageName  要启动的App包名
+     * @param activityName 要启动的的Activity名（包含包名）
+     */
+    public static void openAppActivity(Context context, String packageName, String activityName) {
+        if (!checkPackageExist(context, packageName)) {
+            LogUtils.w(TAG, "要启动的Activity对应的App不存在");
+            return;
+        }
+        Intent intent = new Intent();
+        ComponentName componentName = new ComponentName(packageName, activityName);
+        intent.setComponent(componentName);
+        if (checkActivityExistByResolve(context, intent) && checkActivityExported(context, intent)) {
+            LogUtils.w(TAG, "启动指定的App的指定Activity");
+
+            context.startActivity(intent);
+        } else {
+            LogUtils.w(TAG, "无法启动指定的Activity，"
+                    + "checkActivityExistByResolve() = " + checkActivityExistByResolve(context, intent)
+                    + " checkActivityExported() = " + checkActivityExported(context, intent));
+        }
+    }
+
+    /**
+     * 检查指定包名的PackageInfo是否存在(即对应的App是否存在)
+     *
+     * @param context     上下文
+     * @param packageName 指定的包名
+     * @return 指定包名的App是否存在
+     */
+    public static boolean checkPackageExist(Context context, String packageName) {
+        return getPackageInfo(context, packageName) != null;
+    }
+
+    /**
+     * 使用PackageManager的queryIntentActivities()方法检查要启动的Activity是否存在
+     *
+     * @param context 上下文
+     * @param intent  启动Activity的Intent
+     * @return 要启动的Activity是否存在
+     */
+    public static boolean checkActivityExistByQuery(Context context, Intent intent) {
+        if (mPkgMgr == null) {
+            mPkgMgr = context.getPackageManager();
+        }
+        return mPkgMgr.queryIntentActivities(intent, 0).size() > 0;
+    }
+
+    /**
+     * 使用PackageManager的resolveActivity()方法检查要启动的Activity是否存在
+     * <p>
+     * 不使用 Intent.resolveActivity() 方法的原因如下：
+     * 查看Intent.resolveActivity()方法源码个人理解，手动构造Intent时会产生Component,
+     * 使得Intent.resolveActivity()的返回值永远不为null，无法判断Activity是否存在
+     *
+     * @param context 上下文
+     * @param intent  启动Activity的Intent
+     * @return 要启动的Activity是否存在
+     */
+    public static boolean checkActivityExistByResolve(Context context, Intent intent) {
+        if (mPkgMgr == null) {
+            mPkgMgr = context.getPackageManager();
+        }
+        return mPkgMgr.resolveActivity(intent, 0) != null;
+    }
+
+    /**
+     * 获取Manifest文件中指定Activity标签下的android:exported属性值(不设置该属性默认为false)
+     *
+     * @param context 上下文
+     * @param intent  启动指定Activity的Intent
+     * @return Manifest文件中指定Activity标签下的android:exported属性的值
+     */
+    public static boolean checkActivityExported(Context context, Intent intent) {
+        if (intent.getComponent() == null) {
+            LogUtils.w(TAG, "intent.getComponent()为空");
+            return false;
+        }
+        if (mPkgMgr == null) {
+            mPkgMgr = context.getPackageManager();
+        }
+        try {
+            ActivityInfo activityInfo = mPkgMgr.getActivityInfo(intent.getComponent(), 0);
+            return activityInfo.exported;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * 安装App
      *
      * @param context 上下文
@@ -124,6 +233,7 @@ public class AppUtils {
      */
     public static void installAPK(Context context, File file) {
         if (file == null || !file.exists()) {
+            LogUtils.w(TAG, "App无法安装，Apk文件不存在");
             return;
         }
         Intent intent = new Intent();
@@ -150,51 +260,54 @@ public class AppUtils {
      * @param packageName 要卸载应用的包名
      */
     public static void uninstallApk(Context context, String packageName) {
-        if (isPackageExist(context, packageName)) {
-            Intent intent = new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (!checkPackageExist(context, packageName)) {
+            LogUtils.w(TAG, "找不到要卸载的App,请检查包名是否正确，packageName = " + packageName);
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 打开应用市场
+     *
+     * @param context     上下文
+     * @param packageName 需要查看的应用的包名
+     */
+    public static void openMarket(Context context, String packageName) {
+        if (!isHaveMarket(context)) {
+            Toast.makeText(context, "您手机中没有安装应用市场！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("market://details?id=" + packageName));
+        if (mPkgMgr == null) {
+            mPkgMgr = context.getPackageManager();
+        }
+        //  判断是否有Activity能够匹配我们的隐式Intent，如果找不到匹配的Activity就会返回null
+        if (intent.resolveActivity(mPkgMgr) != null) {
             context.startActivity(intent);
         }
     }
 
     /**
-     * 指定包名的PackageInfo是否存在(即对应的App是否存在)
+     * 检查设备是否安装了应用市场
      *
-     * @param context     上下文
-     * @param packageName 指定的包名
-     * @return 指定包名的App是否存在
+     * @param context 上下文
+     * @return 是否安装了应用市场
      */
-    public static boolean isPackageExist(Context context, String packageName) {
-        return getPackageInfo(context, packageName) != null;
-    }
-
-    /**
-     * 启动指定的App
-     *
-     * @param context     上下文
-     * @param packageName 要启动的App包名
-     */
-    public static void openApp(Context context, String packageName) {
-        if (isPackageExist(context, packageName)) {
-            Intent mainIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-            context.startActivity(mainIntent);
-        }
-    }
-
-    /**
-     * 启动指定App的指定Activity(需要在Manifest中该Activity标签中设置 android:exported="true")
-     * 此外还可以在Intent中设置Action、Category等标签进行过滤
-     *
-     * @param context      上下文
-     * @param packageName  要启动的App包名
-     * @param activityName 要启动的的Activity名
-     */
-    public static void openAppActivity(Context context, String packageName, String activityName) {
-        //  这里后面验证下resolveActivity和queryIntentActivities能不能判断出当前activityName对应的Activity是否存在
+    public static boolean isHaveMarket(Context context) {
         Intent intent = new Intent();
-        ComponentName componentName = new ComponentName(packageName, activityName);
-        intent.setComponent(componentName);
-        context.startActivity(intent);
+        intent.setAction("android.intent.action.MAIN");
+        intent.addCategory("android.intent.category.APP_MARKET");
+        if (mPkgMgr == null) {
+            mPkgMgr = context.getPackageManager();
+        }
+        //  返回所有成功匹配的Activity
+        List<ResolveInfo> infoList = mPkgMgr.queryIntentActivities(intent, 0);
+        return infoList.size() > 0;
     }
 
     /**
@@ -214,42 +327,6 @@ public class AppUtils {
     }
 
     /**
-     * 打开应用市场
-     *
-     * @param context     上下文
-     * @param packageName 需要查看的应用的包名
-     */
-    public static void openMarket(Context context, String packageName) {
-        if (!isHaveMarket(context)) {
-            Toast.makeText(context, "您手机中没有安装应用市场！", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("market://details?id=" + packageName));
-        //  判断是否有Activity能够匹配我们的隐式Intent，如果找不到匹配的Activity就会返回null
-        if (intent.resolveActivity(context.getPackageManager()) != null) {
-            context.startActivity(intent);
-        }
-    }
-
-    /**
-     * 检查设备是否安装了应用市场
-     *
-     * @param context 上下文
-     * @return 是否安装了应用市场
-     */
-    public static boolean isHaveMarket(Context context) {
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.MAIN");
-        intent.addCategory("android.intent.category.APP_MARKET");
-        PackageManager pm = context.getPackageManager();
-        //  返回所有成功匹配的Activity
-        List<ResolveInfo> infoList = pm.queryIntentActivities(intent, 0);
-        return infoList.size() > 0;
-    }
-
-    /**
      * 根据资源的名字从资源文件中获取对应的Id
      * 如：使用 R.drawable.sample 的 resType——"drawable"和 resId——"sample" 可以获取到R.drawable.sample
      * 在 R 文件中的id
@@ -259,7 +336,7 @@ public class AppUtils {
      * @param resName 上面的String类型的name
      */
     public static int getResourceId(Context context, String resType, String resName) {
-        Resources res = context.getResources();
-        return res.getIdentifier(resName, resType, context.getPackageName());
+        return context.getResources().getIdentifier(resName, resType, context.getPackageName());
     }
+
 }

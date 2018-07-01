@@ -28,7 +28,7 @@ public class ScreenUtils {
      *
      * @param context  上下文
      * @param dipValue 需要转换的dip值
-     * @return dp对应的像素值
+     * @return dp对应的px值
      */
     public static int dip2px(Context context, float dipValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
@@ -40,11 +40,35 @@ public class ScreenUtils {
      *
      * @param context 上下文
      * @param pxValue 需要转换的px值
-     * @return px对于的dp值
+     * @return px对应的dp值
      */
     public static int px2dip(Context context, float pxValue) {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * sp转px
+     *
+     * @param context 上下文
+     * @param spValue 需要转换的sp值
+     * @return sp对应的px值
+     */
+    public static int sp2px(Context context, float spValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (spValue * fontScale + 0.5f);
+    }
+
+    /**
+     * px值转sp
+     *
+     * @param context 上下文
+     * @param pxValue 需要转换的px值
+     * @return px对应的sp值
+     */
+    public static int px2sp(Context context, float pxValue) {
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        return (int) (pxValue / fontScale + 0.5f);
     }
 
     /**
