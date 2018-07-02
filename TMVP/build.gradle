@@ -13,6 +13,10 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        //  启用Lambda表达式
+        compileOptions.sourceCompatibility JavaVersion.VERSION_1_8
+        compileOptions.targetCompatibility JavaVersion.VERSION_1_8
+
     }
 
     buildTypes {
@@ -31,42 +35,60 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
     //  本地Library
     implementation project(':TKit')
+
     //  ButterKnife
     api "com.jakewharton:butterknife:${rootProject.ext.version["butterknife_version"]}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.version["butterknife_version"]}"
+
     //  Glide
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.version["glide_version"]}"
     annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.version["glide_version"]}"
+
     //  Dagger2
     implementation "com.google.dagger:dagger:${rootProject.ext.version["dagger_version"]}"
     annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.version["dagger_version"]}"
+
     //  Dagger-Android
-//    implementation 'com.google.dagger:dagger-android:2.16'
-//    implementation 'com.google.dagger:dagger-android-support:2.16'
-//    annotationProcessor 'com.google.dagger:dagger-android-processor:2.16'
+    /*implementation 'com.google.dagger:dagger-android:2.16'
+    implementation 'com.google.dagger:dagger-android-support:2.16'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.16'*/
+
     //  Retrofit2
     implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.version["retrofit_version"]}"
-    implementation "com.squareup.retrofit2:retrofit-converters:${rootProject.ext.version["retrofit_version"]}"
-    implementation "com.squareup.retrofit2:retrofit-adapters:${rootProject.ext.version["retrofit_version"]}"
+    /*implementation "com.squareup.retrofit2:retrofit-converters:${rootProject.ext.version["retrofit_version"]}"
+    implementation "com.squareup.retrofit2:retrofit-adapters:${rootProject.ext.version["retrofit_version"]}"*/
+    //  RxJava2 Adapter
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    //  Gson converter
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
     //  OkHttp3
-//    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+
+    //    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+
+    //  OkHttp3 Logging Interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+
     //  RxJava2
     implementation "io.reactivex.rxjava2:rxjava:${rootProject.ext.version["rxjava_version"]}"
+
     //  RxAndroid
     implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.version["rxandroid_version"]}"
+
     //  Gson
     implementation "com.google.code.gson:gson:${rootProject.ext.version["gson_version"]}"
-//    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
     //  DBFlow数据库
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${rootProject.ext.version["dbflow_version"]}"
     api "com.github.Raizlabs.DBFlow:dbflow-core:${rootProject.ext.version["dbflow_version"]}"
     api "com.github.Raizlabs.DBFlow:dbflow:${rootProject.ext.version["dbflow_version"]}"
     //  DBFlow数据库加密
-//    compile "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${rootProject.ext.version[dbflow_version]}"
-//    compile "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar"
+    /*compile "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${rootProject.ext.version[dbflow_version]}"
+    compile "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar"*/
     //  DBFlow数据库RxJava2支持
     api "com.github.Raizlabs.DBFlow:dbflow-rx2:${rootProject.ext.version["dbflow_version"]}"
+
 }
