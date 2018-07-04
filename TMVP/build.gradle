@@ -6,17 +6,18 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
 
-        //  启用Lambda表达式
-        compileOptions.sourceCompatibility JavaVersion.VERSION_1_8
-        compileOptions.targetCompatibility JavaVersion.VERSION_1_8
-
+    //  启用Lambda表达式
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {

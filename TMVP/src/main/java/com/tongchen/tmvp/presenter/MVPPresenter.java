@@ -47,9 +47,17 @@ public abstract class MVPPresenter<V extends IMVPView, M extends IMVPModel> impl
         }
     }
 
-    public void requestSucceed(M result) {
+    public V getView() {
         if (isViewAttached()) {
-            ((V) mViewRef).requestSucceed("");
+            return mViewRef.get();
+        }
+        return null;
+    }
+
+    public void requestSucceed(M result) {
+        if (getView() != null) {
+            getView().requestSucceed("");
+        } else {
         }
     }
 
