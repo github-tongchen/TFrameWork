@@ -15,8 +15,6 @@ package com.tongchen.tmvp.model;
  * <p>
  * https://www.jianshu.com/p/1652b968101c
  */
-public interface IMVPModel {
+public interface IMVPModel<DM> {
 
-
-    void requestFailed(String errorMsg);
 }

@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.tongchen.tmvp.ui.activity.BaseActivity;
+import com.tongchen.tmvp.ui.activity.MVPActivity;
 
-public class MainUIActivity extends BaseActivity {
+public class MainUIActivity extends MVPActivity<User, ISampleView, ISamplePresenter> implements ISampleView {
 
 
     public static void actionStart(Context context, String data1, String data2) {
@@ -27,7 +27,6 @@ public class MainUIActivity extends BaseActivity {
         return R.layout.tmvp_activity_base;
     }
 
-
     @Override
     public void showLoading() {
 
@@ -39,7 +38,7 @@ public class MainUIActivity extends BaseActivity {
     }
 
     @Override
-    public void requestSucceed(String t) {
+    public void requestSucceed(User result) {
 
     }
 
@@ -47,4 +46,6 @@ public class MainUIActivity extends BaseActivity {
     public void requestFailed(String errorMsg) {
 
     }
+
+
 }

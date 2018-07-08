@@ -8,9 +8,10 @@ import com.tongchen.tmvp.view.IMVPView;
 /**
  * Created by TongChen at 22:43 on 2018/6/24.
  * <p>
- * Description:该文件实现的功能
+ * Description: MVP Activity 基类
  */
-public abstract class MVPActivity<V extends IMVPView, P extends IMVPPresenter<V>> extends BaseActivity implements IMVPView {
+public abstract class MVPActivity<DM, V extends IMVPView<DM>, P extends IMVPPresenter<V>>
+        extends BaseActivity implements IMVPView<DM> {
 
     private P mPresenter;
 
@@ -18,26 +19,13 @@ public abstract class MVPActivity<V extends IMVPView, P extends IMVPPresenter<V>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    }
-
-
-    @Override
-    public void showLoading() {
-
+        mPresenter.attachView((V) this);
     }
 
     @Override
-    public void hideLoading() {
-
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
     }
 
-    @Override
-    public void requestSucceed(String t) {
-
-    }
-
-    @Override
-    public void requestFailed(String errorMsg) {
-
-    }
 }

@@ -5,15 +5,11 @@ import com.tongchen.tmvp.presenter.IMVPPresenter;
 /**
  * Created by TongChen at 22:59 on 2018/6/24.
  * <p>
- * Description:该文件实现的功能
+ * Description: MVP Model基类，处理网络请求、数据库读写等数据操作
  */
-public class MVPModel<P extends IMVPPresenter> implements IMVPModel {
+public class MVPModel<DM, P extends IMVPPresenter> implements IMVPModel<DM> {
 
     private P mPresenter;
 
 
-    @Override
-    public void requestFailed(String errorMsg) {
-
-    }
 }
