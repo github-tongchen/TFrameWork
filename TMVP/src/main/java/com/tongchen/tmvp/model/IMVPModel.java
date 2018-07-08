@@ -14,6 +14,7 @@ package com.tongchen.tmvp.model;
  * https://blog.csdn.net/u013278099/article/details/52514882
  * <p>
  * https://www.jianshu.com/p/1652b968101c
+ * https://www.jianshu.com/p/f2677bf255d9?utm_source=oschina-app
  */
 public interface IMVPModel {
 

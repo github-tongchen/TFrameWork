@@ -58,7 +58,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.16'*/
 
     //  Retrofit2
-    implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.version["retrofit_version"]}"
+    api "com.squareup.retrofit2:retrofit:${rootProject.ext.version["retrofit_version"]}"
     /*implementation "com.squareup.retrofit2:retrofit-converters:${rootProject.ext.version["retrofit_version"]}"
     implementation "com.squareup.retrofit2:retrofit-adapters:${rootProject.ext.version["retrofit_version"]}"*/
     //  RxJava2 Adapter
@@ -77,10 +77,10 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:${rootProject.ext.version["rxjava_version"]}"
 
     //  RxAndroid
-    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.version["rxandroid_version"]}"
+    api "io.reactivex.rxjava2:rxandroid:${rootProject.ext.version["rxandroid_version"]}"
 
     //  Gson
-    implementation "com.google.code.gson:gson:${rootProject.ext.version["gson_version"]}"
+    api "com.google.code.gson:gson:${rootProject.ext.version["gson_version"]}"
 
     //  DBFlow数据库
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${rootProject.ext.version["dbflow_version"]}"

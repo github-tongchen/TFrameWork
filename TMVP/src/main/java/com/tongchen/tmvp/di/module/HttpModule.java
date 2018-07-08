@@ -2,6 +2,8 @@ package com.tongchen.tmvp.di.module;
 
 import android.content.Context;
 
+import com.tongchen.tmvp.HttpService;
+import com.tongchen.tmvp.HttpUrl;
 import com.tongchen.tmvp.util.LogUtils;
 
 import java.io.File;
@@ -36,11 +38,11 @@ public class HttpModule {
                 .build();
     }
 
-    /*@Singleton
+    @Singleton
     @Provides
-    GankApi provideGankApi(Retrofit.Builder builder, OkHttpClient client) {
-        return createRetrofit(builder, Url.GANK_BASE, client).create(GankApi.class);
-    }*/
+    HttpService provideGankApi(Retrofit.Builder builder, OkHttpClient client) {
+        return createRetrofit(builder, HttpUrl.GANK_BASE, client).create(HttpService.class);
+    }
 
     @Singleton
     @Provides

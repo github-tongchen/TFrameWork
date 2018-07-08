@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.tongchen.tmvp.Android;
+import com.tongchen.tmvp.GankData;
 import com.tongchen.tmvp.ui.activity.MVPActivity;
+import com.tongchen.tmvp.util.LogUtils;
 
-public class MainUIActivity extends MVPActivity<User, ISampleView, ISamplePresenter> implements ISampleView {
+public class MainUIActivity extends MVPActivity<GankData<Android>, ISampleView, ISamplePresenter> implements ISampleView {
 
-    private ISamplePresenter mISamplePresenter;
-
+    private static final String TAG = "MainUIActivity";
 
     public static void actionStart(Context context, String data1, String data2) {
         Intent intent = new Intent(context, MainUIActivity.class);
@@ -22,7 +24,7 @@ public class MainUIActivity extends MVPActivity<User, ISampleView, ISamplePresen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mISamplePresenter.requestSample("", "");
+        mPresenter.getAndroidDataByPage("Android", "1", "5");
     }
 
     @Override
@@ -41,8 +43,9 @@ public class MainUIActivity extends MVPActivity<User, ISampleView, ISamplePresen
     }
 
     @Override
-    public void requestSucceed(User result) {
+    public void requestSucceed(GankData<Android> result) {
 
+        LogUtils.d(TAG, result.toString());
     }
 
     @Override

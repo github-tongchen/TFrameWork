@@ -1,5 +1,6 @@
 package com.tongchen.tmvp.model;
 
+import com.tongchen.tmvp.HttpService;
 import com.tongchen.tmvp.presenter.IMVPPresenter;
 
 import javax.inject.Inject;
@@ -13,5 +14,8 @@ public class MVPModel<P extends IMVPPresenter> implements IMVPModel {
 
     @Inject
     protected P mPresenter;
+
+    @Inject
+    protected HttpService mHttpService;
 
 }

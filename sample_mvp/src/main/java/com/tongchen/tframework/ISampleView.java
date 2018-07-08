@@ -1,5 +1,7 @@
 package com.tongchen.tframework;
 
+import com.tongchen.tmvp.Android;
+import com.tongchen.tmvp.GankData;
 import com.tongchen.tmvp.view.IMVPView;
 
 /**
@@ -7,5 +9,5 @@ import com.tongchen.tmvp.view.IMVPView;
  * <p>
  * Description:该文件实现的功能
  */
-public interface ISampleView extends IMVPView<User> {
+public interface ISampleView extends IMVPView<GankData<Android>> {
 }

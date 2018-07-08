@@ -13,7 +13,7 @@ public interface IMVPView<DM> {
 
     void hideLoading();
 
-    void requestSucceed(DM t);
+    void requestSucceed(DM result);
 
     void requestFailed(String errorMsg);
 

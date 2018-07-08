@@ -9,5 +9,5 @@ import com.tongchen.tmvp.model.IMVPModel;
  */
 public interface ISampleModel extends IMVPModel {
 
-    void requestUser(String name, String age);
+    void getAndroidDataByPage(String categoryName, String page, String size);
 }

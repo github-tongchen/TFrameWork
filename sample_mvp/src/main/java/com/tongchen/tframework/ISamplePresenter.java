@@ -9,5 +9,5 @@ import com.tongchen.tmvp.presenter.IMVPPresenter;
  */
 public interface ISamplePresenter extends IMVPPresenter<ISampleView> {
 
-    void requestSample(String name, String age);
+    void getAndroidDataByPage(String categoryName, String page, String size);
 }

@@ -16,7 +16,7 @@ public abstract class MVPActivity<DM, V extends IMVPView<DM>, P extends IMVPPres
         extends BaseActivity implements IMVPView<DM> {
 
     @Inject
-    P mPresenter;
+    protected P mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -61,14 +61,7 @@ public abstract class MVPPresenter<V extends IMVPView, DM, M extends IMVPModel> 
 
     public abstract void requestSucceed(DM result);
 
-    public void requestFailed(String errorMsg) {
-        V view = getView();
-        if (view == null) {
-            return;
-        }
-        view.hideLoading();
-        view.requestFailed(errorMsg);
-    }
+    public abstract void requestFailed(String errorMsg);
 
     /**
      * 继承BasePresenter的子类名称
