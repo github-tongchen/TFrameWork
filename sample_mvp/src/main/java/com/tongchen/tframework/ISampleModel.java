@@ -8,4 +8,6 @@ import com.tongchen.tmvp.model.IMVPModel;
  * Description:该文件实现的功能
  */
 public interface ISampleModel extends IMVPModel {
+
+    void requestUser(String name, String age);
 }

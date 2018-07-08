@@ -1,20 +1,24 @@
 package com.tongchen.tmvp.presenter;
 
+import com.tongchen.tmvp.model.IMVPModel;
 import com.tongchen.tmvp.view.IMVPView;
 
 import java.lang.ref.WeakReference;
+
+import javax.inject.Inject;
 
 /**
  * Created by TongChen at 20:09 on 2018/6/24.
  * <p>
  * Description:该文件实现的功能
  */
-public abstract class MVPPresenter<V extends IMVPView, DM> implements IMVPPresenter<V> {
+public abstract class MVPPresenter<V extends IMVPView, DM, M extends IMVPModel> implements IMVPPresenter<V> {
 
     //  将View置为弱引用，当view被销毁回收时，依赖于view的对象（即Presenter）也会被回收，而不会造成内存泄漏
     private WeakReference<V> mViewRef;
 
-//    private M mModel;
+    @Inject
+    protected M mModel;
 
     @Override
     public void attachView(V view) {

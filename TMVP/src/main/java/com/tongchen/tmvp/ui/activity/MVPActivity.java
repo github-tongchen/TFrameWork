@@ -5,6 +5,8 @@ import android.os.Bundle;
 import com.tongchen.tmvp.presenter.IMVPPresenter;
 import com.tongchen.tmvp.view.IMVPView;
 
+import javax.inject.Inject;
+
 /**
  * Created by TongChen at 22:43 on 2018/6/24.
  * <p>
@@ -13,7 +15,8 @@ import com.tongchen.tmvp.view.IMVPView;
 public abstract class MVPActivity<DM, V extends IMVPView<DM>, P extends IMVPPresenter<V>>
         extends BaseActivity implements IMVPView<DM> {
 
-    private P mPresenter;
+    @Inject
+    P mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

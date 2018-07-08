@@ -2,14 +2,16 @@ package com.tongchen.tmvp.model;
 
 import com.tongchen.tmvp.presenter.IMVPPresenter;
 
+import javax.inject.Inject;
+
 /**
  * Created by TongChen at 22:59 on 2018/6/24.
  * <p>
  * Description: MVP Model基类，处理网络请求、数据库读写等数据操作
  */
-public class MVPModel<DM, P extends IMVPPresenter> implements IMVPModel<DM> {
+public class MVPModel<P extends IMVPPresenter> implements IMVPModel {
 
-    private P mPresenter;
-
+    @Inject
+    protected P mPresenter;
 
 }

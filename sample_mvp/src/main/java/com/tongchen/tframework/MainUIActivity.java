@@ -8,6 +8,8 @@ import com.tongchen.tmvp.ui.activity.MVPActivity;
 
 public class MainUIActivity extends MVPActivity<User, ISampleView, ISamplePresenter> implements ISampleView {
 
+    private ISamplePresenter mISamplePresenter;
+
 
     public static void actionStart(Context context, String data1, String data2) {
         Intent intent = new Intent(context, MainUIActivity.class);
@@ -20,6 +22,7 @@ public class MainUIActivity extends MVPActivity<User, ISampleView, ISamplePresen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mISamplePresenter.requestSample("", "");
     }
 
     @Override

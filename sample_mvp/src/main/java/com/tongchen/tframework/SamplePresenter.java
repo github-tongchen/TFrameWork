@@ -7,11 +7,12 @@ import com.tongchen.tmvp.presenter.MVPPresenter;
  * <p>
  * Description:该文件实现的功能
  */
-public class SamplePresenter extends MVPPresenter<ISampleView, User> implements ISamplePresenter {
+public class SamplePresenter extends MVPPresenter<ISampleView, User,ISampleModel> implements ISamplePresenter {
 
 
     @Override
     public void requestSample(String name, String age) {
+        mModel.requestUser(name,age);
 
     }
 
