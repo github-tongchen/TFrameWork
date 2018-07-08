@@ -11,11 +11,7 @@ package com.tongchen.tmvp.model;
  * <p>
  * https://blog.csdn.net/baidu_27419681/article/details/77803374
  * <p>
- * https://www.jianshu.com/p/f9efe76ad080
- * <p>
  * https://blog.csdn.net/u013278099/article/details/52514882
- * <p>
- * https://blog.csdn.net/u014614038/article/details/48955787
  * <p>
  * https://www.jianshu.com/p/1652b968101c
  */

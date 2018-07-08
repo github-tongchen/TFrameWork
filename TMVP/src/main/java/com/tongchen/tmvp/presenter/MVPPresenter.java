@@ -20,7 +20,9 @@ public abstract class MVPPresenter<V extends IMVPView, M extends IMVPModel> impl
     @Override
     public void attachView(V view) {
         if (view != null) {
-            mViewRef = new WeakReference<>(view);
+            if (mViewRef == null) {
+                mViewRef = new WeakReference<>(view);
+            }
         } else {
             throw new NullPointerException("View can not be null when in attachView() in MVPPresenter");
         }
@@ -34,6 +36,13 @@ public abstract class MVPPresenter<V extends IMVPView, M extends IMVPModel> impl
         }
     }
 
+    public V getView() {
+        if (isViewAttached()) {
+            return mViewRef.get();
+        }
+        return null;
+    }
+
     /**
      * 判断View和Presenter是否已绑定
      *
@@ -45,13 +54,6 @@ public abstract class MVPPresenter<V extends IMVPView, M extends IMVPModel> impl
         } else {
             throw new IllegalStateException("View " + " not attached to Presenter " + this.getClass().getSimpleName());
         }
-    }
-
-    public V getView() {
-        if (isViewAttached()) {
-            return mViewRef.get();
-        }
-        return null;
     }
 
     public void requestSucceed(M result) {
