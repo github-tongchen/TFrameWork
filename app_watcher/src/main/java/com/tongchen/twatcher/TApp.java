@@ -21,9 +21,9 @@ public class TApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         mInstance = this;
 
+        //  初始化DBFlow数据库
         FlowManager.init(this);
 
     }
