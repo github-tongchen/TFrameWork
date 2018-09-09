@@ -9,8 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/TKit" />
-            <option value="$PROJECT_DIR$/TMVP" />
-            <option value="$PROJECT_DIR$/sample_mvp" />
+            <option value="$PROJECT_DIR$/app_watcher" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

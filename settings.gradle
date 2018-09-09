@@ -1,1 +1,1 @@
-include ':sample_mvp', ':TKit', ':TMVP'
+include ':app_watcher', ':TKit'
