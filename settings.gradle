@@ -1,1 +1,1 @@
-include ':app_watcher', ':TKit'
+include ':app_watcher'

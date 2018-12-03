@@ -1,19 +1,22 @@
+/*
 package com.tongchen.twatcher.di.module;
 
 import android.app.Activity;
 
-import com.tongchen.twatcher.mvp.model.http.HttpService;
-import com.tongchen.twatcher.mvp.presenter.ISamplePresenter;
-import com.tongchen.twatcher.mvp.presenter.SamplePresenter;
+import com.tongchen.twatcher.gankmodel.http.HttpService;
+import com.tongchen.twatcher.gankpresenter.ISamplePresenter;
+import com.tongchen.twatcher.gankpresenter.SamplePresenter;
 
 import dagger.Module;
 import dagger.Provides;
 
+*/
 /**
  * Created by TongChen at 3:20 on 2018/9/3.
  * <p>
  * Description:该文件实现的功能
- */
+ *//*
+
 
 @Module
 public class SampleModule {
@@ -35,3 +38,4 @@ public class SampleModule {
     }
 
 }
+*/

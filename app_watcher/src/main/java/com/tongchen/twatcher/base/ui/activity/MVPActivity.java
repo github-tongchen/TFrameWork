@@ -12,8 +12,7 @@ import javax.inject.Inject;
  * <p>
  * Description: MVP Activity 基类
  */
-public abstract class MVPActivity<E, V extends IMVPView<E>, P extends IMVPPresenter<V>>
-        extends BaseActivity implements IMVPView<E> {
+public abstract class MVPActivity<E, V extends IMVPView<E>, P extends IMVPPresenter<V>> extends BaseActivity {
 
     @Inject
     protected P mPresenter;

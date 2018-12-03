@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--侧滑菜单布局-->
+    <declare-styleable name="TDrawerLayout">
+        <attr name="navigation_style" format="enum">
+            <enum name="like_QQ" value="0" />
+            <enum name="like_KuGou" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

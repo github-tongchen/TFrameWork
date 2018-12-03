@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.tongchen.twatcher.widget.TDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tdrawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:navigation_style="like_KuGou"
+    tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/rl_menu"
+        layout="@layout/main_include_menu" />
+
+    <include layout="@layout/main_include_content" />
+
+</com.tongchen.twatcher.widget.TDrawerLayout>

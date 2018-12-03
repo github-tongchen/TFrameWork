@@ -2,10 +2,10 @@ package com.tongchen.twatcher.di.module;
 
 import android.content.Context;
 
-import com.tongchen.twatcher.mvp.model.http.HttpService;
-import com.tongchen.twatcher.mvp.model.http.HttpUrl;
-import com.tongchen.twatcher.util.LogUtils;
 import com.tongchen.twatcher.base.http.SSLSocketFactoryCompat;
+import com.tongchen.twatcher.gank.model.http.HttpService;
+import com.tongchen.twatcher.gank.model.http.HttpUrl;
+import com.tongchen.twatcher.util.LogUtils;
 
 import java.io.File;
 import java.security.cert.CertificateException;
@@ -23,6 +23,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * Created by TongChen on 2017/11/11.

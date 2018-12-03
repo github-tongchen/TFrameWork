@@ -1,27 +1,37 @@
 package com.tongchen.twatcher.base.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.tongchen.twatcher.R;
+import com.tongchen.twatcher.base.presenter.IMVPPresenter;
+import com.tongchen.twatcher.base.view.IMVPView;
+
+import javax.inject.Inject;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Created by TongChen at 22:43 on 2018/6/24.
+ * <p>
+ * Description: MVP Fragment 基类
  */
-public class MVPFragment extends BaseFragment {
+//public abstract class MVPFragment<E, V extends IMVPView<E>, P extends IMVPPresenter<V>> extends BaseFragment {
+public abstract class MVPFragment<E, V extends IMVPView<E>, P extends IMVPPresenter<V>> extends BaseFragment {
 
-    public MVPFragment() {
+    @Inject
+    protected P mPresenter;
 
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tmvp_fragment_base, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        injectFragment();
+        mPresenter.attachView((V) this);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+    }
+
+    protected abstract void injectFragment();
 }
