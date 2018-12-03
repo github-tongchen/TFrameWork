@@ -1,8 +1,8 @@
-package com.tongchen.twatcher.mvp.view;
+package com.tongchen.twatcher.gank.view;
 
 import com.tongchen.twatcher.base.view.IMVPView;
-import com.tongchen.twatcher.mvp.model.entity.Android;
-import com.tongchen.twatcher.mvp.model.entity.GankData;
+import com.tongchen.twatcher.gank.model.entity.Android;
+import com.tongchen.twatcher.gank.model.entity.GankData;
 
 import java.util.List;
 

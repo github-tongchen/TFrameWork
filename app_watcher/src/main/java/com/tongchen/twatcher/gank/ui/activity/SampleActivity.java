@@ -1,4 +1,4 @@
-package com.tongchen.twatcher.mvp.ui.activity;
+package com.tongchen.twatcher.gank.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,12 +7,12 @@ import android.widget.TextView;
 
 import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.ui.activity.MVPActivity;
-import com.tongchen.twatcher.di.component.DaggerSampleComponent;
-import com.tongchen.twatcher.di.module.SampleModule;
-import com.tongchen.twatcher.mvp.model.entity.Android;
-import com.tongchen.twatcher.mvp.model.entity.GankData;
-import com.tongchen.twatcher.mvp.presenter.ISamplePresenter;
-import com.tongchen.twatcher.mvp.view.ISampleView;
+import com.tongchen.twatcher.di.component.DaggerActivityComponent;
+import com.tongchen.twatcher.di.module.ActivityModule;
+import com.tongchen.twatcher.gank.model.entity.Android;
+import com.tongchen.twatcher.gank.model.entity.GankData;
+import com.tongchen.twatcher.gank.presenter.ISamplePresenter;
+import com.tongchen.twatcher.gank.view.ISampleView;
 import com.tongchen.twatcher.util.LogUtils;
 
 import java.util.List;
@@ -46,10 +46,15 @@ public class SampleActivity extends MVPActivity<GankData<List<Android>>, ISample
     }
 
     @Override
+    protected void loadView() {
+
+    }
+
+    @Override
     public void injectActivity() {
 
-        DaggerSampleComponent.builder()
-                .sampleModule(new SampleModule(this))
+        DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
                 .appComponent(TApp.getAppComponent())
                 .build()
                 .inject(this);

@@ -1,4 +1,4 @@
-package com.tongchen.twatcher.mvp.model.entity;
+package com.tongchen.twatcher.gank.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 

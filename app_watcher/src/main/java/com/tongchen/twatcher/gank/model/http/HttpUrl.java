@@ -1,4 +1,4 @@
-package com.tongchen.twatcher.mvp.model.http;
+package com.tongchen.twatcher.gank.model.http;
 
 /**
  * Created by TongChen at 17:59 on 2018/7/8.

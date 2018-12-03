@@ -1,17 +1,18 @@
-package com.tongchen.twatcher.mvp.presenter;
+package com.tongchen.twatcher.gank.presenter;
 
 import android.annotation.SuppressLint;
 
 import com.tongchen.twatcher.base.presenter.MVPPresenter;
-import com.tongchen.twatcher.mvp.model.entity.Android;
-import com.tongchen.twatcher.mvp.model.entity.GankData;
-import com.tongchen.twatcher.mvp.model.http.HttpService;
-import com.tongchen.twatcher.mvp.view.ISampleView;
+import com.tongchen.twatcher.gank.model.entity.Android;
+import com.tongchen.twatcher.gank.model.entity.GankData;
+import com.tongchen.twatcher.gank.model.http.HttpService;
+import com.tongchen.twatcher.gank.view.ISampleView;
 import com.tongchen.twatcher.util.LogUtils;
 
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -35,11 +36,20 @@ public class SamplePresenter extends MVPPresenter<ISampleView, GankData<List<And
             getView().showLoading();
         }
 
-        mHttpService.getAndroidDataByPage(category, size, page)
+        mHttpService.getGankDataByPage(category, size, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(androidGankData -> requestSucceed(androidGankData),
-                        throwable -> requestFailed(throwable.toString()));
+                .subscribe(new Consumer<GankData<List<Android>>>() {
+                    @Override
+                    public void accept(GankData<List<Android>> listGankData) throws Exception {
+                        requestSucceed(listGankData);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        requestFailed(throwable.toString());
+                    }
+                });
 
     }
 
