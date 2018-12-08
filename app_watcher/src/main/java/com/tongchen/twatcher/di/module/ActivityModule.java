@@ -18,7 +18,7 @@ import dagger.Provides;
 @Module
 public class ActivityModule {
 
-    public Activity mActivity;
+    private Activity mActivity;
 
     public ActivityModule(Activity activity) {
         this.mActivity = activity;
@@ -26,12 +26,13 @@ public class ActivityModule {
 
     @ActivityScope
     @Provides
-    public Activity provideActivity() {
+    Activity provideActivity() {
         return mActivity;
     }
 
+    @ActivityScope
     @Provides
-    public ISamplePresenter provideSamplePresenter(HttpService httpService) {
+    ISamplePresenter provideSamplePresenter(HttpService httpService) {
         return new SamplePresenter(httpService);
     }
 }

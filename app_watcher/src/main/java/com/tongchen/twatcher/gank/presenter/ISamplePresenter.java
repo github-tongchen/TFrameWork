@@ -10,5 +10,5 @@ import com.tongchen.twatcher.gank.view.ISampleView;
  */
 public interface ISamplePresenter extends IMVPPresenter<ISampleView> {
 
-    void getAndroidDataByPage(String category,  String size,String page);
+    void getAndroidDataByPage(String category, int size, int page);
 }

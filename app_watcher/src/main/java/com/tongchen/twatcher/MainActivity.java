@@ -22,8 +22,8 @@ public class MainActivity extends BaseActivity {
     TDrawerLayout mTDrawerLyt;
     @BindView(R.id.fl_main_container)
     FrameLayout mMainContainerFl;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    /*@BindView(R.id.toolbar)
+    Toolbar mToolbar;*/
 
     private FragmentManager mFragmentManager;
     private GankFragment mGankFragment;
@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void loadView() {
-        setSupportActionBar(mToolbar);
+//        setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);

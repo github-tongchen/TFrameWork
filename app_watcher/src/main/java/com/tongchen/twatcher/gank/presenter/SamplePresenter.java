@@ -24,14 +24,13 @@ public class SamplePresenter extends MVPPresenter<ISampleView, GankData<List<And
 
     private HttpService mHttpService;
 
-    //    @Inject
     public SamplePresenter(HttpService httpService) {
         this.mHttpService = httpService;
     }
 
     @SuppressLint("CheckResult")
     @Override
-    public void getAndroidDataByPage(String category, String size, String page) {
+    public void getAndroidDataByPage(String category, int size, int page) {
         if (getView() != null) {
             getView().showLoading();
         }
@@ -69,7 +68,7 @@ public class SamplePresenter extends MVPPresenter<ISampleView, GankData<List<And
         if (getView() == null) {
             return;
         }
-        LogUtils.d("SamplePresenter", "requestFailed" + errorMsg.toString());
+        LogUtils.d("SamplePresenter", "requestFailed" + errorMsg);
 
 
         getView().hideLoading();

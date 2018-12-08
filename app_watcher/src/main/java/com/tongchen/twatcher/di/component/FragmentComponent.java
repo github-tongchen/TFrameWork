@@ -1,10 +1,8 @@
 package com.tongchen.twatcher.di.component;
 
-import android.app.Activity;
-import android.support.v4.app.Fragment;
-
 import com.tongchen.twatcher.di.module.FragmentModule;
 import com.tongchen.twatcher.di.scope.FragmentScope;
+import com.tongchen.twatcher.gank.ui.fragment.ContentFragment;
 
 import dagger.Component;
 
@@ -18,7 +16,5 @@ import dagger.Component;
 @Component(modules = {FragmentModule.class}, dependencies = AppComponent.class)
 public interface FragmentComponent {
 
-//    Activity provideActivity();
-
-    void inject2Fragment(Fragment fragment);
+    void inject2Fragment(ContentFragment fragment);
 }

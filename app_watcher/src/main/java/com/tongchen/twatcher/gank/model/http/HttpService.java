@@ -18,6 +18,6 @@ import retrofit2.http.Path;
 public interface HttpService {
 
     @GET("data/{category}/{size}/{page}")
-    Observable<GankData<List<Android>>> getGankDataByPage(@Path("category") String category, @Path("size") String size, @Path("page") String page);
+    Observable<GankData<List<Android>>> getGankDataByPage(@Path("category") String category, @Path("size") int size, @Path("page") int page);
 
 }

@@ -8,11 +8,15 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tongchen.twatcher.R;
+import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.ui.fragment.MVPFragment;
+import com.tongchen.twatcher.di.component.DaggerFragmentComponent;
+import com.tongchen.twatcher.di.module.FragmentModule;
 import com.tongchen.twatcher.gank.model.entity.Android;
 import com.tongchen.twatcher.gank.presenter.IContentPresenter;
 import com.tongchen.twatcher.gank.ui.adapter.ContentAdapter;
 import com.tongchen.twatcher.gank.view.IContentView;
+import com.tongchen.twatcher.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +60,11 @@ public class ContentFragment extends MVPFragment<List<Android>, IContentView, IC
 
     @Override
     protected void injectFragment() {
-
+        DaggerFragmentComponent.builder()
+                .fragmentModule(new FragmentModule(this))
+                .appComponent(TApp.getAppComponent())
+                .build()
+                .inject2Fragment(this);
     }
 
     @Override
@@ -75,6 +83,8 @@ public class ContentFragment extends MVPFragment<List<Android>, IContentView, IC
 
             }
         });
+
+        mPresenter.getGankDataByPage(mTitle, 10, 1);
     }
 
     //  返回到顶部
@@ -99,9 +109,12 @@ public class ContentFragment extends MVPFragment<List<Android>, IContentView, IC
 
     @Override
     public void requestSucceed(List<Android> androidList) {
+        LogUtils.d("ContentFragment", "requestSucceed" + androidList.size());
+
+
         mData.clear();
         mData.addAll(androidList);
-        mContentRecyclerLv.notify();
+        mContentAdapter.notifyDataSetChanged();
     }
 
     @Override

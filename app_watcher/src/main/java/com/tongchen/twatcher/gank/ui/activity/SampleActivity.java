@@ -37,7 +37,7 @@ public class SampleActivity extends MVPActivity<GankData<List<Android>>, ISample
 
         mContentTv = findViewById(com.tongchen.twatcher.R.id.tv_content);
 
-        mPresenter.getAndroidDataByPage("Android", "5", "1");
+        mPresenter.getAndroidDataByPage("Android", 5, 1);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class SampleActivity extends MVPActivity<GankData<List<Android>>, ISample
                 .activityModule(new ActivityModule(this))
                 .appComponent(TApp.getAppComponent())
                 .build()
-                .inject(this);
+                .inject2Activity(this);
     }
 
     @Override

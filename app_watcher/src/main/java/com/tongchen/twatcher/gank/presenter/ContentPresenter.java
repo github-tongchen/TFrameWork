@@ -29,7 +29,7 @@ public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<A
 
     @SuppressLint("CheckResult")
     @Override
-    public void getGankDataByPage(String category, String size, String page) {
+    public void getGankDataByPage(String category, int size, int page) {
         mHttpService.getGankDataByPage(category, size, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -60,7 +60,7 @@ public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<A
         if (getView() == null) {
             return;
         }
-        LogUtils.d("ContentPresenter", "requestFailed" + errorMsg.toString());
+        LogUtils.d("ContentPresenter", "requestFailed" + errorMsg);
 
         getView().hideLoading();
         getView().requestFailed(errorMsg);

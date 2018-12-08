@@ -26,6 +26,8 @@ public class ContentAdapter extends BaseQuickAdapter<Android, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Android item) {
         helper.setText(R.id.tv_desc, item.getDesc());
         helper.setText(R.id.tv_date, item.getPublishedAt());
-        Glide.with(mContext).load(item.getImages().get(0)).into((ImageView) helper.getView(R.id.iv_preview));
+        if (item.getImages() != null && item.getImages().size() > 0) {
+            Glide.with(mContext).load(item.getImages().get(0)).into((ImageView) helper.getView(R.id.iv_preview));
+        }
     }
 }

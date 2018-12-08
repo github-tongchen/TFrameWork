@@ -13,7 +13,6 @@ import javax.inject.Inject;
  * <p>
  * Description: MVP Fragment 基类
  */
-//public abstract class MVPFragment<E, V extends IMVPView<E>, P extends IMVPPresenter<V>> extends BaseFragment {
 public abstract class MVPFragment<E, V extends IMVPView<E>, P extends IMVPPresenter<V>> extends BaseFragment {
 
     @Inject
