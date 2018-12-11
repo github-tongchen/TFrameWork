@@ -7,12 +7,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.tongchen.twatcher.base.ui.activity.BaseActivity;
 import com.tongchen.twatcher.gank.ui.fragment.GankFragment;
 import com.tongchen.twatcher.widget.TDrawerLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -78,6 +82,10 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this, R.string.sys_exit, Toast.LENGTH_SHORT).show();
             firstTime = System.currentTimeMillis();
         }
+    }
+
+    public void isDispatchEvent2DrawerLayout(boolean isDispatch) {
+        mTDrawerLyt.setConsume(isDispatch);
     }
 
 }

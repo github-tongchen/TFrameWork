@@ -25,13 +25,16 @@ public class TDrawerLayout extends ViewGroup {
     //  mMenu是侧滑出的部分，mContent是策划前的主界面
     private ViewGroup mMenu, mContent;
     private int mLastX, mLastY;
-
+    //  侧滑菜单的风格：QQ，KuGou
     private int mNavigationStyle;
     private Scroller mScroller;
+    //  当前侧滑菜单是否展开
     private boolean mIsOpen;
     private int mLastXIntercept, mLastYIntercept;
 
-    private float scale;
+    private float mScale;
+    //  是否消费事件
+    private boolean mIsConsume = true;
 
     public TDrawerLayout(Context context) {
         this(context, null, 0);
@@ -51,7 +54,7 @@ public class TDrawerLayout extends ViewGroup {
         mScroller = new Scroller(context);
 
         //设置侧滑菜单距离屏幕右侧的距离
-        mMenuRightPadding = ScreenUtils.dip2px(context.getApplicationContext(), 100);
+        mMenuRightPadding = ScreenUtils.dip2px(context.getApplicationContext(), 80);
 
         mScreenWidth = (int) ScreenUtils.getScreenWidth(context.getApplicationContext());
         mScreenHeight = (int) ScreenUtils.getScreenHeight(context.getApplicationContext());
@@ -95,9 +98,25 @@ public class TDrawerLayout extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 int deltaX = (int) ev.getX() - mLastXIntercept;
                 int deltaY = (int) (ev.getY() - mLastYIntercept);
+                //  横向滑动，进入if内部
                 if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    intercept = true;
-                } else {//   纵向滑动
+                    //  侧滑菜单未展开，进入if内部
+                    if (!mIsOpen) {
+                        if (deltaX < 0) {
+                            //  手指在屏幕上从右往左滑时，事件交给子View
+                            intercept = false;
+                        } else {
+                            //  手指在屏幕上从左往右滑时，如果需要消费事件则消费，否则交给子View
+                            intercept = mIsConsume;
+                        }
+
+                    } else {
+                        //  侧滑菜单展开，处理事件
+                        intercept = true;
+                    }
+
+                } else {
+                    //  纵向滑动，不处理事件,交给子View
                     intercept = false;
                 }
                 break;
@@ -141,16 +160,16 @@ public class TDrawerLayout extends ViewGroup {
                         mMenu.setTranslationX(2 * (mMenuWidth + getScrollX()) / 3);
                         break;
                     case KuGOU_STYLE:
-                        scale = Math.abs((float) getScrollX()) / (float) mMenuWidth;
-                        mMenu.setTranslationX(mMenuWidth + getScrollX() - (mMenuWidth / 2) * (1.0f - scale));
+                        mScale = Math.abs((float) getScrollX()) / (float) mMenuWidth;
+                        mMenu.setTranslationX(mMenuWidth + getScrollX() - (mMenuWidth / 2) * (1.0f - mScale));
 
-                        mMenu.setScaleX(0.7f + 0.3f * scale);
-                        mMenu.setScaleY(0.7f + 0.3f * scale);
-                        mMenu.setAlpha(scale);
+                        mMenu.setScaleX(0.7f + 0.3f * mScale);
+                        mMenu.setScaleY(0.7f + 0.3f * mScale);
+                        mMenu.setAlpha(mScale);
 
-                        mContent.setScaleX(1 - 0.3f * scale);
+                        mContent.setScaleX(1 - 0.3f * mScale);
                         mContent.setPivotY(mScreenHeight / 2);
-                        mContent.setScaleY(1.0f - 0.3f * scale);
+                        mContent.setScaleY(1.0f - 0.3f * mScale);
                         break;
                 }
 
@@ -190,16 +209,16 @@ public class TDrawerLayout extends ViewGroup {
                 mMenu.setTranslationX(2 * (mMenuWidth + getScrollX()) / 3);
                 break;
             case KuGOU_STYLE:
-                scale = Math.abs((float) getScrollX()) / (float) mMenuWidth;
-                mMenu.setTranslationX(mMenuWidth + getScrollX() - (mMenuWidth / 2) * (1.0f - scale));
+                mScale = Math.abs((float) getScrollX()) / (float) mMenuWidth;
+                mMenu.setTranslationX(mMenuWidth + getScrollX() - (mMenuWidth / 2) * (1.0f - mScale));
 
-                mMenu.setScaleX(0.7f + 0.3f * scale);
-                mMenu.setScaleY(0.7f + 0.3f * scale);
-                mMenu.setAlpha(scale);
+                mMenu.setScaleX(0.7f + 0.3f * mScale);
+                mMenu.setScaleY(0.7f + 0.3f * mScale);
+                mMenu.setAlpha(mScale);
 
-                mContent.setScaleX(1 - 0.3f * scale);
+                mContent.setScaleX(1 - 0.3f * mScale);
                 mContent.setPivotY(mScreenHeight / 2);
-                mContent.setScaleY(1.0f - 0.3f * scale);
+                mContent.setScaleY(1.0f - 0.3f * mScale);
         }
 
 
@@ -238,5 +257,9 @@ public class TDrawerLayout extends ViewGroup {
         mScroller.startScroll(getScrollX(), 0, -getScrollX(), 0, 500);
         invalidate();
         mIsOpen = false;
+    }
+
+    public void setConsume(boolean consume) {
+        mIsConsume = consume;
     }
 }

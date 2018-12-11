@@ -5,7 +5,7 @@
     android:id="@+id/tdrawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:navigation_style="like_KuGou"
+    app:navigation_style="like_QQ"
     tools:context=".MainActivity">
 
     <include
