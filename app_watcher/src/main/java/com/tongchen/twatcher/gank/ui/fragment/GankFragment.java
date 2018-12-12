@@ -48,7 +48,6 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         mActivity = (MainActivity) getActivity();
     }
 
