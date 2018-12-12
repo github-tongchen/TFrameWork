@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#3FA862</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="activity_bg">#c1c1c1</color>
+    <color name="activity_bg">#fafafa</color>
 
     <!--Toolbar-->
     <color name="toolbar_bg">@color/colorPrimary</color>
@@ -22,9 +22,9 @@
     <color name="tab_unselect">#78ffffff</color>
 
     <!--Fragment的背景色-->
-    <color name="fragment_bg">#c1c1c1</color>
+    <color name="fragment_bg">#efefef</color>
 
     <!--TextFragment的子item背景色和footer背景色-->
-    <color name="item_text_bg">#32c1c1c1</color>
+    <color name="gank_text_item_bg">#32c1c1c1</color>
     <color name="item_text_footer">#98f7ec</color>
 </resources>

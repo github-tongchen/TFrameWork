@@ -75,15 +75,15 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     }
 
     private void initCategories() {
-        mCategoryList.add(new Category("全部", "all"));
-        mCategoryList.add(new Category("Android", "Android"));
-        mCategoryList.add(new Category("iOS", "iOS"));
-        mCategoryList.add(new Category("前端", "前端"));
-        mCategoryList.add(new Category("拓展资源", "拓展资源"));
-        mCategoryList.add(new Category("休息视频", "休息视频"));
-        mCategoryList.add(new Category("瞎推荐", "瞎推荐"));
-        mCategoryList.add(new Category("App", "App"));
-        mCategoryList.add(new Category("福利", "福利"));
+        mCategoryList.add(new Category("全部", "all", 0, 9));
+        mCategoryList.add(new Category("Android", "Android", 1, 9));
+        mCategoryList.add(new Category("iOS", "iOS", 2, 9));
+        mCategoryList.add(new Category("前端", "前端", 3, 9));
+        mCategoryList.add(new Category("拓展资源", "拓展资源", 4, 9));
+        mCategoryList.add(new Category("休息视频", "休息视频", 5, 9));
+        mCategoryList.add(new Category("瞎推荐", "瞎推荐", 6, 9));
+        mCategoryList.add(new Category("App", "App", 7, 9));
+        mCategoryList.add(new Category("福利", "福利", 8, 9));
     }
 
     private void initFragments() {

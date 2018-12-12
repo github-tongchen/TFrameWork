@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,11 +18,13 @@ import com.tongchen.twatcher.di.component.DaggerFragmentComponent;
 import com.tongchen.twatcher.di.module.FragmentModule;
 import com.tongchen.twatcher.gank.model.entity.Category;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
+import com.tongchen.twatcher.gank.model.entity.MultipleItem;
 import com.tongchen.twatcher.gank.presenter.CategoryPresenter;
 import com.tongchen.twatcher.gank.presenter.ICategoryPresenter;
 import com.tongchen.twatcher.gank.ui.adapter.CategoryAdapter;
 import com.tongchen.twatcher.gank.view.ICategoryView;
 import com.tongchen.twatcher.util.LogUtils;
+import com.tongchen.twatcher.widget.SimpleItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,9 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     private static final String ARG_CATEGORY = "category";
 
+    private static final int SINGLE_SPAN_COUNT = 1;
+    private static final int MULTIPLE_SPAN_COUNT = 2;
+
     @Inject
     Context mContext;
 
@@ -44,12 +50,15 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     private CategoryAdapter mContentAdapter;
     private List<GankResult> mData = new ArrayList<>();
+    private List<MultipleItem> mMultipleItemList = new ArrayList<>();
 
     //  当前所处Tab的分类
     private Category mCategory;
     private String mRequestName;
     private int mPage = 1;
-
+    //  是否是图片（即福利）分类
+    private boolean mIsImgType = false;
+    private int mSpanCount = 1;
 
     public CategoryFragment() {
 
@@ -69,6 +78,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         if (getArguments() != null) {
             mCategory = getArguments().getParcelable(ARG_CATEGORY);
             mRequestName = mCategory.getRequestName();
+            mIsImgType = mCategory.getIndex() == mCategory.getCount() - 1;
         }
     }
 
@@ -83,18 +93,23 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     @Override
     public int bindLayout() {
-        return R.layout.gank_fragment_content;
+        return R.layout.gank_fragment_category;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mContentAdapter = new CategoryAdapter(R.layout.gank_recycle_item_content, mData);
+        if (mIsImgType) {
+            mSpanCount = MULTIPLE_SPAN_COUNT;
+        } else {
+            mSpanCount = SINGLE_SPAN_COUNT;
+        }
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getActivity(), mSpanCount, LinearLayoutManager.VERTICAL, false);
         mContentRecyclerLv.setLayoutManager(linearLayoutManager);
+        mContentAdapter = new CategoryAdapter(mMultipleItemList);
         mContentRecyclerLv.setAdapter(mContentAdapter);
+        mContentRecyclerLv.addItemDecoration(new SimpleItemDecoration(mContext));
         mContentRecyclerLv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -146,6 +161,15 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         LogUtils.d("CategoryFragment", "refreshSucceed---" + result.size());
         mData.clear();
         mData.addAll(result);
+        if (mIsImgType) {
+            for (GankResult data : mData) {
+                mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_IMG, data));
+            }
+        } else {
+            for (GankResult data : mData) {
+                mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_TEXT, data));
+            }
+        }
         mContentAdapter.notifyDataSetChanged();
     }
 
@@ -159,6 +183,15 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     public void loadMoreSucceed(List<GankResult> result) {
         LogUtils.d("CategoryFragment", "loadMoreSucceed---" + result.size());
         mData.addAll(result);
+        if (mIsImgType) {
+            for (GankResult data : mData) {
+                mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_IMG, data));
+            }
+        } else {
+            for (GankResult data : mData) {
+                mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_TEXT, data));
+            }
+        }
         mContentAdapter.notifyDataSetChanged();
         mContentAdapter.loadMoreComplete();
     }
