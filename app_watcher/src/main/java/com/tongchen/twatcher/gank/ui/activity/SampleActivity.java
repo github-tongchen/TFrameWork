@@ -9,7 +9,7 @@ import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.ui.activity.MVPActivity;
 import com.tongchen.twatcher.di.component.DaggerActivityComponent;
 import com.tongchen.twatcher.di.module.ActivityModule;
-import com.tongchen.twatcher.gank.model.entity.Android;
+import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.GankData;
 import com.tongchen.twatcher.gank.presenter.ISamplePresenter;
 import com.tongchen.twatcher.gank.view.ISampleView;
@@ -17,7 +17,7 @@ import com.tongchen.twatcher.util.LogUtils;
 
 import java.util.List;
 
-public class SampleActivity extends MVPActivity<GankData<List<Android>>, ISampleView, ISamplePresenter> implements ISampleView {
+public class SampleActivity extends MVPActivity<GankData<List<GankResult>>, ISampleView, ISamplePresenter> implements ISampleView {
 
     private static final String TAG = "SampleActivity";
 
@@ -37,7 +37,7 @@ public class SampleActivity extends MVPActivity<GankData<List<Android>>, ISample
 
         mContentTv = findViewById(com.tongchen.twatcher.R.id.tv_content);
 
-        mPresenter.getAndroidDataByPage("Android", 5, 1);
+        mPresenter.getAndroidDataByPage("GankResult", 5, 1);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class SampleActivity extends MVPActivity<GankData<List<Android>>, ISample
     }
 
     @Override
-    public void requestSucceed(GankData<List<Android>> result) {
+    public void refreshSucceed(GankData<List<GankResult>> result) {
 
         LogUtils.d(TAG, "requestSucceed" + result.getResult().get(0).getCreatedAt());
         mContentTv.setText(result.toString());
@@ -79,10 +79,18 @@ public class SampleActivity extends MVPActivity<GankData<List<Android>>, ISample
     }
 
     @Override
-    public void requestFailed(String errorMsg) {
+    public void refreshFailed(String errorMsg) {
         LogUtils.d(TAG, "requestFailed" + errorMsg);
 
     }
 
+    @Override
+    public void loadMoreSucceed(GankData<List<GankResult>> result) {
 
+    }
+
+    @Override
+    public void loadMoreFailed(String errorMsg) {
+
+    }
 }

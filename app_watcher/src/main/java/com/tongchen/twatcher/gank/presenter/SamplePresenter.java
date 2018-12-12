@@ -3,7 +3,7 @@ package com.tongchen.twatcher.gank.presenter;
 import android.annotation.SuppressLint;
 
 import com.tongchen.twatcher.base.presenter.MVPPresenter;
-import com.tongchen.twatcher.gank.model.entity.Android;
+import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.GankData;
 import com.tongchen.twatcher.gank.model.http.HttpService;
 import com.tongchen.twatcher.gank.view.ISampleView;
@@ -20,7 +20,7 @@ import io.reactivex.schedulers.Schedulers;
  * <p>
  * Description:该文件实现的功能
  */
-public class SamplePresenter extends MVPPresenter<ISampleView, GankData<List<Android>>> implements ISamplePresenter {
+public class SamplePresenter extends MVPPresenter<ISampleView, GankData<List<GankResult>>> implements ISamplePresenter {
 
     private HttpService mHttpService;
 
@@ -38,9 +38,9 @@ public class SamplePresenter extends MVPPresenter<ISampleView, GankData<List<And
         mHttpService.getGankDataByPage(category, size, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<GankData<List<Android>>>() {
+                .subscribe(new Consumer<GankData<List<GankResult>>>() {
                     @Override
-                    public void accept(GankData<List<Android>> listGankData) throws Exception {
+                    public void accept(GankData<List<GankResult>> listGankData) throws Exception {
                         requestSucceed(listGankData);
                     }
                 }, new Consumer<Throwable>() {
@@ -53,14 +53,14 @@ public class SamplePresenter extends MVPPresenter<ISampleView, GankData<List<And
     }
 
     @Override
-    public void requestSucceed(GankData<List<Android>> result) {
+    public void requestSucceed(GankData<List<GankResult>> result) {
         if (getView() == null) {
             return;
         }
         LogUtils.d("SamplePresenter", "requestSucceed" + result.toString());
 
         getView().hideLoading();
-        getView().requestSucceed(result);
+        getView().refreshSucceed(result);
     }
 
     @Override
@@ -72,6 +72,6 @@ public class SamplePresenter extends MVPPresenter<ISampleView, GankData<List<And
 
 
         getView().hideLoading();
-        getView().requestFailed(errorMsg);
+        getView().refreshFailed(errorMsg);
     }
 }

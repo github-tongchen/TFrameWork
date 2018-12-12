@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.tongchen.twatcher.gank.model.entity.ContentCategory;
+
 import java.util.List;
 
 /**
@@ -15,16 +17,16 @@ import java.util.List;
 public class FragmentAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> mFragmentList;
-    private List<String> mTitleList;
+    private List<ContentCategory> mCategoryList;
 
     public FragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<ContentCategory> categories) {
         super(fm);
         mFragmentList = fragments;
-        mTitleList = titles;
+        mCategoryList = categories;
     }
 
     @Override
@@ -39,6 +41,6 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mTitleList.get(position);
+        return mCategoryList.get(position).getCategoryName();
     }
 }

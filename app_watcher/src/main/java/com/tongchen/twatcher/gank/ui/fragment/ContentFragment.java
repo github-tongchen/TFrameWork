@@ -12,7 +12,9 @@ import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.ui.fragment.MVPFragment;
 import com.tongchen.twatcher.di.component.DaggerFragmentComponent;
 import com.tongchen.twatcher.di.module.FragmentModule;
-import com.tongchen.twatcher.gank.model.entity.Android;
+import com.tongchen.twatcher.gank.model.entity.ContentCategory;
+import com.tongchen.twatcher.gank.model.entity.GankResult;
+import com.tongchen.twatcher.gank.presenter.ContentPresenter;
 import com.tongchen.twatcher.gank.presenter.IContentPresenter;
 import com.tongchen.twatcher.gank.ui.adapter.ContentAdapter;
 import com.tongchen.twatcher.gank.view.IContentView;
@@ -24,28 +26,31 @@ import java.util.List;
 import butterknife.BindView;
 
 
-public class ContentFragment extends MVPFragment<List<Android>, IContentView, IContentPresenter> implements IContentView {
+public class ContentFragment extends MVPFragment<List<GankResult>, IContentView, IContentPresenter> implements IContentView,
+        BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.RequestLoadMoreListener {
 
-    private static final String ARG_TITLE = "title";
+    private static final String ARG_CATEGORY = "category";
 
     @BindView(R.id.recyclerlv_content)
     RecyclerView mContentRecyclerLv;
 
     private ContentAdapter mContentAdapter;
-    private List<Android> mData = new ArrayList<>();
+    private List<GankResult> mData = new ArrayList<>();
 
     //  当前所处Tab的分类
-    private String mTitle;
+    private ContentCategory mCategory;
+    private String mRequestName;
+    private int mPage = 1;
 
 
     public ContentFragment() {
 
     }
 
-    public static ContentFragment newInstance(String title) {
+    public static ContentFragment newInstance(ContentCategory category) {
         ContentFragment fragment = new ContentFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(ARG_TITLE, title);
+        bundle.putParcelable(ARG_CATEGORY, category);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -54,7 +59,8 @@ public class ContentFragment extends MVPFragment<List<Android>, IContentView, IC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mTitle = getArguments().getString(ARG_TITLE);
+            mCategory = getArguments().getParcelable(ARG_CATEGORY);
+            mRequestName = mCategory.getRequestName();
         }
     }
 
@@ -68,6 +74,11 @@ public class ContentFragment extends MVPFragment<List<Android>, IContentView, IC
     }
 
     @Override
+    public int bindLayout() {
+        return R.layout.gank_fragment_content;
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -77,24 +88,23 @@ public class ContentFragment extends MVPFragment<List<Android>, IContentView, IC
         mContentRecyclerLv.setLayoutManager(linearLayoutManager);
         mContentRecyclerLv.setAdapter(mContentAdapter);
 
-        mContentAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
-            }
-        });
+        mContentAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        //  设置上拉加载更多
+        mContentAdapter.setOnLoadMoreListener(this, mContentRecyclerLv);
+        mContentAdapter.setOnItemClickListener(this);
 
-        mPresenter.getGankDataByPage(mTitle, 10, 1);
-    }
-
-    //  返回到顶部
-    public void back2Top() {
-        mContentRecyclerLv.smoothScrollToPosition(0);
+        mPresenter.getGankDataByPage(mRequestName, 10, mPage, ContentPresenter.MODE_REFRESH);
     }
 
     @Override
-    public int bindLayout() {
-        return R.layout.gank_fragment_content;
+    public void onLoadMoreRequested() {
+        mPresenter.getGankDataByPage(mRequestName, 10, ++mPage, ContentPresenter.MODE_MORE);
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
     }
 
     @Override
@@ -108,17 +118,35 @@ public class ContentFragment extends MVPFragment<List<Android>, IContentView, IC
     }
 
     @Override
-    public void requestSucceed(List<Android> androidList) {
-        LogUtils.d("ContentFragment", "requestSucceed" + androidList.size());
-
-
+    public void refreshSucceed(List<GankResult> result) {
+        LogUtils.d("ContentFragment", "refreshSucceed---" + result.size());
         mData.clear();
-        mData.addAll(androidList);
+        mData.addAll(result);
         mContentAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void requestFailed(String errorMsg) {
+    public void refreshFailed(String errorMsg) {
+        LogUtils.d("ContentFragment", "refreshFailed---" + errorMsg);
 
+    }
+
+    @Override
+    public void loadMoreSucceed(List<GankResult> result) {
+        LogUtils.d("ContentFragment", "loadMoreSucceed---" + result.size());
+        mData.addAll(result);
+        mContentAdapter.notifyDataSetChanged();
+        mContentAdapter.loadMoreComplete();
+    }
+
+    @Override
+    public void loadMoreFailed(String errorMsg) {
+        LogUtils.d("ContentFragment", "loadMoreFailed---" + errorMsg);
+        mContentAdapter.loadMoreFail();
+    }
+
+    //  返回到顶部
+    public void back2Top() {
+        mContentRecyclerLv.smoothScrollToPosition(0);
     }
 }

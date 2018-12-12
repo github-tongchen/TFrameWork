@@ -3,7 +3,7 @@ package com.tongchen.twatcher.gank.presenter;
 import android.annotation.SuppressLint;
 
 import com.tongchen.twatcher.base.presenter.MVPPresenter;
-import com.tongchen.twatcher.gank.model.entity.Android;
+import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.GankData;
 import com.tongchen.twatcher.gank.model.http.HttpService;
 import com.tongchen.twatcher.gank.view.IContentView;
@@ -19,9 +19,13 @@ import io.reactivex.schedulers.Schedulers;
  * <p>
  * Description:该文件实现的功能
  */
-public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<Android>>> implements IContentPresenter {
+public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<GankResult>>> implements IContentPresenter {
 
     private HttpService mHttpService;
+    //  请求的方式：0 refresh;1 more
+    private int mMode = -1;
+    public static final int MODE_REFRESH = 0;
+    public static final int MODE_MORE = 1;
 
     public ContentPresenter(HttpService httpService) {
         mHttpService = httpService;
@@ -29,7 +33,8 @@ public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<A
 
     @SuppressLint("CheckResult")
     @Override
-    public void getGankDataByPage(String category, int size, int page) {
+    public void getGankDataByPage(String category, int size, int page, int mode) {
+        mMode = mode;
         mHttpService.getGankDataByPage(category, size, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -45,14 +50,23 @@ public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<A
 
 
     @Override
-    public void requestSucceed(GankData<List<Android>> result) {
+    public void requestSucceed(GankData<List<GankResult>> result) {
         if (getView() == null) {
             return;
         }
         LogUtils.d("ContentPresenter", "requestSucceed" + result.toString());
 
-        getView().hideLoading();
-        getView().requestSucceed(result.getResult());
+        switch (mMode) {
+            case MODE_REFRESH:
+                getView().hideLoading();
+                getView().refreshSucceed(result.getResult());
+                break;
+            case MODE_MORE:
+                getView().loadMoreSucceed(result.getResult());
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -62,8 +76,17 @@ public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<A
         }
         LogUtils.d("ContentPresenter", "requestFailed" + errorMsg);
 
-        getView().hideLoading();
-        getView().requestFailed(errorMsg);
+        switch (mMode) {
+            case MODE_REFRESH:
+                getView().hideLoading();
+                getView().refreshFailed(errorMsg);
+                break;
+            case MODE_MORE:
+                getView().loadMoreFailed(errorMsg);
+                break;
+            default:
+                break;
+        }
     }
 
 }

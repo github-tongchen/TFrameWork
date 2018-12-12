@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.tongchen.twatcher.R;
-import com.tongchen.twatcher.gank.model.entity.Android;
+import com.tongchen.twatcher.gank.model.entity.GankResult;
 
 import java.util.List;
 
@@ -16,14 +16,14 @@ import java.util.List;
  * <p>
  * Description:该文件实现的功能
  */
-public class ContentAdapter extends BaseQuickAdapter<Android, BaseViewHolder> {
+public class ContentAdapter extends BaseQuickAdapter<GankResult, BaseViewHolder> {
 
-    public ContentAdapter(int layoutResId, @Nullable List<Android> data) {
+    public ContentAdapter(int layoutResId, @Nullable List<GankResult> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Android item) {
+    protected void convert(BaseViewHolder helper, GankResult item) {
         helper.setText(R.id.tv_desc, item.getDesc());
         helper.setText(R.id.tv_date, item.getPublishedAt());
         if (item.getImages() != null && item.getImages().size() > 0) {

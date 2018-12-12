@@ -13,8 +13,11 @@ public interface IMVPView<E> {
 
     void hideLoading();
 
-    void requestSucceed(E result);
+    void refreshSucceed(E result);
 
-    void requestFailed(String errorMsg);
+    void refreshFailed(String errorMsg);
 
+    void loadMoreSucceed(E result);
+
+    void loadMoreFailed(String errorMsg);
 }

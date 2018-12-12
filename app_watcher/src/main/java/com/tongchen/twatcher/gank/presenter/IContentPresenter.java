@@ -10,5 +10,6 @@ import com.tongchen.twatcher.gank.view.IContentView;
  */
 public interface IContentPresenter extends IMVPPresenter<IContentView> {
 
-    void getGankDataByPage(String category, int size, int page);
+    //  mode 请求的方式：0 refresh; 1 loadMore
+    void getGankDataByPage(String category, int size, int page, int mode);
 }

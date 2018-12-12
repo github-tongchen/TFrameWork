@@ -1,7 +1,7 @@
 package com.tongchen.twatcher.gank.view;
 
 import com.tongchen.twatcher.base.view.IMVPView;
-import com.tongchen.twatcher.gank.model.entity.Android;
+import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.GankData;
 
 import java.util.List;
@@ -11,6 +11,6 @@ import java.util.List;
  * <p>
  * Description:该文件实现的功能
  */
-public interface ISampleView extends IMVPView<GankData<List<Android>>> {
+public interface ISampleView extends IMVPView<GankData<List<GankResult>>> {
 
 }

@@ -1,7 +1,7 @@
 package com.tongchen.twatcher.gank.model.http;
 
 
-import com.tongchen.twatcher.gank.model.entity.Android;
+import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.GankData;
 
 import java.util.List;
@@ -18,6 +18,6 @@ import retrofit2.http.Path;
 public interface HttpService {
 
     @GET("data/{category}/{size}/{page}")
-    Observable<GankData<List<Android>>> getGankDataByPage(@Path("category") String category, @Path("size") int size, @Path("page") int page);
+    Observable<GankData<List<GankResult>>> getGankDataByPage(@Path("category") String category, @Path("size") int size, @Path("page") int page);
 
 }

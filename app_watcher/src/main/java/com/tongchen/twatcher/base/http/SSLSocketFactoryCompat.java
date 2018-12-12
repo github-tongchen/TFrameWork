@@ -25,7 +25,7 @@ import javax.net.ssl.X509TrustManager;
 
 public class SSLSocketFactoryCompat extends SSLSocketFactory {
     private SSLSocketFactory defaultFactory;
-    // Android 5.0+ (API level21) provides reasonable default settings
+    // GankResult 5.0+ (API level21) provides reasonable default settings
     // but it still allows SSLv3
     // https://developer.android.com/about/versions/android-5.0-changes.html#ssl
     static String protocols[] = null, cipherSuites[] = null;
@@ -34,7 +34,7 @@ public class SSLSocketFactoryCompat extends SSLSocketFactory {
             SSLSocket socket = (SSLSocket)SSLSocketFactory.getDefault().createSocket();
             if (socket != null) {
                 /* set reasonable protocol versions */
-                // - enable all supported protocols (enables TLSv1.1 and TLSv1.2 on Android <5.0)
+                // - enable all supported protocols (enables TLSv1.1 and TLSv1.2 on GankResult <5.0)
                 // - remove all SSL versions (especially SSLv3) because they're insecure now
                 List<String> protocols = new LinkedList<>();
                 for (String protocol : socket.getSupportedProtocols())
@@ -90,7 +90,7 @@ public class SSLSocketFactoryCompat extends SSLSocketFactory {
         }
     }
     private void upgradeTLS(SSLSocket ssl) {
-        // Android 5.0+ (API level21) provides reasonable default settings
+        // GankResult 5.0+ (API level21) provides reasonable default settings
         // but it still allows SSLv3
         // https://developer.android.com/about/versions/android-5.0-changes.html#ssl
         if (protocols != null) {

@@ -9,13 +9,13 @@ import java.util.List;
  * <p>
  * Description:
  */
-
-public class Android {
+public class GankResult {
 
     @SerializedName("createdAt")
     private String mCreatedAt;
     @SerializedName("desc")
     private String mDesc;
+    //  Video和Welfare没有images字段，要做null处理
     @SerializedName("images")
     private List<String> mImages;
     @SerializedName("publishedAt")

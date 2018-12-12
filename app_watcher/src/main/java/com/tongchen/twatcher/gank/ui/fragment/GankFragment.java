@@ -1,6 +1,5 @@
 package com.tongchen.twatcher.gank.ui.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,17 +7,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.gank.FragmentAdapter;
+import com.tongchen.twatcher.gank.model.entity.ContentCategory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ListIterator;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,13 +32,10 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     @BindView(R.id.fab)
     FloatingActionButton mFABtn;
 
-    private List<String> mTitleList;
+    private List<ContentCategory> mCategoryList = new ArrayList<>();
     private List<Fragment> mFragmentList = new ArrayList<>();
-    private FragmentAdapter mAdapter;
 
-    private String[] mTitleArray = {"全部", "Android", "iOS", "前端", "拓展资源", "休息视频", "瞎推荐", "App", "福利"};
-    //  上一个选中的页面position
-    private int mLastPos;
+    private FragmentAdapter mAdapter;
     private MainActivity mActivity;
 
     public GankFragment() {
@@ -58,6 +55,11 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     }
 
     @Override
+    public int bindLayout() {
+        return R.layout.gank_fragment;
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -65,22 +67,32 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     }
 
     private void initDatas() {
-        mTitleList = new ArrayList<>(Arrays.asList(mTitleArray));
+        initCategories();
+        initFragments();
 
-        for (int i = 0; i < mTitleList.size(); i++) {
-            ContentFragment fragment = ContentFragment.newInstance(mTitleList.get(i));
-            mFragmentList.add(fragment);
-        }
-
-        mAdapter = new FragmentAdapter(getFragmentManager(), mFragmentList, mTitleList);
+        mAdapter = new FragmentAdapter(getFragmentManager(), mFragmentList, mCategoryList);
         viewpager.setAdapter(mAdapter);
         viewpager.addOnPageChangeListener(this);
         tabLyt.setupWithViewPager(viewpager);
     }
 
-    @Override
-    public int bindLayout() {
-        return R.layout.gank_fragment;
+    private void initCategories() {
+        mCategoryList.add(new ContentCategory("全部", "all"));
+        mCategoryList.add(new ContentCategory("Android", "Android"));
+        mCategoryList.add(new ContentCategory("iOS", "iOS"));
+        mCategoryList.add(new ContentCategory("前端", "前端"));
+        mCategoryList.add(new ContentCategory("拓展资源", "拓展资源"));
+        mCategoryList.add(new ContentCategory("休息视频", "休息视频"));
+        mCategoryList.add(new ContentCategory("瞎推荐", "瞎推荐"));
+        mCategoryList.add(new ContentCategory("App", "App"));
+        mCategoryList.add(new ContentCategory("福利", "福利"));
+    }
+
+    private void initFragments() {
+        for (int i = 0; i < mCategoryList.size(); i++) {
+            ContentFragment fragment = ContentFragment.newInstance(mCategoryList.get(i));
+            mFragmentList.add(fragment);
+        }
     }
 
     @OnClick(R.id.fab)
