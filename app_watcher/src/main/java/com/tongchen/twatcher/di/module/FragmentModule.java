@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 
 import com.tongchen.twatcher.di.scope.FragmentScope;
 import com.tongchen.twatcher.gank.model.http.HttpService;
-import com.tongchen.twatcher.gank.presenter.ContentPresenter;
-import com.tongchen.twatcher.gank.presenter.IContentPresenter;
+import com.tongchen.twatcher.gank.presenter.CategoryPresenter;
+import com.tongchen.twatcher.gank.presenter.ICategoryPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,7 +33,7 @@ public class FragmentModule {
 
     @FragmentScope
     @Provides
-    IContentPresenter provideContentProvider(HttpService httpService) {
-        return new ContentPresenter(httpService);
+    ICategoryPresenter provideCategoryProvider(HttpService httpService) {
+        return new CategoryPresenter(httpService);
     }
 }

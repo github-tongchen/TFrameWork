@@ -13,12 +13,10 @@ import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.gank.FragmentAdapter;
-import com.tongchen.twatcher.gank.model.entity.ContentCategory;
+import com.tongchen.twatcher.gank.model.entity.Category;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.ListIterator;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,7 +30,7 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     @BindView(R.id.fab)
     FloatingActionButton mFABtn;
 
-    private List<ContentCategory> mCategoryList = new ArrayList<>();
+    private List<Category> mCategoryList = new ArrayList<>();
     private List<Fragment> mFragmentList = new ArrayList<>();
 
     private FragmentAdapter mAdapter;
@@ -77,20 +75,20 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     }
 
     private void initCategories() {
-        mCategoryList.add(new ContentCategory("全部", "all"));
-        mCategoryList.add(new ContentCategory("Android", "Android"));
-        mCategoryList.add(new ContentCategory("iOS", "iOS"));
-        mCategoryList.add(new ContentCategory("前端", "前端"));
-        mCategoryList.add(new ContentCategory("拓展资源", "拓展资源"));
-        mCategoryList.add(new ContentCategory("休息视频", "休息视频"));
-        mCategoryList.add(new ContentCategory("瞎推荐", "瞎推荐"));
-        mCategoryList.add(new ContentCategory("App", "App"));
-        mCategoryList.add(new ContentCategory("福利", "福利"));
+        mCategoryList.add(new Category("全部", "all"));
+        mCategoryList.add(new Category("Android", "Android"));
+        mCategoryList.add(new Category("iOS", "iOS"));
+        mCategoryList.add(new Category("前端", "前端"));
+        mCategoryList.add(new Category("拓展资源", "拓展资源"));
+        mCategoryList.add(new Category("休息视频", "休息视频"));
+        mCategoryList.add(new Category("瞎推荐", "瞎推荐"));
+        mCategoryList.add(new Category("App", "App"));
+        mCategoryList.add(new Category("福利", "福利"));
     }
 
     private void initFragments() {
         for (int i = 0; i < mCategoryList.size(); i++) {
-            ContentFragment fragment = ContentFragment.newInstance(mCategoryList.get(i));
+            CategoryFragment fragment = CategoryFragment.newInstance(mCategoryList.get(i));
             mFragmentList.add(fragment);
         }
     }
@@ -100,7 +98,7 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
         switch (v.getId()) {
             case R.id.fab:
                 int index = viewpager.getCurrentItem();
-                ((ContentFragment) mFragmentList.get(index)).back2Top();
+                ((CategoryFragment) mFragmentList.get(index)).back2Top();
                 break;
         }
     }

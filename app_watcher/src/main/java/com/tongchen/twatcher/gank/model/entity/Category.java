@@ -8,12 +8,12 @@ import android.os.Parcelable;
  * <p>
  * Description: 分类的数据
  */
-public class ContentCategory implements Parcelable {
+public class Category implements Parcelable {
 
     private String mCategoryName;
     private String mRequestName;
 
-    public ContentCategory(String categoryName, String requestName) {
+    public Category(String categoryName, String requestName) {
         mCategoryName = categoryName;
         mRequestName = requestName;
     }
@@ -26,20 +26,20 @@ public class ContentCategory implements Parcelable {
         return mRequestName;
     }
 
-    protected ContentCategory(Parcel in) {
+    protected Category(Parcel in) {
         mCategoryName = in.readString();
         mRequestName = in.readString();
     }
 
-    public static final Creator<ContentCategory> CREATOR = new Creator<ContentCategory>() {
+    public static final Creator<Category> CREATOR = new Creator<Category>() {
         @Override
-        public ContentCategory createFromParcel(Parcel in) {
-            return new ContentCategory(in);
+        public Category createFromParcel(Parcel in) {
+            return new Category(in);
         }
 
         @Override
-        public ContentCategory[] newArray(int size) {
-            return new ContentCategory[size];
+        public Category[] newArray(int size) {
+            return new Category[size];
         }
     };
 

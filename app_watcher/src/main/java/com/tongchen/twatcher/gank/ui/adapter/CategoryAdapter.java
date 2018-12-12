@@ -1,6 +1,7 @@
 package com.tongchen.twatcher.gank.ui.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -16,9 +17,9 @@ import java.util.List;
  * <p>
  * Description:该文件实现的功能
  */
-public class ContentAdapter extends BaseQuickAdapter<GankResult, BaseViewHolder> {
+public class CategoryAdapter extends BaseQuickAdapter<GankResult, BaseViewHolder> {
 
-    public ContentAdapter(int layoutResId, @Nullable List<GankResult> data) {
+    public CategoryAdapter(int layoutResId, @Nullable List<GankResult> data) {
         super(layoutResId, data);
     }
 
@@ -27,7 +28,11 @@ public class ContentAdapter extends BaseQuickAdapter<GankResult, BaseViewHolder>
         helper.setText(R.id.tv_desc, item.getDesc());
         helper.setText(R.id.tv_date, item.getPublishedAt());
         if (item.getImages() != null && item.getImages().size() > 0) {
+            helper.getView(R.id.iv_preview).setVisibility(View.VISIBLE);
             Glide.with(mContext).load(item.getImages().get(0)).into((ImageView) helper.getView(R.id.iv_preview));
+        } else {
+            helper.getView(R.id.iv_preview).setVisibility(View.GONE);
         }
+
     }
 }

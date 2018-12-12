@@ -10,7 +10,7 @@ import java.util.List;
  * <p>
  * Description:该文件实现的功能
  */
-public interface IContentView extends IMVPView<List<GankResult>> {
+public interface ICategoryView extends IMVPView<List<GankResult>> {
 
 
 }

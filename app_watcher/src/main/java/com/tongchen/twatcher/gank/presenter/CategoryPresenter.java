@@ -6,7 +6,7 @@ import com.tongchen.twatcher.base.presenter.MVPPresenter;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.GankData;
 import com.tongchen.twatcher.gank.model.http.HttpService;
-import com.tongchen.twatcher.gank.view.IContentView;
+import com.tongchen.twatcher.gank.view.ICategoryView;
 import com.tongchen.twatcher.util.LogUtils;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
  * <p>
  * Description:该文件实现的功能
  */
-public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<GankResult>>> implements IContentPresenter {
+public class CategoryPresenter extends MVPPresenter<ICategoryView, GankData<List<GankResult>>> implements ICategoryPresenter {
 
     private HttpService mHttpService;
     //  请求的方式：0 refresh;1 more
@@ -27,7 +27,7 @@ public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<G
     public static final int MODE_REFRESH = 0;
     public static final int MODE_MORE = 1;
 
-    public ContentPresenter(HttpService httpService) {
+    public CategoryPresenter(HttpService httpService) {
         mHttpService = httpService;
     }
 
@@ -54,7 +54,7 @@ public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<G
         if (getView() == null) {
             return;
         }
-        LogUtils.d("ContentPresenter", "requestSucceed" + result.toString());
+        LogUtils.d("CategoryPresenter", "requestSucceed" + result.toString());
 
         switch (mMode) {
             case MODE_REFRESH:
@@ -74,7 +74,7 @@ public class ContentPresenter extends MVPPresenter<IContentView, GankData<List<G
         if (getView() == null) {
             return;
         }
-        LogUtils.d("ContentPresenter", "requestFailed" + errorMsg);
+        LogUtils.d("CategoryPresenter", "requestFailed" + errorMsg);
 
         switch (mMode) {
             case MODE_REFRESH:

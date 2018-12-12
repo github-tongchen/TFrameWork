@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.tongchen.twatcher.gank.model.entity.ContentCategory;
+import com.tongchen.twatcher.gank.model.entity.Category;
 
 import java.util.List;
 
@@ -17,13 +17,13 @@ import java.util.List;
 public class FragmentAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> mFragmentList;
-    private List<ContentCategory> mCategoryList;
+    private List<Category> mCategoryList;
 
     public FragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<ContentCategory> categories) {
+    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<Category> categories) {
         super(fm);
         mFragmentList = fragments;
         mCategoryList = categories;
