@@ -1,49 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/fragment_bg"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/toolbar_bg"
-            app:layout_scrollFlags="enterAlways|scroll" />
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabLyt"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/toolbar_bg"
-            app:tabIndicatorColor="@color/tab_select"
-            app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/tab_select"
-            app:tabTextColor="@color/tab_unselect" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="2dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:background="@color/fragment_bg">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_arrow_top"
-        app:backgroundTint="@color/colorPrimary"
-        app:elevation="5dp"
-        app:layout_behavior="com.tongchen.twatcher.behavior.ScrollAwareFABBehavior" />
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-</android.support.design.widget.CoordinatorLayout>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/toolbar_bg"
+                app:contentInsetStartWithNavigation="0dp"
+                app:layout_scrollFlags="enterAlways|scroll"
+                app:navigationIcon="@drawable/ic_menu"
+                app:title="@string/fragment_gank"
+                app:titleTextColor="@android:color/white" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLyt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/toolbar_bg"
+                app:tabIndicatorColor="@color/tab_select"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/tab_select"
+                app:tabTextColor="@color/tab_unselect" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_arrow_top"
+            app:backgroundTint="@color/colorPrimary"
+            app:elevation="5dp"
+            app:fabCustomSize="50dp"
+            app:layout_behavior="com.tongchen.twatcher.behavior.ScrollAwareFABBehavior" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_gank_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

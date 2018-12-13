@@ -23,7 +23,7 @@ import retrofit2.http.Url;
 /**
  * Created by TongChen at 21:46 on 2018/11/1.
  * <p>
- * Description:该文件实现的功能
+ * Description:根据分类的不同，使用不同的布局
  */
 public class CategoryAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
 
@@ -32,16 +32,6 @@ public class CategoryAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
         addItemType(MultipleItem.TYPE_TEXT, R.layout.gank_recycle_item_text);
         addItemType(MultipleItem.TYPE_IMG, R.layout.gank_recycle_item_img);
     }
-
-    /*public CategoryAdapter(int layoutResId, @Nullable List<GankResult> data) {
-        super(layoutResId, data);
-    }*/
-
-    /*@Override
-    protected void convert(BaseViewHolder helper, GankResult item) {
-
-
-    }*/
 
     @Override
     protected void convert(BaseViewHolder helper, MultipleItem item) {
@@ -57,15 +47,11 @@ public class CategoryAdapter extends BaseMultiItemQuickAdapter<MultipleItem, Bas
                 }
                 break;
             case MultipleItem.TYPE_IMG:
-                LogUtils.d("Img", "enter");
-
                 int height = (int) (ScreenUtils.getScreenHeight(mContext) / 3);
-//                helper.getView(R.id.iv_preview).getLayoutParams().width = width;
                 helper.getView(R.id.iv_preview).getLayoutParams().height = height;
 
                 if (item.getData().getUrl() != null && !TextUtils.isEmpty(item.getData().getUrl())) {
                     helper.getView(R.id.iv_preview).setVisibility(View.VISIBLE);
-                    LogUtils.d("Img", item.getData().getUrl() + HttpUrl.IMAGE_WIDTH_SUFFIX + ScreenUtils.getScreenWidth(mContext) / 2);
                     Glide.with(mContext).load(item.getData().getUrl() + HttpUrl.IMAGE_WIDTH_SUFFIX + ScreenUtils.getScreenWidth(mContext) / 2).into((ImageView) helper.getView(R.id.iv_preview));
                 } else {
                     helper.getView(R.id.iv_preview).setVisibility(View.GONE);

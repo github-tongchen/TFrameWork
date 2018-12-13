@@ -1,5 +1,8 @@
 package com.tongchen.twatcher.gank.model.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,7 +12,7 @@ import java.util.List;
  * <p>
  * Description:
  */
-public class GankResult {
+public class GankResult implements Parcelable {
 
     @SerializedName("createdAt")
     private String mCreatedAt;
@@ -27,7 +30,7 @@ public class GankResult {
     @SerializedName("url")
     private String mUrl;
     @SerializedName("used")
-    private Boolean mUsed;
+    private boolean mUsed;
     @SerializedName("who")
     private String mWho;
     @SerializedName("_id")
@@ -89,11 +92,11 @@ public class GankResult {
         mUrl = url;
     }
 
-    public Boolean getUsed() {
+    public boolean isUsed() {
         return mUsed;
     }
 
-    public void setUsed(Boolean used) {
+    public void setUsed(boolean used) {
         mUsed = used;
     }
 
@@ -112,4 +115,48 @@ public class GankResult {
     public void setId(String id) {
         mId = id;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mCreatedAt);
+        dest.writeString(this.mDesc);
+        dest.writeStringList(this.mImages);
+        dest.writeString(this.mPublishedAt);
+        dest.writeString(this.mSource);
+        dest.writeString(this.mType);
+        dest.writeString(this.mUrl);
+        dest.writeByte(this.mUsed ? (byte) 1 : (byte) 0);
+        dest.writeString(this.mWho);
+        dest.writeString(this.mId);
+    }
+
+    protected GankResult(Parcel in) {
+        this.mCreatedAt = in.readString();
+        this.mDesc = in.readString();
+        this.mImages = in.createStringArrayList();
+        this.mPublishedAt = in.readString();
+        this.mSource = in.readString();
+        this.mType = in.readString();
+        this.mUrl = in.readString();
+        this.mUsed = in.readByte() != 0;
+        this.mWho = in.readString();
+        this.mId = in.readString();
+    }
+
+    public static final Creator<GankResult> CREATOR = new Creator<GankResult>() {
+        @Override
+        public GankResult createFromParcel(Parcel source) {
+            return new GankResult(source);
+        }
+
+        @Override
+        public GankResult[] newArray(int size) {
+            return new GankResult[size];
+        }
+    };
 }

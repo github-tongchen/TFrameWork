@@ -5,9 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.view.MotionEvent;
+import android.text.TextUtils;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -15,25 +14,24 @@ import com.tongchen.twatcher.base.ui.activity.BaseActivity;
 import com.tongchen.twatcher.gank.ui.fragment.GankFragment;
 import com.tongchen.twatcher.widget.TDrawerLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
+
+    //  不同分类的最底层Fragment
+    public static final String TAG_FRAGMENT_MAIN = "MainFragment";
 
     @BindView(R.id.tdrawer)
     TDrawerLayout mTDrawerLyt;
     @BindView(R.id.fl_main_container)
     FrameLayout mMainContainerFl;
-    /*@BindView(R.id.toolbar)
-    Toolbar mToolbar;*/
 
     private FragmentManager mFragmentManager;
     private GankFragment mGankFragment;
 
     //  点击2次返回才退出
     private long firstTime = 0;
+    private OnBackPressedListener mBackPressedListener;
 
     @Override
     public int bindLayout() {
@@ -42,50 +40,54 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void loadView() {
-//        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        }
-
         mFragmentManager = getSupportFragmentManager();
-
         mGankFragment = GankFragment.newInstance();
-
         loadFragment(mGankFragment);
     }
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.add(R.id.fl_main_container, fragment);
+        transaction.add(R.id.fl_main_container, fragment, TAG_FRAGMENT_MAIN);
         transaction.commit();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            //  HomeAsUp按钮的id永远都是android.R.id.home
-            case android.R.id.home:
-                mTDrawerLyt.toggleMenu();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onBackPressed() {
-        long secondTime = System.currentTimeMillis();
-        if (secondTime - firstTime < 2000) {
-            System.exit(0);
+        Fragment fragment = mFragmentManager.findFragmentById(R.id.fl_main_container);
+        //  当前显示的为主Fragment时执行退出APP流程
+        if (TextUtils.equals(fragment.getTag(), TAG_FRAGMENT_MAIN)) {
+            //  如果当前菜单展开，先隐藏菜单
+            if (mTDrawerLyt.isMenuOpen()) {
+                mTDrawerLyt.toggleMenu();
+                return;
+            }
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime < 2000) {
+                System.exit(0);
+            } else {
+                Toast.makeText(this, R.string.sys_exit, Toast.LENGTH_SHORT).show();
+                firstTime = System.currentTimeMillis();
+            }
         } else {
-            Toast.makeText(this, R.string.sys_exit, Toast.LENGTH_SHORT).show();
-            firstTime = System.currentTimeMillis();
+//            mFragmentManager.beginTransaction().hide(fragment).commit();
+            mBackPressedListener.onBackPressed();
         }
+
     }
 
     public void isDispatchEvent2DrawerLayout(boolean isDispatch) {
         mTDrawerLyt.setConsume(isDispatch);
     }
 
+    public void toggleDrawerLyt() {
+        mTDrawerLyt.toggleMenu();
+    }
+
+    public interface OnBackPressedListener {
+        void onBackPressed();
+    }
+
+    public void setOnBackPressedListener(OnBackPressedListener listener) {
+        mBackPressedListener = listener;
+    }
 }

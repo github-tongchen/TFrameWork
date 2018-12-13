@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.ui.fragment.MVPFragment;
@@ -59,6 +61,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     //  是否是图片（即福利）分类
     private boolean mIsImgType = false;
     private int mSpanCount = 1;
+    private ContentTextFragment mContentTextFragment;
 
     public CategoryFragment() {
 
@@ -80,6 +83,13 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
             mRequestName = mCategory.getRequestName();
             mIsImgType = mCategory.getIndex() == mCategory.getCount() - 1;
         }
+
+        mActivity.setOnBackPressedListener(new MainActivity.OnBackPressedListener() {
+            @Override
+            public void onBackPressed() {
+                getFragmentManager().beginTransaction().hide(mContentTextFragment).commit();
+            }
+        });
     }
 
     @Override
@@ -143,7 +153,17 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        MultipleItem item = (MultipleItem) adapter.getData().get(position);
 
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        if (mContentTextFragment == null) {
+            mContentTextFragment = ContentTextFragment.newInstance(item.getData());
+            transaction.add(R.id.fl_gank_content_container, mContentTextFragment);
+        } else {
+            transaction.show(mContentTextFragment);
+            mContentTextFragment.updateData(item.getData());
+        }
+        transaction.commit();
     }
 
     @Override

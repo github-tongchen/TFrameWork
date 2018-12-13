@@ -1,5 +1,6 @@
 package com.tongchen.twatcher.base.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -9,13 +10,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tongchen.twatcher.MainActivity;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
 public abstract class BaseFragment extends Fragment {
 
+    protected MainActivity mActivity;
+
     private Unbinder mUnbinder;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mActivity = (MainActivity) getActivity();
+    }
 
     @Nullable
     @Override

@@ -6,9 +6,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <!--沉浸式状态栏-->
+    <style name="TranslucentStatusTheme" parent="AppTheme">
+
     </style>
 
 </resources>

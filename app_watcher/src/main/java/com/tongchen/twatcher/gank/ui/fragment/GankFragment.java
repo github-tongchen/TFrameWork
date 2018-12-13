@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.tongchen.twatcher.MainActivity;
@@ -23,6 +24,8 @@ import butterknife.OnClick;
 
 public class GankFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     @BindView(R.id.tabLyt)
     TabLayout tabLyt;
     @BindView(R.id.viewpager)
@@ -34,7 +37,6 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     private List<Fragment> mFragmentList = new ArrayList<>();
 
     private FragmentAdapter mAdapter;
-    private MainActivity mActivity;
 
     public GankFragment() {
 
@@ -46,12 +48,6 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
 
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mActivity = (MainActivity) getActivity();
-    }
-
-    @Override
     public int bindLayout() {
         return R.layout.gank_fragment;
     }
@@ -61,6 +57,12 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
         super.onActivityCreated(savedInstanceState);
 
         initDatas();
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.toggleDrawerLyt();
+            }
+        });
     }
 
     private void initDatas() {
