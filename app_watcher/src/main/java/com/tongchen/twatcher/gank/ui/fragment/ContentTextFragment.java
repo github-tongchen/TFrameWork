@@ -1,17 +1,27 @@
 package com.tongchen.twatcher.gank.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.webkit.WebView;
+import android.widget.ImageView;
 
-import com.tongchen.twatcher.MainActivity;
+import com.bumptech.glide.Glide;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
+
+import butterknife.BindView;
 
 public class ContentTextFragment extends BaseFragment {
 
     private static final String ARG_GANK_RESULT = "gank_result";
 
     private GankResult mGankResult;
+
+    @BindView(R.id.iv_head_bg)
+    ImageView mHeadBgIv;
+    @BindView(R.id.web_content)
+    WebView mWebView;
 
     public ContentTextFragment() {
     }
@@ -35,6 +45,14 @@ public class ContentTextFragment extends BaseFragment {
     @Override
     public int bindLayout() {
         return R.layout.gank_fragment_content_text;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Glide.with(mActivity).load(mGankResult.getImages().get(0)).into(mHeadBgIv);
+        mWebView.loadUrl(mGankResult.getUrl());
     }
 
     public void updateData(GankResult result) {

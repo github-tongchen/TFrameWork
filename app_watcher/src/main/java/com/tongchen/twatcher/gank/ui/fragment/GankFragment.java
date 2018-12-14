@@ -1,6 +1,5 @@
 package com.tongchen.twatcher.gank.ui.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -10,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.gank.FragmentAdapter;
@@ -76,7 +74,7 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     }
 
     private void initCategories() {
-        mCategoryList.add(new Category("全部", "all", 0, 9));
+        /*mCategoryList.add(new Category("全部", "all", 0, 9));
         mCategoryList.add(new Category("Android", "Android", 1, 9));
         mCategoryList.add(new Category("iOS", "iOS", 2, 9));
         mCategoryList.add(new Category("前端", "前端", 3, 9));
@@ -84,7 +82,18 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
         mCategoryList.add(new Category("休息视频", "休息视频", 5, 9));
         mCategoryList.add(new Category("瞎推荐", "瞎推荐", 6, 9));
         mCategoryList.add(new Category("App", "App", 7, 9));
-        mCategoryList.add(new Category("福利", "福利", 8, 9));
+        mCategoryList.add(new Category("福利", "福利", 8, 9));*/
+
+        //  改为builder模式构造
+        mCategoryList.add(new Category.Builder().cagetoryName("全部").requestName("all").index(0).build());
+        mCategoryList.add(new Category.Builder().cagetoryName("Android").requestName("Android").index(1).build());
+        mCategoryList.add(new Category.Builder().cagetoryName("iOS").requestName("iOS").index(2).build());
+        mCategoryList.add(new Category.Builder().cagetoryName("前端").requestName("前端").index(3).build());
+        mCategoryList.add(new Category.Builder().cagetoryName("拓展资源").requestName("拓展资源").index(4).build());
+        mCategoryList.add(new Category.Builder().cagetoryName("休息视频").requestName("休息视频").index(5).build());
+        mCategoryList.add(new Category.Builder().cagetoryName("瞎推荐").requestName("瞎推荐").index(6).build());
+        mCategoryList.add(new Category.Builder().cagetoryName("App").requestName("App").index(7).build());
+        mCategoryList.add(new Category.Builder().cagetoryName("福利").requestName("福利").index(8).build());
     }
 
     private void initFragments() {

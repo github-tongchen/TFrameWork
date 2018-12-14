@@ -17,6 +17,13 @@ public class Category implements Parcelable {
     //  分类List的大小
     private int mCount;
 
+    public Category(Builder builder) {
+        mCategoryName = builder.categoryName;
+        mRequestName = builder.requestName;
+        mIndex = builder.index;
+        mCount = builder.count;
+    }
+
     public Category(String categoryName, String requestName, int index, int count) {
         mCategoryName = categoryName;
         mRequestName = requestName;
@@ -70,5 +77,40 @@ public class Category implements Parcelable {
         dest.writeString(mRequestName);
         dest.writeInt(mIndex);
         dest.writeInt(mCount);
+    }
+
+    public static class Builder {
+
+        private String categoryName;
+        private String requestName;
+        //  当前分类在分类List中的下标
+        private int index;
+        //  分类List的大小(此时设置默认为9)
+        private int count = 9;
+
+        public Builder cagetoryName(String categoryName) {
+            this.categoryName = categoryName;
+            return this;
+        }
+
+        public Builder requestName(String requestName) {
+            this.requestName = requestName;
+            return this;
+        }
+
+        public Builder index(int index) {
+            this.index = index;
+            return this;
+        }
+
+        public Builder count(int count) {
+            this.count = count;
+            return this;
+        }
+
+        public Category build() {
+            return new Category(this);
+        }
+
     }
 }
