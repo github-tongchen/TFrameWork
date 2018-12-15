@@ -12,7 +12,7 @@ import java.util.List;
  * <p>
  * Description:
  */
-public class GankResult implements Parcelable {
+public class GankResult extends BaseBean implements Parcelable {
 
     @SerializedName("createdAt")
     private String mCreatedAt;
@@ -159,4 +159,5 @@ public class GankResult implements Parcelable {
             return new GankResult[size];
         }
     };
+
 }

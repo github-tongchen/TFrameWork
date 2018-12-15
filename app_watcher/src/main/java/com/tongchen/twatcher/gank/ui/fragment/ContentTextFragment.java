@@ -9,10 +9,13 @@ import com.bumptech.glide.Glide;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
+import com.tongchen.twatcher.util.LogUtils;
 
 import butterknife.BindView;
 
 public class ContentTextFragment extends BaseFragment {
+
+    public static final String TAG = "ContentTextFragment";
 
     private static final String ARG_GANK_RESULT = "gank_result";
 
@@ -40,6 +43,7 @@ public class ContentTextFragment extends BaseFragment {
         if (getArguments() != null) {
             mGankResult = getArguments().getParcelable(ARG_GANK_RESULT);
         }
+        LogUtils.d(TAG, mGankResult.toString());
     }
 
     @Override

@@ -8,10 +8,12 @@ import android.os.Parcelable;
  * <p>
  * Description: 分类的数据
  */
-public class Category implements Parcelable {
+public class Category extends BaseBean implements Parcelable {
 
-    private String mCategoryName;
+    //  显示的名称
     private String mRequestName;
+    //  请求用的参数
+    private String mCategoryName;
     //  当前分类在分类List中的下标
     private int mIndex;
     //  分类List的大小
@@ -83,9 +85,7 @@ public class Category implements Parcelable {
 
         private String categoryName;
         private String requestName;
-        //  当前分类在分类List中的下标
         private int index;
-        //  分类List的大小(此时设置默认为9)
         private int count = 9;
 
         public Builder cagetoryName(String categoryName) {
