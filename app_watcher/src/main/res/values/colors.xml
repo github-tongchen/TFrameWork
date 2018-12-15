@@ -27,4 +27,6 @@
     <!--TextFragment的子item背景色和footer背景色-->
     <color name="gank_text_item_bg">#32c1c1c1</color>
     <color name="item_text_footer">#98f7ec</color>
+
+    <color name="expand_title_shadow">#32c1c1c1</color>
 </resources>

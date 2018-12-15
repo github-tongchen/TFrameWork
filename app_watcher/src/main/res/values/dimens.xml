@@ -1,5 +1,9 @@
 <resources>
     <dimen name="divider_height">1dp</dimen>
 
+    <dimen name="toolbar_title_size">0dp</dimen>
+
+    <dimen name="expand_title_size">16dp</dimen>
+    <dimen name="collapse_title_size">20dp</dimen>
 
 </resources>

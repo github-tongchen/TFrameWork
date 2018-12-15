@@ -11,4 +11,24 @@
 
     </style>
 
+    <!--加载网页的进度条-->
+    <style name="WebLoadingProgressBarTheme" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:minHeight">2dp</item>
+        <item name="android:maxHeight">2dp</item>
+    </style>
+
+    <style name="ToolbarTextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ExpandedTitleTextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="CollapsedTitleTextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>
