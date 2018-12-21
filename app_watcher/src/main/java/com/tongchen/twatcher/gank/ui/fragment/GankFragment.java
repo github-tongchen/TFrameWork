@@ -74,6 +74,12 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
         });
     }
 
+
+    @Override
+    public boolean onBackPressed() {
+        return false;
+    }
+
     private void initDatas() {
         initCategories();
         initFragments();

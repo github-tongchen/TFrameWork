@@ -87,6 +87,16 @@ public class ContentTextFragment extends BaseFragment {
     }
 
     @Override
+    public boolean onBackPressed() {
+        if (mWebView.canGoBack()) {
+            mWebView.goBack();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 

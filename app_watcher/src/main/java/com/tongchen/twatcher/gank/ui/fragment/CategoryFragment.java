@@ -12,7 +12,6 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.ui.fragment.MVPFragment;
@@ -84,12 +83,17 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
             mIsImgType = mCategory.getIndex() == mCategory.getCount() - 1;
         }
 
-        mActivity.setOnBackPressedListener(new MainActivity.OnBackPressedListener() {
+        /*mActivity.setOnBackPressedListener(new MainActivity.OnBackPressedListener() {
             @Override
             public void onBackPressed() {
                 getFragmentManager().beginTransaction().hide(mContentTextFragment).commit();
             }
-        });
+        });*/
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        return false;
     }
 
     @Override
@@ -156,13 +160,16 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         MultipleItem item = (MultipleItem) adapter.getData().get(position);
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        if (mContentTextFragment == null) {
+        /*if (mContentTextFragment == null) {
             mContentTextFragment = ContentTextFragment.newInstance(item.getData());
-            transaction.add(R.id.fl_gank_content_container, mContentTextFragment);
+            transaction.add(R.id.fl_main_container, mContentTextFragment).addToBackStack(null);
         } else {
             transaction.show(mContentTextFragment);
             mContentTextFragment.updateData(item.getData());
-        }
+        }*/
+
+        mContentTextFragment = ContentTextFragment.newInstance(item.getData());
+        transaction.add(R.id.fl_main_container, mContentTextFragment).addToBackStack(null);
         transaction.commit();
     }
 
