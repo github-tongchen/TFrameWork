@@ -10,7 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.tongchen.twatcher.R;
+import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
+import com.tongchen.twatcher.di.component.DaggerFragmentComponent;
+import com.tongchen.twatcher.di.module.FragmentModule;
 import com.tongchen.twatcher.gank.FragmentAdapter;
 import com.tongchen.twatcher.gank.model.entity.Category;
 
@@ -25,9 +28,9 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.tabLyt)
-    TabLayout tabLyt;
+    TabLayout mTabLyt;
     @BindView(R.id.viewpager)
-    ViewPager viewpager;
+    ViewPager mViewPager;
     @BindView(R.id.fab)
     FloatingActionButton mFABtn;
 
@@ -44,6 +47,14 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
         return new GankFragment();
     }
 
+    @Override
+    protected void injectFragment() {
+        DaggerFragmentComponent.builder()
+                .fragmentModule(new FragmentModule(this))
+                .appComponent(TApp.getAppComponent())
+                .build()
+                .inject2Fragment(this);
+    }
 
     @Override
     public int bindLayout() {
@@ -68,9 +79,9 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
         initFragments();
 
         mAdapter = new FragmentAdapter(getFragmentManager(), mFragmentList, mCategoryList);
-        viewpager.setAdapter(mAdapter);
-        viewpager.addOnPageChangeListener(this);
-        tabLyt.setupWithViewPager(viewpager);
+        mViewPager.setAdapter(mAdapter);
+        mViewPager.addOnPageChangeListener(this);
+        mTabLyt.setupWithViewPager(mViewPager);
     }
 
     private void initCategories() {
@@ -107,7 +118,7 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
-                int index = viewpager.getCurrentItem();
+                int index = mViewPager.getCurrentItem();
                 ((CategoryFragment) mFragmentList.get(index)).back2Top();
                 break;
         }

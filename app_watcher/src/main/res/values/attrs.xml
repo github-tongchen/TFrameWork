@@ -9,4 +9,11 @@
         </attr>
     </declare-styleable>
 
+    <!--圆形ImageView-->
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="integer|reference" />
+        <attr name="border_color" format="color|reference" />
+        <attr name="circle_background_color" format="color|reference" />
+    </declare-styleable>
+
 </resources>

@@ -2,6 +2,7 @@ package com.tongchen.twatcher.behavior;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
@@ -13,35 +14,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 
+import com.tongchen.twatcher.util.LogUtils;
+
 /**
  * Created by TongChen on 2017/7/11.
  * <p>
  * Description:
  */
 
-public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
+public class FabScrollAwareBehavior extends FloatingActionButton.Behavior {
 
     private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
     private boolean mIsAnimatingOut = false;
 
-    public ScrollAwareFABBehavior(Context context, AttributeSet attrs) {
+    public FabScrollAwareBehavior(Context context, AttributeSet attrs) {
         super();
     }
 
     @Override
-    public boolean onStartNestedScroll(final CoordinatorLayout coordinatorLayout, final FloatingActionButton child,
-                                       final View directTargetChild, final View target, final int nestedScrollAxes) {
+    public boolean onStartNestedScroll(@NonNull final CoordinatorLayout coordinatorLayout, @NonNull final FloatingActionButton child,
+                                       @NonNull final View directTargetChild, @NonNull final View target, final int nestedScrollAxes, int type) {
         // Ensure we react to vertical scrolling
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL
-                || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
+                || super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes, 0);
     }
 
     @Override
     public void onNestedScroll(final CoordinatorLayout coordinatorLayout, final FloatingActionButton child,
                                final View target, final int dxConsumed, final int dyConsumed,
-                               final int dxUnconsumed, final int dyUnconsumed) {
-        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
-        Log.d("Beh", dyConsumed + "---" + child.getVisibility());
+                               final int dxUnconsumed, final int dyUnconsumed, int type) {
+        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, 0);
+        LogUtils.d("TBeh", dyConsumed + "---" + child.getVisibility());
         if (dyConsumed > 0 && !this.mIsAnimatingOut && child.getVisibility() == View.VISIBLE) {
             // User scrolled down and the FAB is currently visible -> hide the FAB
             animateOut(child);
@@ -57,15 +60,15 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
             ViewCompat.animate(button).translationY(button.getHeight() + getMarginBottom(button)).setInterpolator(INTERPOLATOR).withLayer()
                     .setListener(new ViewPropertyAnimatorListener() {
                         public void onAnimationStart(View view) {
-                            ScrollAwareFABBehavior.this.mIsAnimatingOut = true;
+                            FabScrollAwareBehavior.this.mIsAnimatingOut = true;
                         }
 
                         public void onAnimationCancel(View view) {
-                            ScrollAwareFABBehavior.this.mIsAnimatingOut = false;
+                            FabScrollAwareBehavior.this.mIsAnimatingOut = false;
                         }
 
                         public void onAnimationEnd(View view) {
-                            ScrollAwareFABBehavior.this.mIsAnimatingOut = false;
+                            FabScrollAwareBehavior.this.mIsAnimatingOut = false;
                             //  将GONE改为INVISIBLE，原因见  http://blog.csdn.net/sam_zhang1984/article/details/72830074   最后
                             //  view.setVisibility(View.GONE);
                             view.setVisibility(View.INVISIBLE);

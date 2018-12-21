@@ -28,6 +28,13 @@ public abstract class BaseFragment extends Fragment {
         mActivity = (MainActivity) getActivity();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        injectFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,4 +54,7 @@ public abstract class BaseFragment extends Fragment {
 
     @LayoutRes
     public abstract int bindLayout();
+
+    protected abstract void injectFragment();
+
 }

@@ -4,29 +4,28 @@
     <color name="colorPrimaryDark">#3FA862</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="activity_bg">#fafafa</color>
-
     <!--Toolbar-->
     <color name="toolbar_bg">@color/colorPrimary</color>
-    <color name="toolbar_text">#ffffff</color>
+    <color name="toolbar_title_text_color">#ffffff</color>
+
+    <!--CollapsingToolbarLayout-->
+    <color name="content_scrim_color">@color/colorPrimary</color>
+    <color name="expanded_title_text_color">#3FA862</color>
+    <color name="collapsed_title_text_color">#ffffff</color>
+
+    <!--CollapsingToolbarLayout 展开时的标题背景shape的颜色-->
+    <color name="shape_expanded_title_gradient_start">#50ffffff</color>
+    <color name="shape_expanded_title_gradient_end">#00ffffff</color>
 
     <!--FloatingActionButton的背景色-->
-    <color name="fab">@color/colorPrimary</color>
-
-    <!--侧滑菜单的颜色-->
-    <color name="nav_header">@color/colorPrimary</color>
-    <color name="nav_menu">#838282</color>
+    <color name="fab_bg">@color/colorPrimary</color>
 
     <!--TabLayout的颜色-->
-    <color name="tab_select">#ffffff</color>
-    <color name="tab_unselect">#78ffffff</color>
+    <color name="tab_text_color">#78ffffff</color>
+    <color name="tab_text_select_color">#ffffff</color>
+    <color name="tab_indicator_color">#ffffff</color>
 
     <!--Fragment的背景色-->
     <color name="fragment_bg">#efefef</color>
 
-    <!--TextFragment的子item背景色和footer背景色-->
-    <color name="gank_text_item_bg">#32c1c1c1</color>
-    <color name="item_text_footer">#98f7ec</color>
-
-    <color name="expand_title_shadow">#32c1c1c1</color>
 </resources>

@@ -17,23 +17,23 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="@dimen/toolbar_height"
                 android:background="@color/toolbar_bg"
                 app:contentInsetStartWithNavigation="0dp"
                 app:layout_scrollFlags="enterAlways|scroll"
                 app:navigationIcon="@drawable/ic_menu"
                 app:title="@string/fragment_gank"
-                app:titleTextAppearance="@style/ToolbarTextAppearance" />
+                app:titleTextAppearance="@style/ToolbarTitleTextAppearance" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabLyt"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/gank_tab_layout_height"
                 android:background="@color/toolbar_bg"
-                app:tabIndicatorColor="@color/tab_select"
+                app:tabIndicatorColor="@color/tab_indicator_color"
                 app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/tab_select"
-                app:tabTextColor="@color/tab_unselect" />
+                app:tabSelectedTextColor="@color/tab_text_select_color"
+                app:tabTextColor="@color/tab_text_color" />
 
         </android.support.design.widget.AppBarLayout>
 
@@ -48,13 +48,13 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|end"
             android:layout_margin="20dp"
             android:src="@drawable/ic_arrow_top"
-            app:backgroundTint="@color/colorPrimary"
+            app:backgroundTint="@color/fab_bg"
             app:elevation="5dp"
             app:fabCustomSize="50dp"
-            app:layout_behavior="com.tongchen.twatcher.behavior.ScrollAwareFABBehavior" />
+            app:layout_behavior="@string/fab_scrolling_aware_behavior" />
 
     </android.support.design.widget.CoordinatorLayout>
 

@@ -1,9 +1,26 @@
 <resources>
-    <dimen name="divider_height">1dp</dimen>
+    <!--状态栏高度，用于沉浸式适配兼容-->
+    <dimen name="status_bar_height">0dp</dimen>
 
-    <dimen name="toolbar_title_size">0dp</dimen>
+    <!--Toolbar-->
+    <dimen name="toolbar_height">56dp</dimen>
+    <dimen name="toolbar_title_text_size">20dp</dimen>
 
+    <!--TabLayout-->
+    <dimen name="gank_tab_layout_height">40dp</dimen>
+
+    <!--AppbarLayout-->
+    <dimen name="gank_content_text_appbar_height">300dp</dimen>
+
+    <!--CollapsingToolbarLayout-->
     <dimen name="expand_title_size">16dp</dimen>
     <dimen name="collapse_title_size">20dp</dimen>
+
+    <!--分割线高度-->
+    <dimen name="divider_height">1dp</dimen>
+
+    <!--福利以外的分类item-->
+    <dimen name="gank_recycle_item_text_height">90dp</dimen>
+    <dimen name="gank_recycle_item_text_image_size">80dp</dimen>
 
 </resources>

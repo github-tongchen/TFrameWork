@@ -4,9 +4,7 @@ package com.tongchen.twatcher;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -21,10 +19,10 @@ public class MainActivity extends BaseActivity {
     //  不同分类的最底层Fragment
     public static final String TAG_FRAGMENT_MAIN = "MainFragment";
 
-    @BindView(R.id.tdrawer)
+    @BindView(R.id.tdrawerlyt)
     TDrawerLayout mTDrawerLyt;
     @BindView(R.id.fl_main_container)
-    FrameLayout mMainContainerFl;
+    FrameLayout mMainContainerFLyt;
 
     private FragmentManager mFragmentManager;
     private GankFragment mGankFragment;
