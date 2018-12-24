@@ -30,7 +30,6 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
 
     //  点击2次返回才退出
     private long firstTime = 0;
-    private OnBackPressedListener mBackPressedListener;
 
     private BaseFragment mBaseFragment;
 
@@ -54,26 +53,6 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
 
     @Override
     public void onBackPressed() {
-        /*Fragment fragment = mFragmentManager.findFragmentById(R.id.fl_main_container);
-        //  当前显示的为主Fragment时执行退出APP流程
-        if (TextUtils.equals(fragment.getTag(), TAG_FRAGMENT_MAIN)) {
-            //  如果当前菜单展开，先隐藏菜单
-            if (mTDrawerLyt.isMenuOpen()) {
-                mTDrawerLyt.toggleMenu();
-                return;
-            }
-            long secondTime = System.currentTimeMillis();
-            if (secondTime - firstTime < 2000) {
-                System.exit(0);
-            } else {
-                Toast.makeText(this, R.string.sys_exit, Toast.LENGTH_SHORT).show();
-                firstTime = System.currentTimeMillis();
-            }
-        } else {
-//            mFragmentManager.beginTransaction().hide(fragment).commit();
-            mBackPressedListener.onBackPressed();
-        }*/
-
         if (mBaseFragment == null || !mBaseFragment.onBackPressed()) {
             if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 //  如果当前菜单展开，先隐藏菜单
@@ -108,12 +87,13 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
         mBaseFragment = selectedFragment;
     }
 
-
-    public interface OnBackPressedListener {
-        void onBackPressed();
+    public void startFragment(Fragment fragment) {
+//        mTDrawerLyt.setConsume(false);
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fragment_translate_in, R.anim.fragment_translate_out,R.anim.fragment_translate_in, R.anim.fragment_translate_out);
+        transaction.add(R.id.fl_main_container, fragment).addToBackStack(null);
+        transaction.commit();
     }
 
-    public void setOnBackPressedListener(OnBackPressedListener listener) {
-        mBackPressedListener = listener;
-    }
+
 }

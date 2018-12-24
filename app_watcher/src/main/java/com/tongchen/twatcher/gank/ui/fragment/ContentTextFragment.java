@@ -17,10 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.tongchen.twatcher.R;
-import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
-import com.tongchen.twatcher.di.component.DaggerFragmentComponent;
-import com.tongchen.twatcher.di.module.FragmentModule;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.ui.AppBarStateChangeListener;
 import com.tongchen.twatcher.widget.MarqueTextView;
@@ -73,22 +70,14 @@ public class ContentTextFragment extends BaseFragment {
     }
 
     @Override
-    protected void injectFragment() {
-        DaggerFragmentComponent.builder()
-                .fragmentModule(new FragmentModule(this))
-                .appComponent(TApp.getAppComponent())
-                .build()
-                .inject2Fragment(this);
-    }
-
-    @Override
     public int bindLayout() {
         return R.layout.gank_fragment_content_text;
     }
 
     @Override
     public boolean onBackPressed() {
-        if (mWebView.canGoBack()) {
+        if (mWebView != null && mWebView.canGoBack()) {
+            mWebView.stopLoading();
             mWebView.goBack();
             return true;
         } else {
@@ -146,6 +135,9 @@ public class ContentTextFragment extends BaseFragment {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                if (mWebProgressBar == null) {
+                    return;
+                }
                 //  进度条处理
                 if (mWebProgressBar.getVisibility() == View.GONE) {
                     mWebProgressBar.setVisibility(View.VISIBLE);
@@ -157,8 +149,19 @@ public class ContentTextFragment extends BaseFragment {
                 }
             }
         });
-        mWebView.loadUrl(mGankResult.getUrl());
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mWebView.loadUrl(mGankResult.getUrl());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mWebView.stopLoading();
     }
 
     public void updateData(GankResult result) {

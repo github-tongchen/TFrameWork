@@ -32,4 +32,6 @@ public abstract class MVPFragment<E, V extends IMVPView<E>, P extends IMVPPresen
         mPresenter.detachView();
     }
 
+    protected abstract void injectFragment();
+
 }

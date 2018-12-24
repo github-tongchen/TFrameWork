@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by TongChen at 18:25 on 2018/12/12.
  * <p>
- * Description: 分类的数据
+ * Description: 分类的数据，使用Parcelable序列化（Parcelable比Serializable效率高）
  */
 public class Category extends BaseBean implements Parcelable {
 
@@ -24,13 +24,6 @@ public class Category extends BaseBean implements Parcelable {
         mRequestName = builder.requestName;
         mIndex = builder.index;
         mCount = builder.count;
-    }
-
-    public Category(String categoryName, String requestName, int index, int count) {
-        mCategoryName = categoryName;
-        mRequestName = requestName;
-        mIndex = index;
-        mCount = count;
     }
 
     public String getCategoryName() {

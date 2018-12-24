@@ -20,7 +20,7 @@ import com.tongchen.twatcher.util.ScreenUtils;
 public class TDrawerLayout extends ViewGroup {
 
     private final int QQ_STYLE = 0;
-    private final int KuGOU_STYLE = 1;
+    private final int KUGOU_STYLE = 1;
 
     private int mScreenWidth, mScreenHeight, mMenuRightPadding, mMenuWidth, mContentWidth;
     //  mMenu是侧滑出的部分，mContent是策划前的主界面
@@ -163,7 +163,7 @@ public class TDrawerLayout extends ViewGroup {
                     case QQ_STYLE:
                         mMenu.setTranslationX(2 * (mMenuWidth + getScrollX()) / 3);
                         break;
-                    case KuGOU_STYLE:
+                    case KUGOU_STYLE:
                         mScale = Math.abs((float) getScrollX()) / (float) mMenuWidth;
                         mMenu.setTranslationX(mMenuWidth + getScrollX() - (mMenuWidth / 2) * (1.0f - mScale));
 
@@ -212,7 +212,7 @@ public class TDrawerLayout extends ViewGroup {
             case QQ_STYLE:
                 mMenu.setTranslationX(2 * (mMenuWidth + getScrollX()) / 3);
                 break;
-            case KuGOU_STYLE:
+            case KUGOU_STYLE:
                 mScale = Math.abs((float) getScrollX()) / (float) mMenuWidth;
                 mMenu.setTranslationX(mMenuWidth + getScrollX() - (mMenuWidth / 2) * (1.0f - mScale));
 

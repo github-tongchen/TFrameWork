@@ -9,11 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.R;
-import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
-import com.tongchen.twatcher.di.component.DaggerFragmentComponent;
-import com.tongchen.twatcher.di.module.FragmentModule;
 import com.tongchen.twatcher.gank.FragmentAdapter;
 import com.tongchen.twatcher.gank.model.entity.Category;
 
@@ -48,15 +46,6 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     }
 
     @Override
-    protected void injectFragment() {
-        DaggerFragmentComponent.builder()
-                .fragmentModule(new FragmentModule(this))
-                .appComponent(TApp.getAppComponent())
-                .build()
-                .inject2Fragment(this);
-    }
-
-    @Override
     public int bindLayout() {
         return R.layout.gank_fragment;
     }
@@ -69,7 +58,9 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mActivity.toggleDrawerLyt();
+                if (mActivity instanceof MainActivity) {
+                    ((MainActivity) mActivity).toggleDrawerLyt();
+                }
             }
         });
     }
@@ -91,16 +82,6 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     }
 
     private void initCategories() {
-        /*mCategoryList.add(new Category("全部", "all", 0, 9));
-        mCategoryList.add(new Category("Android", "Android", 1, 9));
-        mCategoryList.add(new Category("iOS", "iOS", 2, 9));
-        mCategoryList.add(new Category("前端", "前端", 3, 9));
-        mCategoryList.add(new Category("拓展资源", "拓展资源", 4, 9));
-        mCategoryList.add(new Category("休息视频", "休息视频", 5, 9));
-        mCategoryList.add(new Category("瞎推荐", "瞎推荐", 6, 9));
-        mCategoryList.add(new Category("App", "App", 7, 9));
-        mCategoryList.add(new Category("福利", "福利", 8, 9));*/
-
         //  改为builder模式构造
         mCategoryList.add(new Category.Builder().cagetoryName("全部").requestName("all").index(0).build());
         mCategoryList.add(new Category.Builder().cagetoryName("Android").requestName("Android").index(1).build());
@@ -138,9 +119,13 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     @Override
     public void onPageSelected(int i) {
         if (i == 0) {
-            mActivity.isDispatchEvent2DrawerLayout(true);
+            if (mActivity instanceof MainActivity) {
+                ((MainActivity) mActivity).isDispatchEvent2DrawerLayout(true);
+            }
         } else {
-            mActivity.isDispatchEvent2DrawerLayout(false);
+            if (mActivity instanceof MainActivity) {
+                ((MainActivity) mActivity).isDispatchEvent2DrawerLayout(false);
+            }
         }
     }
 

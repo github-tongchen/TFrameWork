@@ -1,5 +1,6 @@
 package com.tongchen.twatcher.base.ui.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -10,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.gank.ui.BackHandledInterface;
 
 import butterknife.ButterKnife;
@@ -19,7 +19,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
 
-    protected MainActivity mActivity;
+    protected Activity mActivity;
 
     private Unbinder mUnbinder;
 
@@ -28,22 +28,27 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (MainActivity) getActivity();
+        mActivity = getActivity();
 
-        if(!(getActivity() instanceof BackHandledInterface)){
+        if (!(getActivity() instanceof BackHandledInterface)) {
             throw new ClassCastException("Hosting Activity must implement BackHandledInterface");
-        }else{
-            this.mBackHandledInterface = (BackHandledInterface)getActivity();
+        } else {
+            this.mBackHandledInterface = (BackHandledInterface) getActivity();
         }
         //告诉Activity，当前Fragment在栈顶
         mBackHandledInterface.setSelectedFragment(this);
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        injectFragment();
+    public void onDetach() {
+        super.onDetach();
+        if (!(getActivity() instanceof BackHandledInterface)) {
+            throw new ClassCastException("Hosting Activity must implement BackHandledInterface");
+        } else {
+            this.mBackHandledInterface = (BackHandledInterface) getActivity();
+        }
+        //告诉Activity，当前Fragment已移除
+        mBackHandledInterface.setSelectedFragment(null);
     }
 
     @Nullable
@@ -65,8 +70,6 @@ public abstract class BaseFragment extends Fragment {
 
     @LayoutRes
     public abstract int bindLayout();
-
-    protected abstract void injectFragment();
 
     /**
      * 所有继承BackHandledFragment的子类都将在这个方法中实现物理Back键按下后的逻辑

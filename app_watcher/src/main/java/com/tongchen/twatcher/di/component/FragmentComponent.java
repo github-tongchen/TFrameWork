@@ -3,8 +3,6 @@ package com.tongchen.twatcher.di.component;
 import com.tongchen.twatcher.di.module.FragmentModule;
 import com.tongchen.twatcher.di.scope.FragmentScope;
 import com.tongchen.twatcher.gank.ui.fragment.CategoryFragment;
-import com.tongchen.twatcher.gank.ui.fragment.ContentTextFragment;
-import com.tongchen.twatcher.gank.ui.fragment.GankFragment;
 
 import dagger.Component;
 
@@ -18,9 +16,6 @@ import dagger.Component;
 @Component(modules = {FragmentModule.class}, dependencies = AppComponent.class)
 public interface FragmentComponent {
 
-    void inject2Fragment(GankFragment fragment);
-
     void inject2Fragment(CategoryFragment fragment);
 
-    void inject2Fragment(ContentTextFragment fragment);
 }
