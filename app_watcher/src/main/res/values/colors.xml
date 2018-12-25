@@ -28,4 +28,7 @@
     <!--Fragment的背景色-->
     <color name="fragment_bg">#efefef</color>
 
+    <color name="pic_content_bg">#000000</color>
+    <color name="pic_indicator_bg_color">#30ffffff</color>
+    <color name="pic_indicator_text_color">#ffffff</color>
 </resources>

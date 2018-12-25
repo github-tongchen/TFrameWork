@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -14,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.TApp;
+import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.base.ui.fragment.MVPFragment;
 import com.tongchen.twatcher.di.component.DaggerFragmentComponent;
 import com.tongchen.twatcher.di.module.FragmentModule;
@@ -60,7 +62,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     //  是否是图片（即福利）分类
     private boolean mIsImgType = false;
     private int mSpanCount = 1;
-    private ContentTextFragment mContentTextFragment;
+    private BaseFragment mContentFragment;
 
     public CategoryFragment() {
 
@@ -152,9 +154,13 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         MultipleItem item = (MultipleItem) adapter.getData().get(position);
-        mContentTextFragment = ContentTextFragment.newInstance(item.getData());
         if (mActivity instanceof MainActivity) {
-            ((MainActivity) mActivity).startFragment(mContentTextFragment);
+            if (item.getData().getUrl().endsWith(".jpg") || item.getData().getUrl().endsWith(".jpeg")) {
+                mContentFragment = ContentPicFragment.newInstance(item.getData(), position);
+            } else {
+                mContentFragment = ContentTextFragment.newInstance(item.getData());
+            }
+            ((MainActivity) mActivity).startFragment(mContentFragment);
         }
     }
 
@@ -195,6 +201,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     @Override
     public void loadMoreSucceed(List<GankResult> result) {
         LogUtils.d("CategoryFragment", "loadMoreSucceed---" + result.toString());
+        removeIncorrectData(result);
         mData.addAll(result);
         mMultipleItemList.clear();
         if (mIsImgType) {
@@ -203,8 +210,6 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
             }
         } else {
             for (GankResult data : mData) {
-                LogUtils.d("CategoryFragment", "---run");
-
                 mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_TEXT, data));
             }
         }
@@ -218,6 +223,17 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         mContentAdapter.loadMoreFail();
     }
 
+    //  移除有问题的数据
+    private void removeIncorrectData(List<GankResult> results) {
+        List<GankResult> incorrectDatas = new ArrayList<>();
+        for (int i = 0; i < results.size(); i++) {
+            GankResult result = results.get(i);
+            if (TextUtils.isEmpty(result.getUrl())) {
+                incorrectDatas.add(result);
+            }
+        }
+        results.removeAll(incorrectDatas);
+    }
 
     //  返回到顶部
     public void back2Top() {

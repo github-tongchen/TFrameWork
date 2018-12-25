@@ -20,4 +20,6 @@ public interface HttpService {
     @GET("data/{category}/{size}/{page}")
     Observable<GankData<List<GankResult>>> getGankDataByPage(@Path("category") String category, @Path("size") int size, @Path("page") int page);
 
+    @GET("data/福利/{size}/{page}")
+    Observable<GankData<List<GankResult>>> getGankData4Pic(@Path("size") int size, @Path("page") int page);
 }
