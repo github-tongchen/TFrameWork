@@ -1,4 +1,4 @@
-package com.tongchen.twatcher.gank.presenter;
+package com.tongchen.sample;
 
 import android.annotation.SuppressLint;
 
@@ -6,7 +6,6 @@ import com.tongchen.twatcher.base.presenter.MVPPresenter;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.GankData;
 import com.tongchen.twatcher.gank.model.http.HttpService;
-import com.tongchen.twatcher.gank.view.ISampleView;
 import com.tongchen.twatcher.util.LogUtils;
 
 import java.util.List;

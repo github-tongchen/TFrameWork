@@ -3,7 +3,7 @@ package com.tongchen.twatcher.di.component;
 
 import com.tongchen.twatcher.di.module.SampleModule;
 import com.tongchen.twatcher.di.scope.ActivityScope;
-import com.tongchen.twatcher.gank.ui.activity.SampleActivity;
+import com.tongchen.sample.SampleActivity;
 
 import dagger.Component;
 

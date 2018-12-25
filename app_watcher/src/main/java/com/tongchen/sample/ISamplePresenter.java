@@ -1,7 +1,6 @@
-package com.tongchen.twatcher.gank.presenter;
+package com.tongchen.sample;
 
 import com.tongchen.twatcher.base.presenter.IMVPPresenter;
-import com.tongchen.twatcher.gank.view.ISampleView;
 
 /**
  * Created by TongChen at 12:03 on 2018/7/8.

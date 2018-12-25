@@ -1,4 +1,4 @@
-package com.tongchen.twatcher.gank.ui.activity;
+package com.tongchen.sample;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,6 @@ import com.tongchen.twatcher.di.component.DaggerActivityComponent;
 import com.tongchen.twatcher.di.module.ActivityModule;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.GankData;
-import com.tongchen.twatcher.gank.presenter.ISamplePresenter;
-import com.tongchen.twatcher.gank.view.ISampleView;
 import com.tongchen.twatcher.util.LogUtils;
 
 import java.util.List;

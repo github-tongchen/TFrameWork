@@ -4,8 +4,8 @@ import android.app.Activity;
 
 import com.tongchen.twatcher.di.scope.ActivityScope;
 import com.tongchen.twatcher.gank.model.http.HttpService;
-import com.tongchen.twatcher.gank.presenter.ISamplePresenter;
-import com.tongchen.twatcher.gank.presenter.SamplePresenter;
+import com.tongchen.sample.ISamplePresenter;
+import com.tongchen.sample.SamplePresenter;
 
 import dagger.Module;
 import dagger.Provides;

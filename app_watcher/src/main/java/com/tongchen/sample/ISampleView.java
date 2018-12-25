@@ -1,4 +1,4 @@
-package com.tongchen.twatcher.gank.view;
+package com.tongchen.sample;
 
 import com.tongchen.twatcher.base.view.IMVPView;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
