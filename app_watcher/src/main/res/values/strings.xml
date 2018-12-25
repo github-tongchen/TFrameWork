@@ -1,10 +1,16 @@
 <resources>
+    <!--Behavior-->
     <string name="fab_scrolling_aware_behavior">com.tongchen.twatcher.behavior.FabScrollAwareBehavior</string>
 
     <string name="app_name">TWatcher</string>
 
     <string name="sys_exit">双击退出程序</string>
 
+    <!--干货集中营-->
     <string name="fragment_gank">干货集中营</string>
+
+    <!--妹子图-->
+    <string name="fragment_mzitu">妹子图</string>
+
 
 </resources>
