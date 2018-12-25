@@ -143,6 +143,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         });
 
         mContentAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        mContentAdapter.disableLoadMoreIfNotFullPage(mContentRecyclerLv);
         //  设置上拉加载更多
         mContentAdapter.setOnLoadMoreListener(this, mContentRecyclerLv);
         mContentAdapter.setOnItemClickListener(this);
@@ -152,7 +153,9 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     @Override
     public void onLoadMoreRequested() {
-        mPresenter.getGankDataByPage(mRequestName, 10, ++mPage, CategoryPresenter.MODE_MORE);
+        LogUtils.d("CategoryFragment", "onLoadMoreRequested---run" );
+
+        mPresenter.getGankDataByPage(mRequestName, 10,mPage++, CategoryPresenter.MODE_MORE);
     }
 
     @Override
@@ -176,9 +179,10 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     @Override
     public void refreshSucceed(List<GankResult> result) {
-        LogUtils.d("CategoryFragment", "refreshSucceed---" + result.size());
+        LogUtils.d("CategoryFragment", "refreshSucceed---" + mCategory);
         mData.clear();
         mData.addAll(result);
+        mMultipleItemList.clear();
         if (mIsImgType) {
             for (GankResult data : mData) {
                 mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_IMG, data));
@@ -199,14 +203,17 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     @Override
     public void loadMoreSucceed(List<GankResult> result) {
-        LogUtils.d("CategoryFragment", "loadMoreSucceed---" + result.size());
+        LogUtils.d("CategoryFragment", "loadMoreSucceed---" + result.toString());
         mData.addAll(result);
+        mMultipleItemList.clear();
         if (mIsImgType) {
             for (GankResult data : mData) {
                 mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_IMG, data));
             }
         } else {
             for (GankResult data : mData) {
+                LogUtils.d("CategoryFragment", "---run");
+
                 mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_TEXT, data));
             }
         }

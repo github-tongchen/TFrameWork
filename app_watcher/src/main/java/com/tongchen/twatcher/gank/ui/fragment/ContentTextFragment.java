@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
@@ -40,6 +42,8 @@ public class ContentTextFragment extends BaseFragment {
     ImageView mHeadBgIv;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.collapsingToolbarLyt)
+    CollapsingToolbarLayout mCollapsingToolbarLyt;
     @BindView(R.id.mtv_title)
     MarqueTextView mTitleMtv;
     @BindView(R.id.progressbar_4_web)
@@ -101,17 +105,28 @@ public class ContentTextFragment extends BaseFragment {
                     case EXPANDED:
                     case IDLE:
                         mTitleMtv.setText("");
-                        mToolbar.setTitle(mGankResult.getDesc());
+                        mCollapsingToolbarLyt.setTitle(mGankResult.getDesc());
+                        mToolbar.setNavigationIcon(null);
                         break;
                     case COLLAPSED:
                         mTitleMtv.setText(mGankResult.getDesc());
-                        mToolbar.setTitle("");
+                        mCollapsingToolbarLyt.setTitle("");
+                        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
                         break;
                 }
             }
         });
 
-        mPublishDateTv.setText(mGankResult.getPublishedAt().split("T")[0]);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mActivity instanceof MainActivity) {
+                    ((MainActivity) mActivity).onBackPressed();
+                }
+            }
+        });
+
+        mPublishDateTv.setText(String.format("发布日期: %s", mGankResult.getPublishedAt().split("T")[0]));
         //  先隐藏加载完成后再显示
         mPublishDateTv.setVisibility(View.GONE);
 
