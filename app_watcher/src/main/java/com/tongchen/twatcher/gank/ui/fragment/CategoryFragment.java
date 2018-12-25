@@ -82,13 +82,6 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
             mRequestName = mCategory.getRequestName();
             mIsImgType = mCategory.getIndex() == mCategory.getCount() - 1;
         }
-
-        /*mActivity.setOnBackPressedListener(new MainActivity.OnBackPressedListener() {
-            @Override
-            public void onBackPressed() {
-                getFragmentManager().beginTransaction().hide(mContentTextFragment).commit();
-            }
-        });*/
     }
 
     @Override
@@ -153,9 +146,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     @Override
     public void onLoadMoreRequested() {
-        LogUtils.d("CategoryFragment", "onLoadMoreRequested---run" );
-
-        mPresenter.getGankDataByPage(mRequestName, 10,mPage++, CategoryPresenter.MODE_MORE);
+        mPresenter.getGankDataByPage(mRequestName, 10, ++mPage, CategoryPresenter.MODE_MORE);
     }
 
     @Override
