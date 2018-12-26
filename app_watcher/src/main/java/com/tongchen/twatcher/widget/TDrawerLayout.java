@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Scroller;
 
 import com.tongchen.twatcher.R;
-import com.tongchen.twatcher.util.LogUtils;
 import com.tongchen.twatcher.util.ScreenUtils;
 
 /**
@@ -59,9 +58,6 @@ public class TDrawerLayout extends ViewGroup {
 
         mScreenWidth = (int) ScreenUtils.getScreenWidth(context.getApplicationContext());
         mScreenHeight = (int) ScreenUtils.getScreenHeight(context.getApplicationContext());
-
-        LogUtils.d("THeight", mScreenHeight + "--0--" + mScreenWidth);
-        LogUtils.d("THeight", ScreenUtils.getStatusBarHeightByReflection(context) + "--1--" + ScreenUtils.getNavigationBarHeight(context));
     }
 
     @Override

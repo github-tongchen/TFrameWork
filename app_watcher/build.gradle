@@ -126,6 +126,8 @@ dependencies {
 
     //  方便实体类重写toString输出日志
     implementation 'org.apache.commons:commons-lang3:3.8.1'
-    //  抓取网页内容
+    //  解析网页内容
     implementation 'org.jsoup:jsoup:1.11.3'
+    //  运行时权限
+    implementation 'pub.devrel:easypermissions:2.0.0'
 }

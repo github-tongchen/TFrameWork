@@ -1,9 +1,11 @@
 package com.tongchen.twatcher.gank.ui.fragment;
 
+import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
@@ -16,6 +18,7 @@ import com.tongchen.twatcher.util.FileUtils;
 import com.tongchen.twatcher.util.ToastUtils;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.Observable;
@@ -25,12 +28,15 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class ContentPicFragment extends BaseFragment {
+public class ContentPicFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
 
     public static final String TAG = "ContentTextFragment";
 
     private static final String ARG_GANK_RESULT = "gank_result";
+    public static final int PERS_EXTERNAL_STORAGE_CODE = 100;
 
     private GankResult mGankResult;
 
@@ -73,8 +79,12 @@ public class ContentPicFragment extends BaseFragment {
         mConfirmDialogFragment.setOnDialogClickListener(new ConfirmDialogFragment.OnDialogClickListener() {
             @Override
             public void onPositive() {
-                savePic2Local();
-                mConfirmDialogFragment.dismiss();
+                if (checkPermission()) {
+                    savePic2Local();
+                    mConfirmDialogFragment.dismiss();
+                } else {
+                    requestPermission();
+                }
             }
 
             @Override
@@ -89,6 +99,70 @@ public class ContentPicFragment extends BaseFragment {
             }
             return true;
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    private boolean checkPermission() {
+        return EasyPermissions.hasPermissions(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    private void requestPermission() {
+        EasyPermissions.requestPermissions(this,
+                String.format(getString(R.string.permission_save_pic) + getString(R.string.permission_grant_request)
+                        , Manifest.permission.READ_EXTERNAL_STORAGE + "\n" + Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PERS_EXTERNAL_STORAGE_CODE,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        StringBuilder sb = new StringBuilder();
+        for (String str : perms) {
+            sb.append(str);
+            sb.append("\n");
+        }
+        switch (requestCode) {
+            case PERS_EXTERNAL_STORAGE_CODE:
+                ToastUtils.showShort(String.format(getString(R.string.permission_grant_succeed), sb));
+                savePic2Local();
+                mConfirmDialogFragment.dismiss();
+                break;
+        }
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        //处理权限名字字符串
+        StringBuilder sb = new StringBuilder();
+        for (String str : perms) {
+            sb.append(str);
+            sb.append("\n");
+        }
+
+        switch (requestCode) {
+            case PERS_EXTERNAL_STORAGE_CODE:
+                ToastUtils.showShort(String.format(getString(R.string.permission_grant_failed), sb));
+                break;
+        }
+
+        //  当用户勾选了“禁用后不再提示”时，弹窗提示用户进入系统设置授权
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            ToastUtils.showShort(String.format(getString(R.string.permission_grant_failed_no_ask), sb));
+            new AppSettingsDialog
+                    .Builder(this)
+                    .setRationale(String.format(getString(R.string.permission_grant_failed_2_setting_tip), sb))
+                    .setPositiveButton(R.string.permission_grant_failed_2_setting_positive)
+                    .setNegativeButton(R.string.permission_grant_failed_2_setting_negative)
+                    .build()
+                    .show();
+        }
+
     }
 
     private void savePic2Local() {
@@ -146,5 +220,6 @@ public class ContentPicFragment extends BaseFragment {
         Uri uri = Uri.fromFile(destFile);
         mActivity.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
     }
+
 
 }
