@@ -156,7 +156,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         MultipleItem item = (MultipleItem) adapter.getData().get(position);
         if (mActivity instanceof MainActivity) {
             if (item.getData().getUrl().endsWith(".jpg") || item.getData().getUrl().endsWith(".jpeg")) {
-                mContentFragment = ContentPicFragment.newInstance(item.getData(), position);
+                mContentFragment = ContentPicFragment.newInstance(item.getData());
             } else {
                 mContentFragment = ContentTextFragment.newInstance(item.getData());
             }

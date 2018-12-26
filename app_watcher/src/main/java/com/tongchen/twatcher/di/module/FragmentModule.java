@@ -6,8 +6,6 @@ import com.tongchen.twatcher.di.scope.FragmentScope;
 import com.tongchen.twatcher.gank.model.http.HttpService;
 import com.tongchen.twatcher.gank.presenter.CategoryPresenter;
 import com.tongchen.twatcher.gank.presenter.ICategoryPresenter;
-import com.tongchen.twatcher.gank.presenter.IPicPresenter;
-import com.tongchen.twatcher.gank.presenter.PicPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -39,9 +37,4 @@ public class FragmentModule {
         return new CategoryPresenter(httpService);
     }
 
-    @FragmentScope
-    @Provides
-    IPicPresenter providePicProvider(HttpService httpService) {
-        return new PicPresenter(httpService);
-    }
 }
