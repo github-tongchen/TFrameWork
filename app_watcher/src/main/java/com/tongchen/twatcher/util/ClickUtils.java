@@ -9,7 +9,7 @@ public class ClickUtils {
 
     private static String TAG = "ClickUtils";
 
-    public ClickUtils() {
+    private ClickUtils() {
         throw new IllegalStateException("ClickUtils doesn't need to be initialized!");
     }
 

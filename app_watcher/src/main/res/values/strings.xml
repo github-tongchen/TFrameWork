@@ -8,6 +8,11 @@
 
     <!--干货集中营-->
     <string name="fragment_gank">干货集中营</string>
+    <string name="confirm_dialog_tip">施主，你真的要保存这张图吗？须知“色即是空，空即是色”</string>
+    <string name="confirm_dialog_positive">是的，我淫如魔</string>
+    <string name="confirm_dialog_negative">不了，我圣于佛</string>
+    <string name="save_pic_succeed">图片保存成功</string>
+    <string name="save_pic_failed">图片保存失败</string>
 
     <!--妹子图-->
     <string name="fragment_mzitu">妹子图</string>

@@ -5,12 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.tongchen.twatcher.base.ui.activity.BaseActivity;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.gank.ui.BackHandledInterface;
 import com.tongchen.twatcher.gank.ui.fragment.GankFragment;
+import com.tongchen.twatcher.util.ToastUtils;
 import com.tongchen.twatcher.widget.TDrawerLayout;
 
 import butterknife.BindView;
@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
                 if (secondTime - firstTime < 2000) {
                     System.exit(0);
                 } else {
-                    Toast.makeText(this, R.string.sys_exit, Toast.LENGTH_SHORT).show();
+                    ToastUtils.showShort(R.string.sys_exit);
                     firstTime = System.currentTimeMillis();
                 }
             } else {
@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
     public void startFragment(Fragment fragment) {
 //        mTDrawerLyt.setConsume(false);
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fragment_translate_in, R.anim.fragment_translate_out,R.anim.fragment_translate_in, R.anim.fragment_translate_out);
+        transaction.setCustomAnimations(R.anim.fragment_translate_in, R.anim.fragment_translate_out, R.anim.fragment_translate_in, R.anim.fragment_translate_out);
         transaction.add(R.id.fl_main_container, fragment).addToBackStack(null);
         transaction.commit();
     }

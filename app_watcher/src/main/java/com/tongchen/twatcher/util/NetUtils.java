@@ -18,7 +18,7 @@ public class NetUtils {
     public static final int NET_TYPE_CMWAP = 0x02;
     public static final int NET_TYPE_CMNET = 0x03;
 
-    public NetUtils() {
+    private NetUtils() {
         throw new IllegalStateException("NetUtils doesn't need to be initialized!");
     }
 

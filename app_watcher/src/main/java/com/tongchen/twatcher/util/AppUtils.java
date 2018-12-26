@@ -25,7 +25,7 @@ public class AppUtils {
     private static final String TAG = "AppUtils";
     private static PackageManager mPkgMgr = null;
 
-    public AppUtils() {
+    private AppUtils() {
         throw new IllegalStateException("AppUtils doesn't need to be initialized!");
     }
 

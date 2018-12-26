@@ -15,7 +15,7 @@ import com.tongchen.twatcher.di.module.HttpModule;
  */
 public class TApp extends Application {
 
-    private static TApp mInstance = null;
+    public static TApp mInstance = null;
     private static AppComponent mAppComponent = null;
 
     @Override

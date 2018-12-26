@@ -18,7 +18,7 @@ public class InputUtils {
 
     private static InputMethodManager mInputMethodManager = null;
 
-    public InputUtils() {
+    private InputUtils() {
         throw new IllegalStateException("InputUtils doesn't need to be initialized!");
     }
 

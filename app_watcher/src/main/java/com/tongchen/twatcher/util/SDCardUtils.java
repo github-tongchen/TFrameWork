@@ -14,7 +14,7 @@ public class SDCardUtils {
 
     private static final String TAG = "SDCardUtils";
 
-    public SDCardUtils() {
+    private SDCardUtils() {
         throw new IllegalStateException("SDCardUtils doesn't need to be initialized!");
     }
 

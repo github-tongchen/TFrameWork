@@ -23,4 +23,5 @@
     <dimen name="gank_recycle_item_text_height">90dp</dimen>
     <dimen name="gank_recycle_item_text_image_size">80dp</dimen>
 
+    <item name="confirm_dialog_guideline_position" type="dimen">50%</item>
 </resources>

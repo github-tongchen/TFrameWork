@@ -87,11 +87,6 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     }
 
     @Override
-    public boolean onBackPressed() {
-        return false;
-    }
-
-    @Override
     protected void injectFragment() {
         DaggerFragmentComponent.builder()
                 .fragmentModule(new FragmentModule(this))

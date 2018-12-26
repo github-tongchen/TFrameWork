@@ -19,7 +19,7 @@ public class ScreenUtils {
     //  当前设备是否为平板
     private static Boolean mIsTablet = null;
 
-    public ScreenUtils() {
+    private ScreenUtils() {
         throw new IllegalStateException("ScreenUtils doesn't need to be initialized!");
     }
 
