@@ -1,57 +1,44 @@
 package com.tongchen.twatcher.mzitu.ui.fragment;
 
-import android.content.Context;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.tongchen.twatcher.R;
+import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
+import com.tongchen.twatcher.mzitu.model.entity.MZiTuCategory;
 
-public class MZiTuFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    private OnFragmentInteractionListener mListener;
+public class MZiTuFragment extends BaseFragment {
 
-    public MZiTuFragment() {
-        // Required empty public constructor
-    }
+    private List<MZiTuCategory> mCategoryList = new ArrayList<>();
+    private List<Fragment> mFragmentList = new ArrayList<>();
+
 
     public static MZiTuFragment newInstance() {
         return new MZiTuFragment();
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.mzitu_fragment, container, false);
+    public int bindLayout() {
+        return R.layout.mzitu_fragment;
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+
+    private void initCategories() {
+        mCategoryList.add(new MZiTuCategory.Builder().categoryName("主页").requestName("index").build());
+        mCategoryList.add(new MZiTuCategory.Builder().categoryName("最热").requestName("hot").build());
+        mCategoryList.add(new MZiTuCategory.Builder().categoryName("推荐").requestName("best").build());
+        mCategoryList.add(new MZiTuCategory.Builder().categoryName("性感妹子").requestName("xinggan").build());
+        mCategoryList.add(new MZiTuCategory.Builder().categoryName("日本妹子").requestName("japan").build());
+        mCategoryList.add(new MZiTuCategory.Builder().categoryName("台湾妹子").requestName("taiwan").build());
+        mCategoryList.add(new MZiTuCategory.Builder().categoryName("清纯妹子").requestName("mm").build());
+    }
+
+    private void initFragments() {
+        for (int i = 0; i < mCategoryList.size(); i++) {
+            MZiTuCategoryFragment fragment = MZiTuCategoryFragment.newInstance(mCategoryList.get(i));
+            mFragmentList.add(fragment);
         }
-
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 }

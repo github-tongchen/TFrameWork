@@ -3,6 +3,9 @@ package com.tongchen.twatcher.mzitu.model.parse;
 import com.tongchen.twatcher.mzitu.model.entity.BaseResult;
 import com.tongchen.twatcher.mzitu.model.entity.MZiTu;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.util.List;
 
 /**
@@ -13,7 +16,6 @@ import java.util.List;
 public class MZiTuParser {
 
     public static final String TAG = "MZiTuParser";
-
 
     /**
      * 解析妹子图对应分类当前页的全部专辑的封面图片列表
@@ -36,6 +38,8 @@ public class MZiTuParser {
      */
     public static BaseResult<List<String>> parseAlbumImageList(String html) {
         BaseResult<List<String>> baseResult = new BaseResult<>();
+
+        Document doc = Jsoup.parse(html);
         return baseResult;
     }
 }

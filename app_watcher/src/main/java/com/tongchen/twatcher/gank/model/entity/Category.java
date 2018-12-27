@@ -11,9 +11,9 @@ import android.os.Parcelable;
 public class Category extends BaseBean implements Parcelable {
 
     //  显示的名称
-    private String mRequestName;
-    //  请求用的参数
     private String mCategoryName;
+    //  请求用的参数
+    private String mRequestName;
     //  当前分类在分类List中的下标
     private int mIndex;
     //  分类List的大小

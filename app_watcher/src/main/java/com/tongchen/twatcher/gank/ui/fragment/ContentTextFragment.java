@@ -98,9 +98,9 @@ public class ContentTextFragment extends BaseFragment {
             Glide.with(mActivity).load(imgList.get(0)).into(mHeadBgIv);
         }
 
-        if(mGankResult.getImages()==null){
+        if (mGankResult.getImages() == null) {
             mAppBarLyt.setExpanded(false);
-        }else {
+        } else {
             mAppBarLyt.setExpanded(true);
         }
         mAppBarLyt.addOnOffsetChangedListener(new AppBarStateChangeListener() {
@@ -131,7 +131,7 @@ public class ContentTextFragment extends BaseFragment {
             }
         });
 
-        mPublishDateTv.setText(String.format("发布日期: %s", mGankResult.getPublishedAt().split("T")[0]));
+        mPublishDateTv.setText(String.format(getString(R.string.publish_date), mGankResult.getPublishedAt().split("T")[0]));
         //  先隐藏加载完成后再显示
         mPublishDateTv.setVisibility(View.GONE);
 
