@@ -130,4 +130,6 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.11.3'
     //  运行时权限
     implementation 'pub.devrel:easypermissions:2.0.0'
+    //  下拉刷新上拉加载
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
 }

@@ -12,6 +12,9 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.TApp;
@@ -48,6 +51,8 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     @Inject
     Context mContext;
 
+    @BindView(R.id.smartRefreshLyt)
+    SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.recyclerlv_content)
     RecyclerView mContentRecyclerLv;
 
@@ -109,6 +114,15 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         } else {
             mSpanCount = SINGLE_SPAN_COUNT;
         }
+
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mPage = 1;
+                mPresenter.getGankDataByPage(mRequestName, 10, mPage, CategoryPresenter.MODE_REFRESH);
+            }
+        });
+
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(getActivity(), mSpanCount, LinearLayoutManager.VERTICAL, false);
         mContentRecyclerLv.setLayoutManager(linearLayoutManager);
         mContentAdapter = new CategoryAdapter(mMultipleItemList);
@@ -172,6 +186,8 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     @Override
     public void refreshSucceed(List<GankResult> result) {
         LogUtils.d("CategoryFragment", "refreshSucceed---" + mCategory);
+        mRefreshLayout.finishRefresh();
+
         mData.clear();
         mData.addAll(result);
         mMultipleItemList.clear();
@@ -189,6 +205,8 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     @Override
     public void refreshFailed(String errorMsg) {
+        mRefreshLayout.finishRefresh();
+
         LogUtils.d("CategoryFragment", "refreshFailed---" + errorMsg);
 
     }
