@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -47,6 +48,10 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     private static final int SINGLE_SPAN_COUNT = 1;
     private static final int MULTIPLE_SPAN_COUNT = 2;
 
+    public static final int TYPE_TEXT = 0;
+    public static final int TYPE_IMG = 1;
+    public static final int TYPE_MULTIPLE = 2;
+
     @Inject
     Context mContext;
 
@@ -63,8 +68,8 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     private Category mCategory;
     private String mRequestName;
     private int mPage = 1;
-    //  是否是图片（即福利）分类
-    private boolean mIsImgType = false;
+    //  分类
+    private int mContentType = -1;
     private int mSpanCount = 1;
     private BaseFragment mContentFragment;
 
@@ -86,7 +91,16 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         if (getArguments() != null) {
             mCategory = getArguments().getParcelable(ARG_CATEGORY);
             mRequestName = mCategory.getRequestName();
-            mIsImgType = mCategory.getIndex() == mCategory.getCount() - 1;
+
+            if (TextUtils.equals(mCategory.getCategoryName(), "全部")) {
+                mContentType = TYPE_MULTIPLE;
+
+            } else if (TextUtils.equals(mCategory.getCategoryName(), "福利")) {
+                mContentType = TYPE_IMG;
+
+            } else {
+                mContentType = TYPE_TEXT;
+            }
         }
     }
 
@@ -108,7 +122,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (mIsImgType) {
+        if (mContentType == TYPE_IMG) {
             mSpanCount = MULTIPLE_SPAN_COUNT;
         } else {
             mSpanCount = SINGLE_SPAN_COUNT;
@@ -164,9 +178,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         MultipleItem item = (MultipleItem) adapter.getData().get(position);
         if (mActivity instanceof MainActivity) {
-            LogUtils.d("CategoryFragment", "Turl---" + item.getData().getUrl());
-
-            if (item.getData().getUrl().endsWith(".jpg") || item.getData().getUrl().endsWith(".jpeg")) {
+            if (TextUtils.equals(item.getData().getType(), "福利")) {
                 mContentFragment = ContentPicFragment.newInstance(item.getData());
             } else {
                 mContentFragment = ContentTextFragment.newInstance(item.getData());
@@ -193,12 +205,11 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         mData.clear();
         mData.addAll(result);
         mMultipleItemList.clear();
-        if (mIsImgType) {
-            for (GankResult data : mData) {
+
+        for (GankResult data : mData) {
+            if (TextUtils.equals(data.getType(), "福利")) {
                 mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_IMG, data));
-            }
-        } else {
-            for (GankResult data : mData) {
+            } else {
                 mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_TEXT, data));
             }
         }
@@ -210,7 +221,6 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         mRefreshLayout.finishRefresh();
 
         LogUtils.d("CategoryFragment", "refreshFailed---" + errorMsg);
-
     }
 
     @Override
@@ -219,12 +229,11 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         removeIncorrectData(result);
         mData.addAll(result);
         mMultipleItemList.clear();
-        if (mIsImgType) {
-            for (GankResult data : mData) {
+
+        for (GankResult data : mData) {
+            if (TextUtils.equals(data.getType(), "福利")) {
                 mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_IMG, data));
-            }
-        } else {
-            for (GankResult data : mData) {
+            } else {
                 mMultipleItemList.add(new MultipleItem(MultipleItem.TYPE_TEXT, data));
             }
         }
@@ -243,7 +252,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         List<GankResult> incorrectDatas = new ArrayList<>();
         for (int i = 0; i < results.size(); i++) {
             GankResult result = results.get(i);
-            if (mIsImgType) {
+            if (TextUtils.equals(result.getType(), "福利")) {
                 //  url 不以jpg、jpeg结尾或者包含 7xi8d6.com（此网址挂了）或者来自的 img.gank.io（证书无效）的移除
                 if (!(result.getUrl().endsWith(".jpg") || result.getUrl().endsWith(".jpeg"))
                         || result.getUrl().contains("7xi8d6.com")
