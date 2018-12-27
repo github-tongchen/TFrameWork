@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -122,6 +121,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
                 mPresenter.getGankDataByPage(mRequestName, 10, mPage, CategoryPresenter.MODE_REFRESH);
             }
         });
+        mRefreshLayout.setEnableLoadMore(false);
 
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(getActivity(), mSpanCount, LinearLayoutManager.VERTICAL, false);
         mContentRecyclerLv.setLayoutManager(linearLayoutManager);
@@ -164,6 +164,8 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         MultipleItem item = (MultipleItem) adapter.getData().get(position);
         if (mActivity instanceof MainActivity) {
+            LogUtils.d("CategoryFragment", "Turl---" + item.getData().getUrl());
+
             if (item.getData().getUrl().endsWith(".jpg") || item.getData().getUrl().endsWith(".jpeg")) {
                 mContentFragment = ContentPicFragment.newInstance(item.getData());
             } else {
@@ -241,8 +243,13 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         List<GankResult> incorrectDatas = new ArrayList<>();
         for (int i = 0; i < results.size(); i++) {
             GankResult result = results.get(i);
-            if (TextUtils.isEmpty(result.getUrl())) {
-                incorrectDatas.add(result);
+            if (mIsImgType) {
+                //  url 不以jpg、jpeg结尾或者包含 7xi8d6.com（此网址挂了）或者来自的 img.gank.io（证书无效）的移除
+                if (!(result.getUrl().endsWith(".jpg") || result.getUrl().endsWith(".jpeg"))
+                        || result.getUrl().contains("7xi8d6.com")
+                        || result.getUrl().contains("img.gank.io")) {
+                    incorrectDatas.add(result);
+                }
             }
         }
         results.removeAll(incorrectDatas);
