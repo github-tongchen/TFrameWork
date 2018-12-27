@@ -68,8 +68,6 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     private Category mCategory;
     private String mRequestName;
     private int mPage = 1;
-    //  分类
-    private int mContentType = -1;
     private int mSpanCount = 1;
     private BaseFragment mContentFragment;
 
@@ -91,16 +89,6 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         if (getArguments() != null) {
             mCategory = getArguments().getParcelable(ARG_CATEGORY);
             mRequestName = mCategory.getRequestName();
-
-            if (TextUtils.equals(mCategory.getCategoryName(), "全部")) {
-                mContentType = TYPE_MULTIPLE;
-
-            } else if (TextUtils.equals(mCategory.getCategoryName(), "福利")) {
-                mContentType = TYPE_IMG;
-
-            } else {
-                mContentType = TYPE_TEXT;
-            }
         }
     }
 
@@ -122,7 +110,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (mContentType == TYPE_IMG) {
+        if (TextUtils.equals(mCategory.getCategoryName(), "福利")) {
             mSpanCount = MULTIPLE_SPAN_COUNT;
         } else {
             mSpanCount = SINGLE_SPAN_COUNT;

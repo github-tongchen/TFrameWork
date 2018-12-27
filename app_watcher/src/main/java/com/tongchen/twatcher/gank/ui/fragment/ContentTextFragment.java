@@ -98,6 +98,11 @@ public class ContentTextFragment extends BaseFragment {
             Glide.with(mActivity).load(imgList.get(0)).into(mHeadBgIv);
         }
 
+        if(mGankResult.getImages()==null){
+            mAppBarLyt.setExpanded(false);
+        }else {
+            mAppBarLyt.setExpanded(true);
+        }
         mAppBarLyt.addOnOffsetChangedListener(new AppBarStateChangeListener() {
             @Override
             public void onStateChanged(AppBarLayout appBarLayout, State state) {
