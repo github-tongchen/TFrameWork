@@ -3,6 +3,7 @@ package com.tongchen.twatcher.di.component;
 import com.tongchen.twatcher.di.module.FragmentModule;
 import com.tongchen.twatcher.di.scope.FragmentScope;
 import com.tongchen.twatcher.gank.ui.fragment.CategoryFragment;
+import com.tongchen.twatcher.mzitu.ui.fragment.MZiTuCategoryFragment;
 
 import dagger.Component;
 
@@ -18,4 +19,5 @@ public interface FragmentComponent {
 
     void inject2Fragment(CategoryFragment fragment);
 
+    void inject2Fragment(MZiTuCategoryFragment fragment);
 }

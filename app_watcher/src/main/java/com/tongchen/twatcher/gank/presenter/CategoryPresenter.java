@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import com.tongchen.twatcher.base.presenter.MVPPresenter;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.GankData;
-import com.tongchen.twatcher.gank.model.http.HttpService;
+import com.tongchen.twatcher.base.http.IAppApiHelper;
 import com.tongchen.twatcher.gank.view.ICategoryView;
 import com.tongchen.twatcher.util.LogUtils;
 
@@ -21,21 +21,21 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class CategoryPresenter extends MVPPresenter<ICategoryView, GankData<List<GankResult>>> implements ICategoryPresenter {
 
-    private HttpService mHttpService;
+    private IAppApiHelper mIAppApiHelper;
     //  请求的方式：0 refresh;1 more
     private int mMode = -1;
     public static final int MODE_REFRESH = 0;
     public static final int MODE_MORE = 1;
 
-    public CategoryPresenter(HttpService httpService) {
-        mHttpService = httpService;
+    public CategoryPresenter(IAppApiHelper iAppApiHelper) {
+        mIAppApiHelper = iAppApiHelper;
     }
 
     @SuppressLint("CheckResult")
     @Override
     public void getGankDataByPage(String category, int size, int page, int mode) {
         mMode = mode;
-        mHttpService.getGankDataByPage(category, size, page)
+        mIAppApiHelper.getGankDataByPage(category, size, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listGankData -> {

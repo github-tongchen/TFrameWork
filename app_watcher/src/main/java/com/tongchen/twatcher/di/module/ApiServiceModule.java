@@ -3,7 +3,7 @@ package com.tongchen.twatcher.di.module;
 import android.content.Context;
 
 import com.tongchen.twatcher.base.http.SSLSocketFactoryCompat;
-import com.tongchen.twatcher.gank.model.http.HttpService;
+import com.tongchen.twatcher.gank.model.http.GankServiceApi;
 import com.tongchen.twatcher.gank.model.http.HttpUrl;
 import com.tongchen.twatcher.util.LogUtils;
 
@@ -28,11 +28,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by TongChen on 2017/11/11.
  * <p>
- * Description:
+ * Description: 对全App 提供 API
  */
 
 @Module
-public class HttpModule {
+public class ApiServiceModule {
 
     private Retrofit createRetrofit(Retrofit.Builder builder, String url, OkHttpClient client) {
         return builder
@@ -45,8 +45,8 @@ public class HttpModule {
 
     @Singleton
     @Provides
-    HttpService provideHttpService(Retrofit.Builder builder, OkHttpClient client) {
-        return createRetrofit(builder, HttpUrl.GANK_BASE, client).create(HttpService.class);
+    GankServiceApi provideGankServiceApi(Retrofit.Builder builder, OkHttpClient client) {
+        return createRetrofit(builder, HttpUrl.GANK_BASE, client).create(GankServiceApi.class);
     }
 
     @Singleton

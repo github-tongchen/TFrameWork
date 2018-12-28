@@ -5,8 +5,8 @@ import android.app.Application;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.tongchen.twatcher.di.component.AppComponent;
 import com.tongchen.twatcher.di.component.DaggerAppComponent;
+import com.tongchen.twatcher.di.module.ApiServiceModule;
 import com.tongchen.twatcher.di.module.AppModule;
-import com.tongchen.twatcher.di.module.HttpModule;
 
 /**
  * Created by TongChen at 12:43 on 2018/6/20.
@@ -32,7 +32,7 @@ public class TApp extends Application {
         if (mAppComponent == null) {
             mAppComponent = DaggerAppComponent.builder()
                     .appModule(new AppModule(mInstance))
-                    .httpModule(new HttpModule())
+                    .apiServiceModule(new ApiServiceModule())
                     .build();
         }
         return mAppComponent;

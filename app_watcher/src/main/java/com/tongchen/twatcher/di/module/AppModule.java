@@ -2,6 +2,9 @@ package com.tongchen.twatcher.di.module;
 
 import android.content.Context;
 
+import com.tongchen.twatcher.base.http.AppApiHelper;
+import com.tongchen.twatcher.base.http.IAppApiHelper;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -24,7 +27,13 @@ public class AppModule {
 
     @Singleton
     @Provides
-    public Context provideContext() {
+    Context provideContext() {
         return mContext;
+    }
+
+    @Singleton
+    @Provides
+    IAppApiHelper provideAppApiHelper(AppApiHelper appApiHelper) {
+        return appApiHelper;
     }
 }

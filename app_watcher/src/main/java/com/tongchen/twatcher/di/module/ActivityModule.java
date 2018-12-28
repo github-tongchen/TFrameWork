@@ -3,7 +3,7 @@ package com.tongchen.twatcher.di.module;
 import android.app.Activity;
 
 import com.tongchen.twatcher.di.scope.ActivityScope;
-import com.tongchen.twatcher.gank.model.http.HttpService;
+import com.tongchen.twatcher.base.http.IAppApiHelper;
 import com.tongchen.sample.ISamplePresenter;
 import com.tongchen.sample.SamplePresenter;
 
@@ -32,7 +32,7 @@ public class ActivityModule {
 
     @ActivityScope
     @Provides
-    ISamplePresenter provideSamplePresenter(HttpService httpService) {
-        return new SamplePresenter(httpService);
+    ISamplePresenter provideSamplePresenter(IAppApiHelper iAppApiHelper) {
+        return new SamplePresenter(iAppApiHelper);
     }
 }

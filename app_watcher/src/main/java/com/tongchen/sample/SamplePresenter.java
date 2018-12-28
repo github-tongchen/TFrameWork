@@ -5,7 +5,7 @@ import android.annotation.SuppressLint;
 import com.tongchen.twatcher.base.presenter.MVPPresenter;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.GankData;
-import com.tongchen.twatcher.gank.model.http.HttpService;
+import com.tongchen.twatcher.base.http.IAppApiHelper;
 import com.tongchen.twatcher.util.LogUtils;
 
 import java.util.List;
@@ -21,10 +21,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class SamplePresenter extends MVPPresenter<ISampleView, GankData<List<GankResult>>> implements ISamplePresenter {
 
-    private HttpService mHttpService;
+    private IAppApiHelper mIAppApiHelper;
 
-    public SamplePresenter(HttpService httpService) {
-        this.mHttpService = httpService;
+    public SamplePresenter(IAppApiHelper iAppApiHelper) {
+        this.mIAppApiHelper = iAppApiHelper;
     }
 
     @SuppressLint("CheckResult")
@@ -34,7 +34,7 @@ public class SamplePresenter extends MVPPresenter<ISampleView, GankData<List<Gan
             getView().showLoading();
         }
 
-        mHttpService.getGankDataByPage(category, size, page)
+        mIAppApiHelper.getGankDataByPage(category, size, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<GankData<List<GankResult>>>() {

@@ -3,8 +3,8 @@ package com.tongchen.twatcher.di.component;
 import android.content.Context;
 
 import com.tongchen.twatcher.di.module.AppModule;
-import com.tongchen.twatcher.di.module.HttpModule;
-import com.tongchen.twatcher.gank.model.http.HttpService;
+import com.tongchen.twatcher.di.module.ApiServiceModule;
+import com.tongchen.twatcher.base.http.IAppApiHelper;
 
 import javax.inject.Singleton;
 
@@ -18,12 +18,11 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class, HttpModule.class})
+@Component(modules = {AppModule.class, ApiServiceModule.class})
 public interface AppComponent {
 
     Context provideApplicationContext();
 
-    HttpService provideHttpService();
-
+    IAppApiHelper provideAppApiHelper();
 
 }

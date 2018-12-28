@@ -20,17 +20,17 @@ public class MZiTuCategory implements Parcelable {
         mRequestName = builder.requestName;
     }
 
-    public String getRequestName() {
-        return mRequestName;
-    }
-
     public String getCategoryName() {
         return mCategoryName;
     }
 
+    public String getRequestName() {
+        return mRequestName;
+    }
+
     protected MZiTuCategory(Parcel in) {
-        this.mRequestName = in.readString();
         this.mCategoryName = in.readString();
+        this.mRequestName = in.readString();
     }
 
     public static final Parcelable.Creator<MZiTuCategory> CREATOR = new Parcelable.Creator<MZiTuCategory>() {
@@ -52,8 +52,8 @@ public class MZiTuCategory implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.mRequestName);
         dest.writeString(this.mCategoryName);
+        dest.writeString(this.mRequestName);
     }
 
     public static class Builder {
@@ -61,13 +61,13 @@ public class MZiTuCategory implements Parcelable {
         private String categoryName;
         private String requestName;
 
-        public Builder requestName(String requestName) {
-            this.requestName = requestName;
+        public Builder categoryName(String categoryName) {
+            this.categoryName = categoryName;
             return this;
         }
 
-        public Builder categoryName(String categoryName) {
-            this.categoryName = categoryName;
+        public Builder requestName(String requestName) {
+            this.requestName = requestName;
             return this;
         }
 
