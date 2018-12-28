@@ -15,7 +15,7 @@ import dagger.Provides;
 /**
  * Created by TongChen at 14:39 on 2018/9/30.
  * <p>
- * Description:该文件实现的功能
+ * Description: Dagger2 Fragment 的Module
  */
 
 @Module

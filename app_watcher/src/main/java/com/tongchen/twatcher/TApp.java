@@ -3,15 +3,18 @@ package com.tongchen.twatcher;
 import android.app.Application;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.tongchen.twatcher.base.http.Api;
 import com.tongchen.twatcher.di.component.AppComponent;
 import com.tongchen.twatcher.di.component.DaggerAppComponent;
 import com.tongchen.twatcher.di.module.ApiServiceModule;
 import com.tongchen.twatcher.di.module.AppModule;
 
+import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
+
 /**
  * Created by TongChen at 12:43 on 2018/6/20.
  * <p>
- * Description:该文件实现的功能
+ * Description:
  */
 public class TApp extends Application {
 
@@ -25,7 +28,8 @@ public class TApp extends Application {
 
         //  初始化DBFlow数据库
         FlowManager.init(this);
-
+        //  RetrofitUrlManager 高级模式
+        RetrofitUrlManager.getInstance().startAdvancedModel(Api.DOMAIN_GANK);
     }
 
     public static AppComponent getAppComponent() {

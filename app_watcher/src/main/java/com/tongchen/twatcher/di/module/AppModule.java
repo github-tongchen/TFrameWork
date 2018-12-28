@@ -13,7 +13,7 @@ import dagger.Provides;
 /**
  * Created by TongChen at 10:32 on 2018/6/22.
  * <p>
- * Description:该文件实现的功能
+ * Description: Dagger2 Application 的Module
  */
 
 @Module
@@ -33,7 +33,7 @@ public class AppModule {
 
     @Singleton
     @Provides
-    IAppApiHelper provideAppApiHelper(AppApiHelper appApiHelper) {
+    IAppApiHelper provideAppApiHelper(AppApiHelper appApiHelper) {  //  AppApiHelper使用构造方法Inject注入
         return appApiHelper;
     }
 }

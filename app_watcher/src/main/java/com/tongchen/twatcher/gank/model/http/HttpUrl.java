@@ -7,8 +7,6 @@ package com.tongchen.twatcher.gank.model.http;
  */
 public class HttpUrl {
 
-    public static final String GANK_BASE = "https://gank.io/api/";
-
     /**
      * 加载图片时添加此后缀，并在后面添加宽度来选择图片的大小
      */

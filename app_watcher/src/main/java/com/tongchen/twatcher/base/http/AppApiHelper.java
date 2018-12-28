@@ -14,7 +14,7 @@ import io.reactivex.Observable;
 /**
  * Created by TongChen at 14:56 on 2018/12/28.
  * <p>
- * Description: 全App的 API 帮助类
+ * Description: 全App的 API 帮助实现类
  */
 public class AppApiHelper implements IAppApiHelper {
 

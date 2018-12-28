@@ -10,7 +10,7 @@ import dagger.Component;
 /**
  * Created by TongChen at 14:44 on 2018/9/30.
  * <p>
- * Description:该文件实现的功能
+ * Description: Dagger2 Fragment 的 Component
  */
 
 @FragmentScope
