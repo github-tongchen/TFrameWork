@@ -17,11 +17,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.R;
-import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.base.ui.fragment.MVPFragment;
-import com.tongchen.twatcher.di.component.DaggerFragmentComponent;
-import com.tongchen.twatcher.di.module.FragmentModule;
 import com.tongchen.twatcher.gank.model.entity.Category;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.entity.MultipleItem;
@@ -94,11 +91,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     @Override
     protected void injectFragment() {
-        DaggerFragmentComponent.builder()
-                .fragmentModule(new FragmentModule(this))
-                .appComponent(TApp.getAppComponent())
-                .build()
-                .inject2Fragment(this);
+        getFragmentComponent().inject2Fragment(this);
     }
 
     @Override

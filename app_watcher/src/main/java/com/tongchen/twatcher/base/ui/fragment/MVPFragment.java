@@ -3,8 +3,12 @@ package com.tongchen.twatcher.base.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.tongchen.twatcher.TApp;
 import com.tongchen.twatcher.base.presenter.IMVPPresenter;
 import com.tongchen.twatcher.base.view.IMVPView;
+import com.tongchen.twatcher.di.component.DaggerFragmentComponent;
+import com.tongchen.twatcher.di.component.FragmentComponent;
+import com.tongchen.twatcher.di.module.FragmentModule;
 
 import javax.inject.Inject;
 
@@ -30,6 +34,13 @@ public abstract class MVPFragment<E, V extends IMVPView<E>, P extends IMVPPresen
     public void onDestroy() {
         super.onDestroy();
         mPresenter.detachView();
+    }
+
+    public FragmentComponent getFragmentComponent() {
+        return DaggerFragmentComponent.builder()
+                .fragmentModule(new FragmentModule(this))
+                .appComponent(TApp.getAppComponent())
+                .build();
     }
 
     protected abstract void injectFragment();

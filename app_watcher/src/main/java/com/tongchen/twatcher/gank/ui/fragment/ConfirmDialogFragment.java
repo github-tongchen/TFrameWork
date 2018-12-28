@@ -18,7 +18,7 @@ import butterknife.Unbinder;
 /**
  * Created by TongChen at 14:33 on 2018/12/26.
  * <p>
- * Description: 描述该文件实现的功能
+ * Description: 干货集中营保存图片提示弹窗
  */
 public class ConfirmDialogFragment extends DialogFragment implements View.OnClickListener {
 
