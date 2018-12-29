@@ -4,12 +4,16 @@ import com.tongchen.twatcher.gank.model.entity.GankData;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.http.GankServiceApi;
 import com.tongchen.twatcher.mzitu.model.MZiTuServiceApi;
+import com.tongchen.twatcher.mzitu.model.entity.BaseResult;
+import com.tongchen.twatcher.mzitu.model.entity.MZiTu;
+import com.tongchen.twatcher.mzitu.model.parse.MZiTuParser;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
 /**
  * Created by TongChen at 14:56 on 2018/12/28.
@@ -32,7 +36,7 @@ public class AppApiHelper implements IAppApiHelper {
         return mGankServiceApi.getGankDataByPage(category, size, page);
     }
 
-    /*@Override
+    @Override
     public Observable<BaseResult<List<MZiTu>>> listMZiTu(String tag, int page, boolean pullToRefresh) {
         switch (tag) {
             case "index":
@@ -52,5 +56,15 @@ public class AppApiHelper implements IAppApiHelper {
             default:
                 return null;
         }
-    }*/
+    }
+
+    private Observable<BaseResult<List<MZiTu>>> action(Observable<String> stringObservable, String tag, final int page, final boolean pullToRefresh) {
+
+        return stringObservable.map(new Function<String, BaseResult<List<MZiTu>>>() {
+            @Override
+            public BaseResult<List<MZiTu>> apply(String s) throws Exception {
+                return MZiTuParser.parseAlbumCoverListByCategory(s, page);
+            }
+        });
+    }
 }
