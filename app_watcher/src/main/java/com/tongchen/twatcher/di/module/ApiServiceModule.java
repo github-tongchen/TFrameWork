@@ -3,8 +3,10 @@ package com.tongchen.twatcher.di.module;
 import android.content.Context;
 
 import com.tongchen.twatcher.base.http.Api;
+import com.tongchen.twatcher.base.http.CommonHeaderInterceptor;
 import com.tongchen.twatcher.base.http.SSLSocketFactoryCompat;
 import com.tongchen.twatcher.gank.model.http.GankServiceApi;
+import com.tongchen.twatcher.mzitu.model.MZiTuServiceApi;
 import com.tongchen.twatcher.util.LogUtils;
 
 import java.io.File;
@@ -24,7 +26,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 /**
@@ -53,6 +55,12 @@ public class ApiServiceModule {
 
     @Singleton
     @Provides
+    MZiTuServiceApi provideMZiTuServiceApi(Retrofit retrofit) {
+        return retrofit.create(MZiTuServiceApi.class);
+    }
+
+    @Singleton
+    @Provides
     GankServiceApi provideGankServiceApi(Retrofit retrofit) {
         return retrofit.create(GankServiceApi.class);
     }
@@ -64,7 +72,8 @@ public class ApiServiceModule {
                 .baseUrl(Api.DOMAIN_GANK)
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
     }
 
@@ -85,7 +94,7 @@ public class ApiServiceModule {
 
     @Singleton
     @Provides
-    OkHttpClient provideOkHttpClient(Context context, HttpLoggingInterceptor interceptor, SSLSocketFactory sslSocketFactory, X509TrustManager trustAllCert) {
+    OkHttpClient provideOkHttpClient(Context context, CommonHeaderInterceptor commonHeaderInterceptor,HttpLoggingInterceptor loggingInterceptor, SSLSocketFactory sslSocketFactory, X509TrustManager trustAllCert) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
         int cacheSize = 10 * 1024 * 1024;
@@ -93,7 +102,8 @@ public class ApiServiceModule {
         Cache cache = new Cache(dir, cacheSize);
         //  设置缓存
         builder.cache(cache);
-        builder.addInterceptor(interceptor);
+        builder.addInterceptor(commonHeaderInterceptor);
+        builder.addInterceptor(loggingInterceptor);
         builder.connectTimeout(10, TimeUnit.SECONDS);
         builder.readTimeout(10, TimeUnit.SECONDS);
         builder.writeTimeout(10, TimeUnit.SECONDS);

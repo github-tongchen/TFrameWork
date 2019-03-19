@@ -40,14 +40,24 @@ android {
 
     //  自定义打包apk名
     applicationVariants.all { variant ->
-        variant.outputs.all { output ->
+
+        /*variant.outputs.all { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 variant.getPackageApplication().outputDirectory = new File(outputFile.parent)
                 outputFileName = "${project.name}_${defaultConfig.versionName}_${variant.buildType.name}.apk"
             }
+        }*/
+
+        variant.outputs.all {
+            outputFileName = "${project.name}_${variant.versionName}_${releaseTime()}_${variant.buildType.name}.apk"
         }
     }
+}
+
+//  获取编译时间
+static def releaseTime() {
+    return new Date().format("yyyyMMdd-HHmm", TimeZone.getTimeZone("UTC"))
 }
 
 dependencies {
@@ -79,14 +89,14 @@ dependencies {
     //  Dagger-Android
 
     /*implementation 'com.google.dagger:dagger-android:2.16'
-                implementation 'com.google.dagger:dagger-android-support:2.16'
-                annotationProcessor 'com.google.dagger:dagger-android-processor:2.16'*/
+                    implementation 'com.google.dagger:dagger-android-support:2.16'
+                    annotationProcessor 'com.google.dagger:dagger-android-processor:2.16'*/
 
     //  Retrofit2
     api "com.squareup.retrofit2:retrofit:${rootProject.ext.version["retrofit_version"]}"
 
     /*implementation "com.squareup.retrofit2:retrofit-converters:${rootProject.ext.version["retrofit_version"]}"
-                implementation "com.squareup.retrofit2:retrofit-adapters:${rootProject.ext.version["retrofit_version"]}"*/
+                    implementation "com.squareup.retrofit2:retrofit-adapters:${rootProject.ext.version["retrofit_version"]}"*/
 
     //  RxJava2 Adapter
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
@@ -116,23 +126,27 @@ dependencies {
     api "com.github.Raizlabs.DBFlow:dbflow:${rootProject.ext.version["dbflow_version"]}"
 
     //  DBFlow数据库加密
-
-    /*compile "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${rootProject.ext.version[dbflow_version]}"
-                compile "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar"*/
+    //compile "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${rootProject.ext.version[dbflow_version]}"
+    //compile "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar"
 
     //  DBFlow数据库RxJava2支持
     api "com.github.Raizlabs.DBFlow:dbflow-rx2:${rootProject.ext.version["dbflow_version"]}"
+
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
 
     //  方便实体类重写toString输出日志
     implementation 'org.apache.commons:commons-lang3:3.8.1'
+
     //  解析网页内容
     implementation 'org.jsoup:jsoup:1.11.3'
+
     //  运行时权限
     implementation 'pub.devrel:easypermissions:2.0.0'
+
     //  下拉刷新上拉加载
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
+
     //  支持多BaseUrl 和 动态切换 BaseUrl
     implementation 'me.jessyan:retrofit-url-manager:1.4.0'
-
+    implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
 }

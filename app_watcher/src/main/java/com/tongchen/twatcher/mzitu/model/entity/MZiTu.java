@@ -19,6 +19,10 @@ public class MZiTu implements Parcelable {
     private int height;
     private int width;
 
+    public MZiTu() {
+
+    }
+
     public int getId() {
         return id;
     }

@@ -4,29 +4,44 @@ package com.tongchen.twatcher;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.tongchen.twatcher.base.ui.activity.BaseActivity;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.gank.ui.BackHandledInterface;
 import com.tongchen.twatcher.gank.ui.fragment.GankFragment;
+import com.tongchen.twatcher.mzitu.ui.fragment.MZiTuFragment;
+import com.tongchen.twatcher.util.LogUtils;
 import com.tongchen.twatcher.util.ToastUtils;
 import com.tongchen.twatcher.widget.TDrawerLayout;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements BackHandledInterface {
+
+    private static final String TAG = "MainActivity";
 
     //  不同分类的最底层Fragment
     public static final String TAG_FRAGMENT_MAIN = "MainFragment";
 
     @BindView(R.id.tdrawerlyt)
     TDrawerLayout mTDrawerLyt;
-    @BindView(R.id.fl_main_container)
-    FrameLayout mMainContainerFLyt;
+    @BindView(R.id.ll_menu_container)
+    LinearLayout mMenuContainerLLyt;
+    @BindView(R.id.tv_gank)
+    TextView mGankTv;
+    @BindView(R.id.tv_mzitu)
+    TextView mMZiTuTv;
+    @BindView(R.id.fl_content_container)
+    FrameLayout mContentContainerFLyt;
 
     private FragmentManager mFragmentManager;
     private GankFragment mGankFragment;
+    private MZiTuFragment mMZiTuFragment;
 
     //  点击2次返回才退出
     private long firstTime = 0;
@@ -42,13 +57,45 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
     protected void loadView() {
         mFragmentManager = getSupportFragmentManager();
         mGankFragment = GankFragment.newInstance();
-        loadFragment(mGankFragment);
+        mMZiTuFragment = MZiTuFragment.newInstance();
+
+        loadFragment(mMZiTuFragment);
+
     }
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.add(R.id.fl_main_container, fragment, TAG_FRAGMENT_MAIN);
+        transaction.add(R.id.fl_content_container, fragment, TAG_FRAGMENT_MAIN);
         transaction.commit();
+    }
+
+    @OnClick({R.id.tv_gank, R.id.tv_mzitu})
+    public void onViewClick(View view) {
+        LogUtils.d(TAG, "view---"+view.toString());
+        switch (view.getId()) {
+            case R.id.tv_gank:
+                if (mGankFragment == null) {
+                    mGankFragment = GankFragment.newInstance();
+                }
+                if (!mGankFragment.isVisible()) {
+                    mFragmentManager.beginTransaction().show(mGankFragment).commit();
+                }
+
+                break;
+            case R.id.tv_mzitu:
+                if (mMZiTuFragment == null) {
+                    mMZiTuFragment = MZiTuFragment.newInstance();
+                }
+                if (!mMZiTuFragment.isAdded()) {
+                    loadFragment(mMZiTuFragment);
+                    mFragmentManager.beginTransaction().hide(mGankFragment).commit();
+                } else {
+                    if (!mMZiTuFragment.isVisible()) {
+                        mFragmentManager.beginTransaction().show(mMZiTuFragment).commit();
+                    }
+                }
+                break;
+        }
     }
 
     @Override
@@ -91,7 +138,7 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
 //        mTDrawerLyt.setConsume(false);
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.setCustomAnimations(R.anim.fragment_translate_in, R.anim.fragment_translate_out, R.anim.fragment_translate_in, R.anim.fragment_translate_out);
-        transaction.add(R.id.fl_main_container, fragment).addToBackStack(null);
+        transaction.add(R.id.fl_content_container, fragment).addToBackStack(null);
         transaction.commit();
     }
 

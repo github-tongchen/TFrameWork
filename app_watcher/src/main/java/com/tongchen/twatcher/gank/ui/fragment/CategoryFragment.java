@@ -118,7 +118,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
         });
         mRefreshLayout.setEnableLoadMore(false);
 
-        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getActivity(), mSpanCount, LinearLayoutManager.VERTICAL, false);
+        GridLayoutManager linearLayoutManager = new GridLayoutManager(getActivity(), mSpanCount, LinearLayoutManager.VERTICAL, false);
         mContentRecyclerLv.setLayoutManager(linearLayoutManager);
         mContentAdapter = new CategoryAdapter(mMultipleItemList);
         mContentRecyclerLv.setAdapter(mContentAdapter);

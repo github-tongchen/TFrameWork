@@ -1,29 +1,30 @@
-package com.tongchen.twatcher.gank;
+package com.tongchen.twatcher.mzitu.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.tongchen.twatcher.gank.model.entity.Category;
+import com.tongchen.twatcher.mzitu.model.entity.MZiTuCategory;
 
 import java.util.List;
 
 /**
- * Created by TongChen on 2018/9/30.
+ * Created by TongChen on 2019/1/7.
  * <p>
  * Description:
  */
 
-public class FragmentAdapter extends FragmentPagerAdapter {
+public class MZiTuFragmentAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> mFragmentList;
-    private List<Category> mCategoryList;
+    private List<MZiTuCategory> mCategoryList;
 
-    public FragmentAdapter(FragmentManager fm) {
+    public MZiTuFragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<Category> categories) {
+    public MZiTuFragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<MZiTuCategory> categories) {
         super(fm);
         mFragmentList = fragments;
         mCategoryList = categories;

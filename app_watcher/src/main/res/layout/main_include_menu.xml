@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fl_main_container"
+    android:id="@+id/ll_menu_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,13 +11,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="到顶部"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerlv_menu"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_gank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="干货集中营"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_mzitu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="妹子图"
+            android:textSize="20sp" />
+
+    </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

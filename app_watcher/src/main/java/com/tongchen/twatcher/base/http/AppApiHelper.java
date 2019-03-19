@@ -27,8 +27,9 @@ public class AppApiHelper implements IAppApiHelper {
     private MZiTuServiceApi mMZiTuServiceApi;
 
     @Inject
-    public AppApiHelper(GankServiceApi gankServiceApi) {
+    public AppApiHelper(GankServiceApi gankServiceApi, MZiTuServiceApi mZiTuServiceApi) {
         mGankServiceApi = gankServiceApi;
+        mMZiTuServiceApi = mZiTuServiceApi;
     }
 
     @Override

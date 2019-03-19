@@ -9,7 +9,6 @@
     tools:context=".MainActivity">
 
     <include
-        android:id="@+id/rl_menu"
         layout="@layout/main_include_menu" />
 
     <include layout="@layout/main_include_content" />

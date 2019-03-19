@@ -124,6 +124,7 @@ public class AppUtils {
         if (checkActivityExported(context, intent)) {
             LogUtils.w(TAG, "启动指定的App");
 
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
             LogUtils.w(TAG, "无法启动指定的App，"
@@ -150,6 +151,7 @@ public class AppUtils {
         if (checkActivityExistByResolve(context, intent) && checkActivityExported(context, intent)) {
             LogUtils.w(TAG, "启动指定的App的指定Activity");
 
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {
             LogUtils.w(TAG, "无法启动指定的Activity，"
@@ -238,7 +240,6 @@ public class AppUtils {
         }
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             LogUtils.w(TAG, "系统版本 >= N ，使用 fileProvider 获取Uri进行安装");
 
@@ -250,6 +251,7 @@ public class AppUtils {
 
             intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
         }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
@@ -288,6 +290,7 @@ public class AppUtils {
         }
         //  判断是否有Activity能够匹配我们的隐式Intent，如果找不到匹配的Activity就会返回null
         if (intent.resolveActivity(mPkgMgr) != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
     }
@@ -323,6 +326,7 @@ public class AppUtils {
         intent.setAction(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_SUBJECT, "分享：" + title);
         intent.putExtra(Intent.EXTRA_TEXT, title + " " + url);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(Intent.createChooser(intent, "选择分享"));
     }
 

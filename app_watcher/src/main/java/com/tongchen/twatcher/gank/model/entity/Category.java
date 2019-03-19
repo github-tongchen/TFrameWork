@@ -81,7 +81,7 @@ public class Category extends BaseBean implements Parcelable {
         private int index;
         private int count = 9;
 
-        public Builder cagetoryName(String categoryName) {
+        public Builder categoryName(String categoryName) {
             this.categoryName = categoryName;
             return this;
         }
