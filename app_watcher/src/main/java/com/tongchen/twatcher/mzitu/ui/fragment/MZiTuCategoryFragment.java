@@ -66,7 +66,7 @@ public class MZiTuCategoryFragment extends MVPFragment<List<MZiTu>, IMZiTuCatego
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mCategory = getArguments().getParcelable(ARG_CATEGORY);
-            mRequestName = mCategory.getRequestName();
+            mRequestName = mCategory != null ? mCategory.getRequestName() : null;
         }
     }
 
