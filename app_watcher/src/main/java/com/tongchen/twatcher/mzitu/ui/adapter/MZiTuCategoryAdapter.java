@@ -37,7 +37,7 @@ public class MZiTuCategoryAdapter extends BaseQuickAdapter<MZiTu, BaseViewHolder
                 .transition(new DrawableTransitionOptions().crossFade(300))
                 .into((ImageView) helper.getView(R.id.iv_preview));
 
-        int width= (int) (ScreenUtils.getScreenWidth(mContext)/2);
+        int width = (int) (ScreenUtils.getScreenWidth(mContext) / 2);
         int height = item.getHeight() * width / item.getWidth();
 
         StaggeredGridLayoutManager.LayoutParams layoutParams = (StaggeredGridLayoutManager.LayoutParams) helper.itemView.getLayoutParams();

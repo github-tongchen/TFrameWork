@@ -54,7 +54,7 @@ public class MZiTuCategoryPresenter extends MVPPresenter<IMZiTuCategoryView, Lis
             return;
         }
         LogUtils.d("MZiTuCategoryPresenter", "requestSucceed:" + result.toString());
-        mMode=0;
+        mMode = 0;
         switch (mMode) {
             case MODE_REFRESH:
                 getView().hideLoading();

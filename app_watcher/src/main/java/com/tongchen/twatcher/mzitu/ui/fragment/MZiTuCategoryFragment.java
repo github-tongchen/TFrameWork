@@ -86,7 +86,7 @@ public class MZiTuCategoryFragment extends MVPFragment<List<MZiTu>, IMZiTuCatego
 
         LogUtils.d(TAG, "-------run");
 
-        StaggeredGridLayoutManager linearLayoutManager = new StaggeredGridLayoutManager( mSpanCount, LinearLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager linearLayoutManager = new StaggeredGridLayoutManager(mSpanCount, LinearLayoutManager.VERTICAL);
         mContentRecyclerLv.setLayoutManager(linearLayoutManager);
         mContentAdapter = new MZiTuCategoryAdapter(mData);
         mContentRecyclerLv.setAdapter(mContentAdapter);

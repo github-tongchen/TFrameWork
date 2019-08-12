@@ -8,8 +8,7 @@
     app:navigation_style="like_QQ"
     tools:context=".MainActivity">
 
-    <include
-        layout="@layout/main_include_menu" />
+    <include layout="@layout/main_include_menu" />
 
     <include layout="@layout/main_include_content" />
 

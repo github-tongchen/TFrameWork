@@ -39,7 +39,7 @@ public class MZiTuParser {
         List<MZiTu> mZiTuList = new ArrayList<>();
         for (Element li : lis) {
             MZiTu mZiTu = new MZiTu();
-            if(li.select("a").isEmpty()){
+            if (li.select("a").isEmpty()) {
                 continue;
             }
             String contentUrl = li.select("a").first().attr("href");
@@ -66,12 +66,12 @@ public class MZiTuParser {
             int width = Integer.parseInt(imageElement.attr("width"));
             mZiTu.setWidth(width);
 
-            LogUtils.i(TAG,"parseAlbumCoverListByCategory---11111" );
+            LogUtils.i(TAG, "parseAlbumCoverListByCategory---11111");
 
             String date = li.getElementsByClass("time").first().text();
             mZiTu.setDate(date);
 
-            LogUtils.i(TAG,"parseAlbumCoverListByCategory---22222");
+            LogUtils.i(TAG, "parseAlbumCoverListByCategory---22222");
 
 
             /*String viewCount = li.getElementsByClass("view").first().text();
@@ -87,7 +87,7 @@ public class MZiTuParser {
             Elements pageElements = doc.getElementsByClass("page-numbers");
             if (pageElements != null && pageElements.size() > 3) {
                 String pageStr = pageElements.get(pageElements.size() - 2).text();
-                LogUtils.i(TAG,"parseAlbumCoverListByCategory---totalPage:" + pageStr);
+                LogUtils.i(TAG, "parseAlbumCoverListByCategory---totalPage:" + pageStr);
 
                 if (!TextUtils.isEmpty(pageStr) && TextUtils.isDigitsOnly(pageStr)) {
                     baseResult.setTotalPage(Integer.parseInt(pageStr));

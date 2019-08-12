@@ -40,7 +40,7 @@ public class CircleImageView extends AppCompatImageView {
 
         mBorderColor = typedArray.getColor(R.styleable.CircleImageView_border_color, Color.WHITE);
         mBorderWidth = typedArray.getDimensionPixelSize(R.styleable.CircleImageView_border_width, ScreenUtils.dip2px(context.getApplicationContext(), 5));
-        mBackgroundColor=typedArray.getColor(R.styleable.CircleImageView_circle_background_color,Color.LTGRAY);
+        mBackgroundColor = typedArray.getColor(R.styleable.CircleImageView_circle_background_color, Color.LTGRAY);
 
         typedArray.recycle();
     }

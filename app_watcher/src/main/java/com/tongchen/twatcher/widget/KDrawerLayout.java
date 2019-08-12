@@ -14,6 +14,12 @@ import com.tongchen.beauty.util.ScreenUtil;
  * Created by TongChen on 2017/7/25.
  * <p>
  * Description:自定义仿 KuGou 8 侧滑菜单
+ * <p>
+ * 点击开关，开闭Menu，如果当前menu已经打开，则关闭，如果当前menu已经关闭，则打开
+ * <p>
+ * 打开menu
+ * <p>
+ * 关闭menu
  *//*
 
 
@@ -189,8 +195,8 @@ public class KDrawerLayout extends ViewGroup {
 
     */
 /**
-     * 点击开关，开闭Menu，如果当前menu已经打开，则关闭，如果当前menu已经关闭，则打开
-     *//*
+ * 点击开关，开闭Menu，如果当前menu已经打开，则关闭，如果当前menu已经关闭，则打开
+ *//*
 
     public void toggleMenu() {
         if (mIsOpen) {
@@ -202,8 +208,8 @@ public class KDrawerLayout extends ViewGroup {
 
     */
 /**
-     * 打开menu
-     *//*
+ * 打开menu
+ *//*
 
     private void openMenu() {
         mScroller.startScroll(getScrollX(), 0, -mMenuWidth - getScrollX(), 0, 500);
@@ -213,8 +219,8 @@ public class KDrawerLayout extends ViewGroup {
 
     */
 /**
-     * 关闭menu
-     *//*
+ * 关闭menu
+ *//*
 
     private void closeMenu() {
         //也是使用startScroll方法，dx和dy的计算方法一样
