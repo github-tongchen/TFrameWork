@@ -71,14 +71,19 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
 
     @OnClick({R.id.tv_gank, R.id.tv_mzitu})
     public void onViewClick(View view) {
-        LogUtils.d(TAG, "view---"+view.toString());
+        LogUtils.d(TAG, "view---" + view.toString());
         switch (view.getId()) {
             case R.id.tv_gank:
                 if (mGankFragment == null) {
                     mGankFragment = GankFragment.newInstance();
                 }
-                if (!mGankFragment.isVisible()) {
-                    mFragmentManager.beginTransaction().show(mGankFragment).commit();
+                if (!mGankFragment.isAdded()) {
+                    loadFragment(mGankFragment);
+                    mFragmentManager.beginTransaction().hide(mMZiTuFragment).commit();
+                } else {
+                    if (!mGankFragment.isVisible()) {
+                        mFragmentManager.beginTransaction().hide(mMZiTuFragment).show(mGankFragment).commit();
+                    }
                 }
 
                 break;
@@ -91,7 +96,7 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
                     mFragmentManager.beginTransaction().hide(mGankFragment).commit();
                 } else {
                     if (!mMZiTuFragment.isVisible()) {
-                        mFragmentManager.beginTransaction().show(mMZiTuFragment).commit();
+                        mFragmentManager.beginTransaction().hide(mGankFragment).show(mMZiTuFragment).commit();
                     }
                 }
                 break;

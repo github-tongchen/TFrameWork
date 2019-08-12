@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class GankFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
+public class GankFragment extends BaseFragment {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -36,10 +36,6 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
     private List<Fragment> mFragmentList = new ArrayList<>();
 
     private FragmentAdapter mAdapter;
-
-    public GankFragment() {
-
-    }
 
     public static GankFragment newInstance() {
         return new GankFragment();
@@ -106,26 +102,4 @@ public class GankFragment extends BaseFragment implements ViewPager.OnPageChange
         }
     }
 
-    @Override
-    public void onPageScrolled(int i, float v, int i1) {
-
-    }
-
-    @Override
-    public void onPageSelected(int i) {
-        if (i == 0) {
-            if (mActivity instanceof MainActivity) {
-                ((MainActivity) mActivity).isDispatchEvent2DrawerLayout(true);
-            }
-        } else {
-            if (mActivity instanceof MainActivity) {
-                ((MainActivity) mActivity).isDispatchEvent2DrawerLayout(false);
-            }
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int i) {
-
-    }
 }

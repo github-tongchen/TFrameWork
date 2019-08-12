@@ -5,11 +5,12 @@
     <color name="colorAccent">#FF4081</color>
 
     <!--Toolbar-->
-    <color name="toolbar_bg">@color/colorPrimary</color>
+    <color name="toolbar_gank_bg">@color/colorPrimary</color>
+    <color name="toolbar_mzitu_bg">@color/colorAccent</color>
     <color name="toolbar_title_text_color">#ffffff</color>
 
     <!--CollapsingToolbarLayout-->
-    <color name="content_scrim_color">@color/colorPrimary</color>
+    <!--<color name="content_scrim_color">@color/colorPrimary</color>-->
     <color name="expanded_title_text_color">#000000</color>
     <color name="collapsed_title_text_color">#ffffff</color>
 

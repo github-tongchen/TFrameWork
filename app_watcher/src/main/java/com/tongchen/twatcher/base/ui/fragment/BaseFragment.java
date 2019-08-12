@@ -7,17 +7,19 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tongchen.twatcher.MainActivity;
 import com.tongchen.twatcher.gank.ui.BackHandledInterface;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements ViewPager.OnPageChangeListener {
 
     protected Activity mActivity;
 
@@ -78,5 +80,29 @@ public abstract class BaseFragment extends Fragment {
      */
     public boolean onBackPressed() {
         return false;
+    }
+
+
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        if (i == 0) {
+            if (mActivity instanceof MainActivity) {
+                ((MainActivity) mActivity).isDispatchEvent2DrawerLayout(true);
+            }
+        } else {
+            if (mActivity instanceof MainActivity) {
+                ((MainActivity) mActivity).isDispatchEvent2DrawerLayout(false);
+            }
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 }

@@ -22,14 +22,16 @@
         <TextView
             android:id="@+id/tv_gank"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
             android:text="干货集中营"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_mzitu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
             android:text="妹子图"
             android:textSize="20sp" />
 
