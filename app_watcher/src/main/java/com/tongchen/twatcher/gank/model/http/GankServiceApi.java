@@ -1,6 +1,7 @@
 package com.tongchen.twatcher.gank.model.http;
 
 import com.tongchen.twatcher.base.http.Api;
+import com.tongchen.twatcher.base.http.ResponseFormat;
 import com.tongchen.twatcher.gank.model.entity.GankData;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
 
@@ -20,5 +21,6 @@ public interface GankServiceApi {
 
     @Headers({"Domain-Name: " + Api.DOMAIN_NAME_GANK})
     @GET("data/{category}/{size}/{page}")
+    @ResponseFormat(ResponseFormat.JSON)
     Observable<GankData<List<GankResult>>> getGankDataByPage(@Path("category") String category, @Path("size") int size, @Path("page") int page);
 }

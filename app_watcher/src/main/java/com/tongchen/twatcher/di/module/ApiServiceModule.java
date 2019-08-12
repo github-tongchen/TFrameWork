@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.tongchen.twatcher.base.http.Api;
 import com.tongchen.twatcher.base.http.CommonHeaderInterceptor;
+import com.tongchen.twatcher.base.http.MultipleConverterFactory;
 import com.tongchen.twatcher.base.http.SSLSocketFactoryCompat;
 import com.tongchen.twatcher.gank.model.http.GankServiceApi;
 import com.tongchen.twatcher.mzitu.model.MZiTuServiceApi;
@@ -26,7 +27,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
 /**
@@ -73,7 +73,8 @@ public class ApiServiceModule {
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 //                .addConverterFactory(GsonConverterFactory.create())
-                .addConverterFactory(ScalarsConverterFactory.create())
+//                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(MultipleConverterFactory.create())
                 .build();
     }
 
@@ -94,7 +95,7 @@ public class ApiServiceModule {
 
     @Singleton
     @Provides
-    OkHttpClient provideOkHttpClient(Context context, CommonHeaderInterceptor commonHeaderInterceptor,HttpLoggingInterceptor loggingInterceptor, SSLSocketFactory sslSocketFactory, X509TrustManager trustAllCert) {
+    OkHttpClient provideOkHttpClient(Context context, CommonHeaderInterceptor commonHeaderInterceptor, HttpLoggingInterceptor loggingInterceptor, SSLSocketFactory sslSocketFactory, X509TrustManager trustAllCert) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
         int cacheSize = 10 * 1024 * 1024;
