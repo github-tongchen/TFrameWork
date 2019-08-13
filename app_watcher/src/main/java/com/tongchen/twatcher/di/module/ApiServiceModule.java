@@ -111,10 +111,6 @@ public class ApiServiceModule {
         //  解决https证书过期无法访问的问题
         builder.sslSocketFactory(sslSocketFactory, trustAllCert);
 
-        //  添加动态切换BaseUrl支持
-        RetrofitUrlManager.getInstance().putDomain(Api.DOMAIN_NAME_GANK, Api.DOMAIN_GANK);
-        RetrofitUrlManager.getInstance().putDomain(Api.DOMAIN_NAME_MZITU, Api.DOMAIN_MZITU);
-
         return RetrofitUrlManager.getInstance().with(builder).build();
     }
 

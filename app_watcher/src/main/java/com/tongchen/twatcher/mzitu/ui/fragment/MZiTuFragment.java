@@ -62,7 +62,7 @@ public class MZiTuFragment extends BaseFragment {
         initCategories();
         initFragments();
 
-        mAdapter = new MZiTuFragmentAdapter(getFragmentManager(), mFragmentList, mCategoryList);
+        mAdapter = new MZiTuFragmentAdapter(getChildFragmentManager(), mFragmentList, mCategoryList);
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(this);
         mTabLyt.setupWithViewPager(mViewPager);

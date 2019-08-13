@@ -66,7 +66,7 @@ public class GankFragment extends BaseFragment {
         initCategories();
         initFragments();
 
-        mAdapter = new FragmentAdapter(getFragmentManager(), mFragmentList, mCategoryList);
+        mAdapter = new FragmentAdapter(getChildFragmentManager(), mFragmentList, mCategoryList);
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(this);
         mTabLyt.setupWithViewPager(mViewPager);

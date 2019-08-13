@@ -20,15 +20,9 @@
 
         <activity
             android:name=".MainActivity"
-            android:theme="@style/TranslucentStatusTheme"><!--<activity android:name=".gank.ui.activity.SampleActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>-->
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentStatusTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

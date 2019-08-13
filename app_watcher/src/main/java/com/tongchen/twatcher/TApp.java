@@ -30,6 +30,10 @@ public class TApp extends Application {
         FlowManager.init(this);
         //  RetrofitUrlManager 高级模式
         RetrofitUrlManager.getInstance().startAdvancedModel(Api.DOMAIN_GANK);
+
+        //  添加需要动态切换的BaseUrl
+        RetrofitUrlManager.getInstance().putDomain(Api.DOMAIN_NAME_GANK, Api.DOMAIN_GANK);
+        RetrofitUrlManager.getInstance().putDomain(Api.DOMAIN_NAME_MZITU, Api.DOMAIN_MZITU);
     }
 
     public static AppComponent getAppComponent() {

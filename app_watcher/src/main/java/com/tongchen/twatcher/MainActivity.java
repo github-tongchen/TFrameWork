@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
         mGankFragment = GankFragment.newInstance();
         mMZiTuFragment = MZiTuFragment.newInstance();
 
-        loadFragment(mMZiTuFragment);
+        loadFragment(mGankFragment);
 
     }
 

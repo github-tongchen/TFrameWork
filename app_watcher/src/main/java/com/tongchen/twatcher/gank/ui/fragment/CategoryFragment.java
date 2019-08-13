@@ -180,7 +180,7 @@ public class CategoryFragment extends MVPFragment<List<GankResult>, ICategoryVie
 
     @Override
     public void refreshSucceed(List<GankResult> result) {
-        LogUtils.d("CategoryFragment", "refreshSucceed---" + mCategory);
+        LogUtils.d("CategoryFragment", "refreshSucceed---" + mCategory + ", size:" + result.size());
         mRefreshLayout.finishRefresh();
 
         mData.clear();
