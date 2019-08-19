@@ -96,7 +96,7 @@ public class TDrawerLayout extends ViewGroup {
                 intercept = false;
                 break;
             case MotionEvent.ACTION_MOVE:
-                int deltaX = (int) ev.getX() - mLastXIntercept;
+                int deltaX = (int) (ev.getX() - mLastXIntercept);
                 int deltaY = (int) (ev.getY() - mLastYIntercept);
                 //  横向滑动，进入if内部
                 if (Math.abs(deltaX) > Math.abs(deltaY)) {
