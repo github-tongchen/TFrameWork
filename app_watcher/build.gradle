@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -153,4 +155,5 @@ dependencies {
     //  支持多BaseUrl 和 动态切换 BaseUrl
     implementation 'me.jessyan:retrofit-url-manager:1.4.0'
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

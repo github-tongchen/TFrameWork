@@ -37,12 +37,19 @@ public class MZiTuCategoryPresenter extends MVPPresenter<IMZiTuCategoryView, Lis
     @Override
     public void getMZiTuCoverListByCategory(String category, boolean pullToRefresh) {
         if (pullToRefresh) {
+            mMode = MODE_REFRESH;
             page = 1;
+        } else {
+            mMode = MODE_MORE;
+            if (page < totalPage) {
+                page++;
+            }
         }
         mIAppApiHelper.listMZiTu(category, page, pullToRefresh)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listBaseResult -> {
+                            totalPage = listBaseResult.getTotalPage();
                             requestSucceed(listBaseResult.getData());
                         },
                         throwable -> requestFailed(throwable.toString()));
@@ -54,7 +61,7 @@ public class MZiTuCategoryPresenter extends MVPPresenter<IMZiTuCategoryView, Lis
             return;
         }
         LogUtils.d("MZiTuCategoryPresenter", "requestSucceed:" + result.toString());
-        mMode = 0;
+
         switch (mMode) {
             case MODE_REFRESH:
                 getView().hideLoading();
