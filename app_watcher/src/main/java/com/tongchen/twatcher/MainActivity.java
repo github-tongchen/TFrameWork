@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.tongchen.twatcher.base.ui.activity.BaseActivity;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.gank.ui.BackHandledInterface;
-import com.tongchen.twatcher.gank.ui.fragment.GankFragment;
+import com.tongchen.twatcher.gank.ui.fragment.GankMainFragment;
 import com.tongchen.twatcher.mzitu.ui.fragment.MZiTuFragment;
 import com.tongchen.twatcher.util.LogUtils;
 import com.tongchen.twatcher.util.ToastUtils;
@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
     FrameLayout mContentContainerFLyt;
 
     private FragmentManager mFragmentManager;
-    private GankFragment mGankFragment;
+    private GankMainFragment mGankFragment;
     private MZiTuFragment mMZiTuFragment;
 
     //  点击2次返回才退出
@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
     @Override
     protected void loadView() {
         mFragmentManager = getSupportFragmentManager();
-        mGankFragment = GankFragment.newInstance();
+        mGankFragment = GankMainFragment.Companion.newInstance();
         mMZiTuFragment = MZiTuFragment.newInstance();
 
         loadFragment(mGankFragment);
@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity implements BackHandledInterface {
         switch (view.getId()) {
             case R.id.tv_gank:
                 if (mGankFragment == null) {
-                    mGankFragment = GankFragment.newInstance();
+                    mGankFragment = GankMainFragment.Companion.newInstance();
                 }
                 if (!mGankFragment.isAdded()) {
                     loadFragment(mGankFragment);
