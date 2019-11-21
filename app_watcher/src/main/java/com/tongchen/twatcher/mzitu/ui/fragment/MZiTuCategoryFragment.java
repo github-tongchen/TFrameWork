@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -15,8 +14,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.tongchen.twatcher.R;
 import com.tongchen.twatcher.base.ui.fragment.MVPFragment;
-import com.tongchen.twatcher.gank.model.entity.GankResult;
-import com.tongchen.twatcher.gank.model.entity.MultipleItem;
 import com.tongchen.twatcher.mzitu.model.entity.MZiTu;
 import com.tongchen.twatcher.mzitu.model.entity.MZiTuCategory;
 import com.tongchen.twatcher.mzitu.presenter.IMZiTuCategoryPresenter;

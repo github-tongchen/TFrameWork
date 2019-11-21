@@ -75,7 +75,7 @@ public class ContentPicFragment extends BaseFragment implements EasyPermissions.
 
         Glide.with(mActivity).load(mGankResult.getUrl()).into(mPicIv);
 
-        mConfirmDialogFragment = ConfirmDialogFragment.newInstance();
+        mConfirmDialogFragment = ConfirmDialogFragment.Companion.newInstance();
         mConfirmDialogFragment.setOnDialogClickListener(new ConfirmDialogFragment.OnDialogClickListener() {
             @Override
             public void onPositive() {

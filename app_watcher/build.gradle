@@ -150,7 +150,7 @@ dependencies {
     implementation 'pub.devrel:easypermissions:2.0.0'
 
     //  下拉刷新上拉加载
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
 
     //  支持多BaseUrl 和 动态切换 BaseUrl
     implementation 'me.jessyan:retrofit-url-manager:1.4.0'
