@@ -64,7 +64,7 @@ class CategoryFragment : MVPFragment<MutableList<GankResult>, ICategoryView, ICa
         super.onCreate(savedInstanceState)
         if (arguments != null) {
             mCategory = arguments?.getParcelable(ARG_CATEGORY)
-            mRequestName = mCategory?.requestName
+            mRequestName = mCategory?.mRequestName
         }
     }
 

@@ -44,9 +44,9 @@ class CategoryAdapter : BaseRecyclerAdapter<GankResult> {
             CategoryFragment.SINGLE_SPAN_COUNT -> {
                 holder.setText(R.id.tv_desc, itemData.desc)
                 holder.setText(R.id.tv_date, itemData.publishedAt)
-                if (itemData.images != null && itemData.images.size > 0) {
+                if (itemData.images != null && itemData.images!!.isNotEmpty()) {
                     holder.getView<ImageView>(R.id.iv_preview).visibility = View.VISIBLE
-                    Glide.with(mContext).load(itemData.images[0]).into(holder.getView(R.id.iv_preview))
+                    Glide.with(mContext).load(itemData.images!![0]).into(holder.getView(R.id.iv_preview))
                 } else {
                     holder.getView<ImageView>(R.id.iv_preview).visibility = View.GONE
                 }
