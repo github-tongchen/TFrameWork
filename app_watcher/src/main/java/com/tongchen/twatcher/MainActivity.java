@@ -9,9 +9,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.tongchen.twatcher.base.ui.BackHandleInterface;
 import com.tongchen.twatcher.base.ui.activity.BaseActivity;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
-import com.tongchen.twatcher.gank.ui.BackHandledInterface;
 import com.tongchen.twatcher.gank.ui.fragment.GankMainFragment;
 import com.tongchen.twatcher.mzitu.ui.fragment.MZiTuFragment;
 import com.tongchen.twatcher.util.LogUtils;
@@ -21,7 +21,7 @@ import com.tongchen.twatcher.widget.TDrawerLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements BackHandledInterface {
+public class MainActivity extends BaseActivity implements BackHandleInterface {
 
     private static final String TAG = "MainActivity";
 

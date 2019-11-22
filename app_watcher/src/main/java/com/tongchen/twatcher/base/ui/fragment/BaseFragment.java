@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tongchen.twatcher.MainActivity;
-import com.tongchen.twatcher.gank.ui.BackHandledInterface;
+import com.tongchen.twatcher.base.ui.BackHandleInterface;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -25,32 +25,32 @@ public abstract class BaseFragment extends Fragment implements ViewPager.OnPageC
 
     private Unbinder mUnbinder;
 
-    protected BackHandledInterface mBackHandledInterface;
+    protected BackHandleInterface mBackHandleInterface;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = getActivity();
 
-        if (!(getActivity() instanceof BackHandledInterface)) {
-            throw new ClassCastException("Hosting Activity must implement BackHandledInterface");
+        if (!(getActivity() instanceof BackHandleInterface)) {
+            throw new ClassCastException("Hosting Activity must implement BackHandleInterface");
         } else {
-            this.mBackHandledInterface = (BackHandledInterface) getActivity();
+            this.mBackHandleInterface = (BackHandleInterface) getActivity();
         }
         //告诉Activity，当前Fragment在栈顶
-        mBackHandledInterface.setSelectedFragment(this);
+        mBackHandleInterface.setSelectedFragment(this);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        if (!(getActivity() instanceof BackHandledInterface)) {
-            throw new ClassCastException("Hosting Activity must implement BackHandledInterface");
+        if (!(getActivity() instanceof BackHandleInterface)) {
+            throw new ClassCastException("Hosting Activity must implement BackHandleInterface");
         } else {
-            this.mBackHandledInterface = (BackHandledInterface) getActivity();
+            this.mBackHandleInterface = (BackHandleInterface) getActivity();
         }
         //告诉Activity，当前Fragment已移除
-        mBackHandledInterface.setSelectedFragment(null);
+        mBackHandleInterface.setSelectedFragment(null);
     }
 
     @Nullable
