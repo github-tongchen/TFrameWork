@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity implements BackHandleInterface {
     @Override
     protected void loadView() {
         mFragmentManager = getSupportFragmentManager();
-        mGankFragment = GankMainFragment.Companion.newInstance();
+        mGankFragment = GankMainFragment.newInstance();
         mMZiTuFragment = MZiTuFragment.newInstance();
 
         loadFragment(mGankFragment);
@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity implements BackHandleInterface {
         switch (view.getId()) {
             case R.id.tv_gank:
                 if (mGankFragment == null) {
-                    mGankFragment = GankMainFragment.Companion.newInstance();
+                    mGankFragment = GankMainFragment.newInstance();
                 }
                 if (!mGankFragment.isAdded()) {
                     loadFragment(mGankFragment);

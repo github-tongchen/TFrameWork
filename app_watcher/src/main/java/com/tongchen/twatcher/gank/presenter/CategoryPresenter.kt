@@ -23,8 +23,8 @@ class CategoryPresenter : MVPPresenter<ICategoryView, GankData<MutableList<GankR
     private var mMode = -1
 
     companion object {
-        val MODE_REFRESH = 0
-        val MODE_MORE = 1
+        const val MODE_REFRESH = 0
+        const val MODE_MORE = 1
     }
 
     constructor(iAppApiHelper: IAppApiHelper) {

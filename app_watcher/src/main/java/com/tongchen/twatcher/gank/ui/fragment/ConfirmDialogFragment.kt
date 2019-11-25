@@ -21,6 +21,7 @@ class ConfirmDialogFragment : DialogFragment(), View.OnClickListener {
     private var mDialogClickListener: OnDialogClickListener? = null
 
     companion object {
+        @JvmStatic
         fun newInstance(): ConfirmDialogFragment {
             return ConfirmDialogFragment()
         }

@@ -21,6 +21,7 @@ class GankMainFragment : BaseFragment() {
     private lateinit var mFragmentList: MutableList<Fragment>
 
     companion object {
+        @JvmStatic
         fun newInstance(): GankMainFragment {
             return GankMainFragment()
         }

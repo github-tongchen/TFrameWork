@@ -46,11 +46,12 @@ class CategoryFragment : MVPFragment<MutableList<GankResult>, ICategoryView, ICa
     lateinit var mContext: Context
 
     companion object {
-        internal val SINGLE_SPAN_COUNT = 1
-        internal val MULTIPLE_SPAN_COUNT = 2
+        internal const val SINGLE_SPAN_COUNT = 1
+        internal const val MULTIPLE_SPAN_COUNT = 2
 
         private val ARG_CATEGORY = "category"
 
+        @JvmStatic
         fun newInstance(category: Category): CategoryFragment {
             val fragment = CategoryFragment()
             val bundle = Bundle()
