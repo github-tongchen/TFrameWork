@@ -149,7 +149,7 @@ class CategoryFragment : MVPFragment<MutableList<GankResult>, ICategoryView, ICa
             mContentAdapter.notifyDataSetChanged()
         }
 
-        LogUtils.d("CategoryFragment", "refreshSucceed---" + mCategory + ", size:${result?.size}")
+        LogUtils.d("CategoryFragment", "refreshSucceed---$mCategory, size:${result?.size}")
     }
 
     override fun refreshFailed(errorMsg: String?) {

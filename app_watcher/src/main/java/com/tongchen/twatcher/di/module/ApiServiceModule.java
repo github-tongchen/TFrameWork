@@ -7,7 +7,7 @@ import com.tongchen.twatcher.base.http.CommonHeaderInterceptor;
 import com.tongchen.twatcher.base.http.MultipleConverterFactory;
 import com.tongchen.twatcher.base.http.SSLSocketFactoryCompat;
 import com.tongchen.twatcher.gank.model.http.GankServiceApi;
-import com.tongchen.twatcher.mzitu.model.MZiTuServiceApi;
+import com.tongchen.twatcher.mzitu.model.http.MZiTuServiceApi;
 import com.tongchen.twatcher.util.LogUtils;
 
 import java.io.File;

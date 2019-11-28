@@ -74,6 +74,7 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<BaseRecyclerAdapter
     fun setData(list: MutableList<T>) {
         mData.clear()
         mData.addAll(list)
+        notifyDataSetChanged()
     }
 
     fun insertData(itemData: T) {

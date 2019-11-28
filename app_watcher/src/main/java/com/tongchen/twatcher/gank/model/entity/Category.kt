@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
  * Desc:
  */
 @Parcelize
-data class Category constructor(
+data class Category(
 
         //  显示的名称
         var mCategoryName: String = "",

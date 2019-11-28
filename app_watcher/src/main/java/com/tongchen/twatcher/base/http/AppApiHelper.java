@@ -3,7 +3,7 @@ package com.tongchen.twatcher.base.http;
 import com.tongchen.twatcher.gank.model.entity.GankData;
 import com.tongchen.twatcher.gank.model.entity.GankResult;
 import com.tongchen.twatcher.gank.model.http.GankServiceApi;
-import com.tongchen.twatcher.mzitu.model.MZiTuServiceApi;
+import com.tongchen.twatcher.mzitu.model.http.MZiTuServiceApi;
 import com.tongchen.twatcher.mzitu.model.entity.BaseResult;
 import com.tongchen.twatcher.mzitu.model.entity.MZiTu;
 import com.tongchen.twatcher.mzitu.model.parse.MZiTuParser;
@@ -64,7 +64,7 @@ public class AppApiHelper implements IAppApiHelper {
         return stringObservable.map(new Function<String, BaseResult<List<MZiTu>>>() {
             @Override
             public BaseResult<List<MZiTu>> apply(String s) throws Exception {
-                return MZiTuParser.parseAlbumCoverListByCategory(s, page);
+                return MZiTuParser.INSTANCE.parseAlbumCoverListByCategory(s, page);
             }
         });
     }
