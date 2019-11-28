@@ -21,7 +21,7 @@ data class GankResult constructor(
 
     //  Video和Welfare没有images字段，要做null处理
     @SerializedName("images")
-    var images: List<String>? = null,
+    var images: MutableList<String>? = null,
 
     @SerializedName("publishedAt")
     var publishedAt: String = "",

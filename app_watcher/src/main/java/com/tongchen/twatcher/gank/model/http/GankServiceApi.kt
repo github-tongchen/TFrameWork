@@ -20,6 +20,6 @@ interface GankServiceApi {
     @Headers("Domain-Name: " + Api.DOMAIN_NAME_GANK)
     @GET("data/{category}/{size}/{page}")
     @ResponseFormat(ResponseFormat.JSON)
-    fun getGankDataByPage(@Path("category") category: String, @Path("size") size: Int, @Path("page") page: Int): Observable<GankData<List<GankResult>>>
+    fun getGankDataByPage(@Path("category") category: String, @Path("size") size: Int, @Path("page") page: Int): Observable<GankData<MutableList<GankResult>>>
 
 }
