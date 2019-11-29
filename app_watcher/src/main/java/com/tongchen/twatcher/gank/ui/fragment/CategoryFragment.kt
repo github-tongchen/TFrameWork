@@ -2,6 +2,7 @@ package com.tongchen.twatcher.gank.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -124,7 +125,7 @@ class CategoryFragment : MVPFragment<MutableList<GankResult>, ICategoryView, ICa
                     } else {
                         mContentFragment = ContentTextFragment.newInstance(itemData)
                     }
-                    (mActivity as MainActivity).startFragment(mContentFragment)
+                    (mActivity as MainActivity).startFragment(mContentFragment as Fragment)
                 }
             }
         })

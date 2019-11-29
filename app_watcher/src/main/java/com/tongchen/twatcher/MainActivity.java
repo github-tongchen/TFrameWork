@@ -1,3 +1,4 @@
+/*
 package com.tongchen.twatcher;
 
 
@@ -13,7 +14,7 @@ import com.tongchen.twatcher.base.ui.BackHandleInterface;
 import com.tongchen.twatcher.base.ui.activity.BaseActivity;
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment;
 import com.tongchen.twatcher.gank.ui.fragment.GankMainFragment;
-import com.tongchen.twatcher.mzitu.ui.fragment.MZiTuFragment;
+import com.tongchen.twatcher.mzitu.ui.fragment.MZiTuMainFragment;
 import com.tongchen.twatcher.util.LogUtils;
 import com.tongchen.twatcher.util.ToastUtils;
 import com.tongchen.twatcher.widget.TDrawerLayout;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity implements BackHandleInterface {
 
     private FragmentManager mFragmentManager;
     private GankMainFragment mGankFragment;
-    private MZiTuFragment mMZiTuFragment;
+    private MZiTuMainFragment mMZiTuFragment;
 
     //  点击2次返回才退出
     private long firstTime = 0;
@@ -57,7 +58,7 @@ public class MainActivity extends BaseActivity implements BackHandleInterface {
     protected void loadView() {
         mFragmentManager = getSupportFragmentManager();
         mGankFragment = GankMainFragment.newInstance();
-        mMZiTuFragment = MZiTuFragment.newInstance();
+        mMZiTuFragment = MZiTuMainFragment.newInstance();
 
         loadFragment(mGankFragment);
 
@@ -89,7 +90,7 @@ public class MainActivity extends BaseActivity implements BackHandleInterface {
                 break;
             case R.id.tv_mzitu:
                 if (mMZiTuFragment == null) {
-                    mMZiTuFragment = MZiTuFragment.newInstance();
+                    mMZiTuFragment = MZiTuMainFragment.newInstance();
                 }
                 if (!mMZiTuFragment.isAdded()) {
                     loadFragment(mMZiTuFragment);
@@ -149,3 +150,4 @@ public class MainActivity extends BaseActivity implements BackHandleInterface {
 
 
 }
+*/

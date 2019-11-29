@@ -2,14 +2,12 @@ package com.tongchen.twatcher.mzitu.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.View
 import com.tongchen.twatcher.MainActivity
 import com.tongchen.twatcher.R
 import com.tongchen.twatcher.base.ui.fragment.BaseFragment
 import com.tongchen.twatcher.mzitu.model.entity.MZiTuCategory
 import com.tongchen.twatcher.mzitu.ui.adapter.MZiTuFragmentAdapter
 import kotlinx.android.synthetic.main.gank_fragment.*
-import kotlinx.android.synthetic.main.gank_fragment_content_text.*
 import kotlinx.android.synthetic.main.gank_fragment_content_text.toolbar
 
 /**
@@ -18,7 +16,7 @@ import kotlinx.android.synthetic.main.gank_fragment_content_text.toolbar
  * <p>
  * Desc:
  */
-class MZiTuFragment : BaseFragment() {
+class MZiTuMainFragment : BaseFragment() {
 
     private lateinit var mAdapter: MZiTuFragmentAdapter
 
@@ -27,7 +25,7 @@ class MZiTuFragment : BaseFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = MZiTuFragment()
+        fun newInstance() = MZiTuMainFragment()
     }
 
     override fun bindLayout() = R.layout.mzitu_fragment
