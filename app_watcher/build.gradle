@@ -14,6 +14,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
 
     //  启用Lambda表达式
@@ -162,4 +164,6 @@ dependencies {
     implementation 'me.jessyan:retrofit-url-manager:1.4.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0'
 }
