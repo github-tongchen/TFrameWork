@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -83,21 +84,21 @@ dependencies {
 
     //  ButterKnife
     api "com.jakewharton:butterknife:${rootProject.ext.version["butterknife_version"]}"
-    annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.version["butterknife_version"]}"
+    kapt "com.jakewharton:butterknife-compiler:${rootProject.ext.version["butterknife_version"]}"
 
     //  Glide
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.version["glide_version"]}"
-    annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.version["glide_version"]}"
+    kapt "com.github.bumptech.glide:compiler:${rootProject.ext.version["glide_version"]}"
 
     //  Dagger2
     api "com.google.dagger:dagger:${rootProject.ext.version["dagger_version"]}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.version["dagger_version"]}"
+    kapt "com.google.dagger:dagger-compiler:${rootProject.ext.version["dagger_version"]}"
 
     //  Dagger-Android
 
     /*implementation 'com.google.dagger:dagger-android:2.16'
                     implementation 'com.google.dagger:dagger-android-support:2.16'
-                    annotationProcessor 'com.google.dagger:dagger-android-processor:2.16'*/
+                    kapt 'com.google.dagger:dagger-android-processor:2.16'*/
 
     //  Retrofit2
     api "com.squareup.retrofit2:retrofit:${rootProject.ext.version["retrofit_version"]}"
@@ -132,7 +133,7 @@ dependencies {
     api "com.google.code.gson:gson:${rootProject.ext.version["gson_version"]}"
 
     //  DBFlow数据库
-    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${rootProject.ext.version["dbflow_version"]}"
+    kapt "com.github.Raizlabs.DBFlow:dbflow-processor:${rootProject.ext.version["dbflow_version"]}"
     api "com.github.Raizlabs.DBFlow:dbflow-core:${rootProject.ext.version["dbflow_version"]}"
     api "com.github.Raizlabs.DBFlow:dbflow:${rootProject.ext.version["dbflow_version"]}"
 

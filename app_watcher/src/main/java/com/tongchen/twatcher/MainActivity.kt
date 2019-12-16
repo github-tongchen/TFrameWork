@@ -57,7 +57,7 @@ class MainActivity : BaseActivity(), BackHandleInterface, View.OnClickListener {
                 if (mGankMainFragment == null) {
                     mGankMainFragment = GankMainFragment.newInstance()
                 }
-                if (mGankMainFragment!!.isAdded) {
+                if (!mGankMainFragment!!.isAdded) {
                     loadFragment(mGankMainFragment as Fragment)
                     mFragmentManager.beginTransaction().hide(mMZiTuMainFragment as Fragment).commit()
 
@@ -72,7 +72,7 @@ class MainActivity : BaseActivity(), BackHandleInterface, View.OnClickListener {
                 if (mMZiTuMainFragment == null) {
                     mMZiTuMainFragment = MZiTuMainFragment.newInstance()
                 }
-                if (mMZiTuMainFragment!!.isAdded) {
+                if (!mMZiTuMainFragment!!.isAdded) {
                     loadFragment(mMZiTuMainFragment as Fragment)
                     mFragmentManager.beginTransaction().hide(mGankMainFragment as Fragment).commit()
 
@@ -83,6 +83,8 @@ class MainActivity : BaseActivity(), BackHandleInterface, View.OnClickListener {
                 }
             }
         }
+
+        toggleDrawerLyt()
     }
 
     override fun onBackPressed() {
@@ -114,7 +116,7 @@ class MainActivity : BaseActivity(), BackHandleInterface, View.OnClickListener {
         tdrawerlyt.toggleMenu()
     }
 
-    override fun setSelectedFragment(selectedFragment: BaseFragment) {
+    override fun setSelectedFragment(selectedFragment: BaseFragment?) {
         mBaseFragment = selectedFragment
     }
 

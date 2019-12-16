@@ -10,6 +10,6 @@ import com.tongchen.twatcher.base.ui.fragment.BaseFragment
  */
 interface BackHandleInterface {
 
-    fun setSelectedFragment(selectedFragment: BaseFragment)
+    fun setSelectedFragment(selectedFragment: BaseFragment?)
 
 }
