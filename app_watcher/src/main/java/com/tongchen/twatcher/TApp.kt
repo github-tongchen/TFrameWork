@@ -1,6 +1,7 @@
 package com.tongchen.twatcher
 
 import android.app.Application
+import android.content.Context
 import com.raizlabs.android.dbflow.config.FlowManager
 import com.tongchen.twatcher.base.http.Api
 import com.tongchen.twatcher.di.component.AppComponent
@@ -40,7 +41,7 @@ class TApp : Application() {
         fun getAppComponent(): AppComponent? {
             if (mAppComponent == null) {
                 mAppComponent = DaggerAppComponent.builder()
-                        .appModule(AppModule(mInstance))
+                        .appModule(AppModule(mInstance as Context))
                         .apiServiceModule(ApiServiceModule())
                         .build()
             }
