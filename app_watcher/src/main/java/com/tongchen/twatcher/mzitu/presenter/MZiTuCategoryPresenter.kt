@@ -3,6 +3,7 @@ package com.tongchen.twatcher.mzitu.presenter
 import android.annotation.SuppressLint
 import com.tongchen.twatcher.base.http.IAppApiHelper
 import com.tongchen.twatcher.base.presenter.MVPPresenter
+import com.tongchen.twatcher.gank.view.ICategoryView
 import com.tongchen.twatcher.mzitu.model.entity.MZiTu
 import com.tongchen.twatcher.mzitu.view.IMZiTuCategoryView
 import com.tongchen.twatcher.util.LogUtils
@@ -66,18 +67,18 @@ class MZiTuCategoryPresenter : MVPPresenter<IMZiTuCategoryView, MutableList<MZiT
 
         when (mMode) {
             MODE_REFRESH -> {
-                view.hideLoading()
-                view.refreshSucceed(result)
+                (view as IMZiTuCategoryView).hideLoading()
+                (view as IMZiTuCategoryView).refreshSucceed(result)
             }
 
             MODE_MORE -> {
-                view.loadMoreSucceed(result)
+                (view as IMZiTuCategoryView).loadMoreSucceed(result)
             }
         }
 
     }
 
-    override fun requestFailed(errorMsg: String?) {
+    override fun requestFailed(errorMsg: String) {
         if (view == null) {
             return
         }
@@ -85,12 +86,12 @@ class MZiTuCategoryPresenter : MVPPresenter<IMZiTuCategoryView, MutableList<MZiT
 
         when (mMode) {
             MODE_REFRESH -> {
-                view.hideLoading()
-                view.refreshFailed(errorMsg)
+                (view as IMZiTuCategoryView).hideLoading()
+                (view as IMZiTuCategoryView).refreshFailed(errorMsg)
             }
 
             MODE_MORE->{
-                view.loadMoreFailed(errorMsg)
+                (view as IMZiTuCategoryView).loadMoreFailed(errorMsg)
             }
         }
     }

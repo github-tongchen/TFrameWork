@@ -38,8 +38,9 @@ class MZiTuPicFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        Glide.with(mActivity).load("").into(iv_pic)
-
+        val activity = mActivity
+        if (activity != null) {
+            Glide.with(activity).load("").into(iv_pic)
+        }
     }
 }

@@ -61,8 +61,10 @@ class ContentPicFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        Glide.with(mActivity).load(mGankResult?.url).into(iv_pic)
+        val activity = mActivity
+        if (activity != null) {
+            Glide.with(activity).load(mGankResult?.url).into(iv_pic)
+        }
 
         mConfirmDialogFragment = ConfirmDialogFragment.newInstance()
         mConfirmDialogFragment.setOnDialogClickListener(object : ConfirmDialogFragment.OnDialogClickListener {
@@ -93,7 +95,12 @@ class ContentPicFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
     }
 
     private fun checkPermission(): Boolean {
-        return EasyPermissions.hasPermissions(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val activity = mActivity
+        return if (activity == null) {
+            false
+        } else {
+            EasyPermissions.hasPermissions(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
     }
 
     private fun requestPermission() {
@@ -146,10 +153,15 @@ class ContentPicFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
 
     @SuppressLint("CheckResult")
     private fun savePic2Local() {
+        val activity = mActivity
+        if (activity == null) {
+            ToastUtils.showShort(R.string.save_pic_failed)
+            return
+        }
         Observable.create(object : ObservableOnSubscribe<File> {
             override fun subscribe(emitter: ObservableEmitter<File>) {
                 emitter.onNext(
-                        Glide.with(mActivity)
+                        Glide.with(activity)
                                 .downloadOnly()
                                 .load(mGankResult?.url)
                                 .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
@@ -194,7 +206,7 @@ class ContentPicFragment : BaseFragment(), EasyPermissions.PermissionCallbacks {
     // 通知图库更新
     private fun refreshAlbum(destFile: File) {
         val uri = Uri.fromFile(destFile)
-        mActivity.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri))
+        mActivity?.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri))
     }
 
 }

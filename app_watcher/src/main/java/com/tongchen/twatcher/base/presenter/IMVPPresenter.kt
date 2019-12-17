@@ -1,15 +1,16 @@
-package com.tongchen.twatcher.base.presenter;
+package com.tongchen.twatcher.base.presenter
 
-import com.tongchen.twatcher.base.view.IMVPView;
+import com.tongchen.twatcher.base.view.IMVPView
 
 /**
  * Created by TongChen at 22:51 on 2018/6/21.
- * <p>
+ *
+ *
  * Description:该文件实现的功能
  *
  * @param <V> 需要绑定的目标View
- */
-public interface IMVPPresenter<V extends IMVPView> {
+</V> */
+interface IMVPPresenter<V : IMVPView<*>> {
 
 
     /**
@@ -17,11 +18,11 @@ public interface IMVPPresenter<V extends IMVPView> {
      *
      * @param view 目标View
      */
-    void attachView(V view);
+    fun attachView(view: V?)
 
     /**
      * 解绑Presenter和目标View
      */
-    void detachView();
+    fun detachView()
 
 }

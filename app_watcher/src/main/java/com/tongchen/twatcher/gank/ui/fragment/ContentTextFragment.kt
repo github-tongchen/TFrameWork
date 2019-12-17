@@ -62,7 +62,10 @@ class ContentTextFragment : BaseFragment() {
 
         if (imgList != null) {
             if (imgList.size > 0) {
-                Glide.with(mActivity).load(imgList[0]).into(iv_head_bg)
+                val activity=mActivity
+                if(activity!=null) {
+                    Glide.with(activity).load(imgList[0]).into(iv_head_bg)
+                }
             }
             appbarLyt.setExpanded(true)
 

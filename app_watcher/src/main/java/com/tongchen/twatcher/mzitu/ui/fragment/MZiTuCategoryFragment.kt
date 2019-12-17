@@ -137,7 +137,7 @@ class MZiTuCategoryFragment : MVPFragment<MutableList<MZiTu>, IMZiTuCategoryView
         LogUtils.d(TAG, "refreshSucceed:${result?.get(0)?.thumbUrl}")
     }
 
-    override fun refreshFailed(errorMsg: String?) {
+    override fun refreshFailed(errorMsg: String) {
         smartRefreshLyt.finishRefresh(false)
 
         LogUtils.d(TAG, "refreshFailed---$errorMsg")
@@ -154,7 +154,7 @@ class MZiTuCategoryFragment : MVPFragment<MutableList<MZiTu>, IMZiTuCategoryView
         LogUtils.d(TAG, "loadMoreSucceed:${result?.get(0)?.thumbUrl}")
     }
 
-    override fun loadMoreFailed(errorMsg: String?) {
+    override fun loadMoreFailed(errorMsg: String) {
         smartRefreshLyt.finishLoadMore(false)
 
         LogUtils.d(TAG, "loadMoreFailed---$errorMsg")

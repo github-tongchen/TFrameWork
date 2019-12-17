@@ -15,7 +15,7 @@ data class Category(
         //  显示的名称
         var mCategoryName: String = "",
         //  请求用的参数
-        var mRequestName: String? = null,
+        var mRequestName: String = "",
         //  当前分类在分类List中的下标
         var mIndex: Int = 0,
         //  分类List的大小

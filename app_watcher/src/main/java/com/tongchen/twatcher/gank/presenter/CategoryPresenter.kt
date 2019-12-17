@@ -55,17 +55,17 @@ class CategoryPresenter : MVPPresenter<ICategoryView, GankData<MutableList<GankR
 
         when (mMode) {
             MODE_REFRESH -> {
-                view.hideLoading()
-                view.refreshSucceed(result?.mResult)
+                (view as ICategoryView).hideLoading()
+                (view as ICategoryView).refreshSucceed(result?.mResult)
             }
 
             MODE_MORE -> {
-                view.loadMoreSucceed(result?.mResult)
+                (view as ICategoryView).loadMoreSucceed(result?.mResult)
             }
         }
     }
 
-    override fun requestFailed(errorMsg: String?) {
+    override fun requestFailed(errorMsg: String) {
         if (view == null) {
             return
         }
@@ -74,12 +74,12 @@ class CategoryPresenter : MVPPresenter<ICategoryView, GankData<MutableList<GankR
 
         when (mMode) {
             MODE_REFRESH -> {
-                view.hideLoading()
-                view.refreshFailed(errorMsg)
+                (view as ICategoryView).hideLoading()
+                (view as ICategoryView).refreshFailed(errorMsg)
             }
 
             MODE_MORE -> {
-                view.loadMoreFailed(errorMsg)
+                (view as ICategoryView).loadMoreFailed(errorMsg)
             }
         }
     }

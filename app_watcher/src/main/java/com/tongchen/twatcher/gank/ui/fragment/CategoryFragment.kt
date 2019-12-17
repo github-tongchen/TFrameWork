@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.View
 import com.bumptech.glide.Glide
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -153,7 +154,7 @@ class CategoryFragment : MVPFragment<MutableList<GankResult>, ICategoryView, ICa
         LogUtils.d("CategoryFragment", "refreshSucceed---$mCategory, size:${result?.size}")
     }
 
-    override fun refreshFailed(errorMsg: String?) {
+    override fun refreshFailed(errorMsg: String) {
         smartRefreshLyt.finishRefresh(false)
 
         LogUtils.d("CategoryFragment", "refreshFailed---$errorMsg")
@@ -170,7 +171,7 @@ class CategoryFragment : MVPFragment<MutableList<GankResult>, ICategoryView, ICa
         LogUtils.d("CategoryFragment", "loadMoreSucceed---${result.toString()}")
     }
 
-    override fun loadMoreFailed(errorMsg: String?) {
+    override fun loadMoreFailed(errorMsg: String) {
         smartRefreshLyt.finishLoadMore(false)
 
         LogUtils.d("CategoryFragment", "loadMoreFailed---$errorMsg")
