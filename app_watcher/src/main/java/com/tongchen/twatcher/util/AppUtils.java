@@ -330,17 +330,4 @@ public class AppUtils {
         context.startActivity(Intent.createChooser(intent, "选择分享"));
     }
 
-    /**
-     * 根据资源的名字从资源文件中获取对应的Id
-     * 如：使用 R.drawable.sample 的 resType——"drawable"和 resId——"sample" 可以获取到R.drawable.sample
-     * 在 R 文件中的id
-     *
-     * @param context 上下文
-     * @param resType 上面的xxx的值，如“raw”、“drawable”、“color”等
-     * @param resName 上面的String类型的name
-     */
-    public static int getResourceId(Context context, String resType, String resName) {
-        return context.getResources().getIdentifier(resName, resType, context.getPackageName());
-    }
-
 }
