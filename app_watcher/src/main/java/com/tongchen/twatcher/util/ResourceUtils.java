@@ -1,8 +1,6 @@
 package com.tongchen.twatcher.util;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.util.AttributeSet;
 
 import java.lang.reflect.Field;
 
@@ -89,21 +87,9 @@ public class ResourceUtils {
         return findIdByReflection(packageName, resName, "anim");
     }
 
-
     /**
-     * 以自定义属性 "CircleImageView" 为例
-     *
-     * @param context
-     * @param resName
-     * @return 返回从自定义属性获取到的 TypedArray
+     * 实际使用中，此方法已经失效
      * <p>
-     * 使用方式举例：TypedArray typedArray = ResourceUtils.getTypedArray(context,"CircleImageView",attrs);
-     */
-    public static TypedArray getTypedArray(Context context, String resName, AttributeSet attrs) {
-        return context.obtainStyledAttributes(attrs, getAttrArray(context, resName));
-    }
-
-    /**
      * 以自定义属性 "CircleImageView" 为例
      * <p>
      * 通过 Resources.getIdentifier() 的方式获取 R.styleable.CircleImageView 对应的数组
@@ -112,9 +98,10 @@ public class ResourceUtils {
      * @param resName
      * @return 返回 R.styleable.CircleImageView 对应的数组
      * <p>
-     * 使用方式举例：TypedArray typedArray = context.obtainStyledAttributes(attrs, ResourceUtils.getAttrArray(context,"CircleImageView"));
+     * 使用方式举例：TypedArray typedArray = context.obtainStyledAttributes(attrs, ResourceUtils.getStyleableArray(context,"CircleImageView"));
      */
-    public static int[] getAttrArray(Context context, String resName) {
+    @Deprecated
+    public static int[] getStyleableArray(Context context, String resName) {
         //  注意，这里的类型用的是 attr, 而不是 styleable
         return new int[]{findIdByResources(context, resName, "attr")};
     }
@@ -128,9 +115,9 @@ public class ResourceUtils {
      * @param resName
      * @return 返回 R.styleable.CircleImageView 对应的数组
      * <p>
-     * 使用方式举例：TypedArray typedArray = context.obtainStyledAttributes(attrs, ResourceUtils.getAttrArray(packageName,"CircleImageView"));
+     * 使用方式举例：TypedArray typedArray = context.obtainStyledAttributes(attrs, ResourceUtils.getStyleableArray(packageName,"CircleImageView"));
      */
-    public static int[] getAttrArray(String packageName, String resName) {
+    public static int[] getStyleableArray(String packageName, String resName) {
         try {
             Field field = Class.forName(packageName + ".R$styleable").getDeclaredField(resName);
             field.setAccessible(true);
@@ -143,9 +130,11 @@ public class ResourceUtils {
     }
 
     /**
+     * 实际使用中，此方法已经失效
+     * <p>
      * 以自定义属性 "CircleImageView" 为例
      * <p>
-     * 通过 Resources.getIdentifier() 的方式获取 R.styleable.CircleImageView_border_color 对应的id
+     * 通过 Resources.getIdentifier() 的方式获取 R.styleable.CircleImageView_border_color 在 通过 getStyleableArray 获取到的 “CircleImageView” 数组中的下标
      *
      * @param context
      * @param resName
@@ -153,7 +142,8 @@ public class ResourceUtils {
      * <p>
      * 使用方式举例：mBorderColor = typedArray.getColor(getStyleableId(context,"CircleImageView_border_color"), Color.WHITE);
      */
-    public static int getStyleableId(Context context, String resName) {
+    @Deprecated
+    public static int getIndexInStyleableArray(Context context, String resName) {
         return findIdByResources(context, resName, "styleable");
     }
 
@@ -161,7 +151,7 @@ public class ResourceUtils {
     /**
      * 以自定义属性 "CircleImageView" 为例
      * <p>
-     * 通过反射的方式获取 R.styleable.CircleImageView_border_color 对应的id
+     * 通过反射的方式获取 R.styleable.CircleImageView_border_color 在 通过 getStyleableArray 获取到的 “CircleImageView” 数组中的下标
      *
      * @param packageName
      * @param resName
@@ -169,7 +159,7 @@ public class ResourceUtils {
      * <p>
      * 使用方式举例：mBorderColor = typedArray.getColor(getStyleableId(packageName,"CircleImageView_border_color"), Color.WHITE);
      */
-    public static int getStyleableId(String packageName, String resName) {
+    public static int getIndexInStyleableArray(String packageName, String resName) {
         try {
             Field field = Class.forName(packageName + ".R$styleable").getDeclaredField(resName);
             field.setAccessible(true);
